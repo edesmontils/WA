@@ -1,0 +1,9 @@
+WA est un outil permettant d'extraire des pages caractéristiques d'un DUMP XML de Wikipédia. Il permet d'obtenir des mesures sur le nombre de commits, le nombre de pages, le nombre d'interventions de robots, le nombre d'"utilisateurs", etc.
+
+WA.php fait une première passe pour trouver les pages intéressantes.
+
+Extractor.php récupère ces pages pour créer un extrait du Wikipedia.
+
+NB : pour l'instant, les noms de fichier sont "en dur" dans le code :-(
+
+E. Desmontils, Université de Nantes, 20 juin 2011
