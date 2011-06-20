@@ -23,10 +23,10 @@ class Extractor extends WikipediaReader {
     protected $liste_pages, $tab_pages, $tab_rang, $nb_loaded;
     protected $debut, $next, $fin;
 
-    public function __construct($wiki, $file) {
+    public function __construct($wiki, $liste) {
         parent::__construct($wiki);
 
-        $this->liste_pages = simplexml_load_file($file);
+        $this->liste_pages = simplexml_load_file($liste);
         $this->fin = false;
         $this->tab_pages = array();
         $this->tab_pages = array();
@@ -77,7 +77,6 @@ class Extractor extends WikipediaReader {
         $this->tab_rang = array_unique($this->tab_rang);
         natsort($this->tab_rang);
         echo "Récupération de " . count($this->tab_pages) . " page(s)\n";
-        var_dump($this->tab_rang);
     }
 
     protected function toFileName($title) {
@@ -115,8 +114,10 @@ class Extractor extends WikipediaReader {
                         $sxml->asXML($filename);
                     } else
                         echo "$this->nb_pages $titre passée\n";
-                    if (count($this->tab_rang)>0) $this->next = array_shift($this->tab_rang);
-                    else $this->fin = true;
+                    if (count($this->tab_rang) > 0)
+                        $this->next = array_shift($this->tab_rang);
+                    else
+                        $this->fin = true;
                 }
                 $ok = $this->next();
                 break;
@@ -125,13 +126,18 @@ class Extractor extends WikipediaReader {
         return $ok && (!$this->fin);
     }
 
-    public static function main() {
+    public static function main($param) {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
-        $ex = new Extractor('frwiki-20110409-pages-meta-history.xml', "explore5.xml");
-        $ex->run();
+        //$ex = new Extractor('frwiki-20110409-pages-meta-history.xml', "explore5.xml");
+        if (isset($param['w']) && isset($param['l'])) {
+            $ex = new Extractor($param['w'], $param['l']);
+            $ex->run();
+        }
+        else
+            echo "php Extractor.php -w wiki_dump.xml -l WA_list.xml\n";
     }
 
 }
 
-Extractor::main();
+Extractor::main(getopt("w:l:"));
 ?>

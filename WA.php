@@ -28,12 +28,12 @@ class WA extends WikipediaReader {
     protected $mes_taille, $mes_util, $mes_ins, $mes_mes_ajout_debut, $mes_mes_ajout_fin;
     protected $nb_patch;
     protected $tab_robots, $tab_users;
-    
     protected $debut;
 
-    public function __construct() {
+    public function __construct($wiki) {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
-        parent::__construct('frwiki-20110409-pages-meta-history.xml');
+        //parent::__construct('frwiki-20110409-pages-meta-history.xml');
+        parent::__construct($wiki);
         $this->inPage = false;
         $this->inRev = false;
     }
@@ -86,9 +86,10 @@ class WA extends WikipediaReader {
 
         $writer->startElement('patchs');
         $writer->writeAttribute('nb_patchs', $page['nb_patchs']);
-        if ($page['nb_patchs'] > 0 ) 
+        if ($page['nb_patchs'] > 0)
             $writer->writeAttribute('nb_patchs_robots', round($page['robots'] * 100 / $page['nb_patchs'], 2) . '%');
-        else $writer->writeAttribute('nb_patchs_robots', '0%');
+        else
+            $writer->writeAttribute('nb_patchs_robots', '0%');
         $writer->endElement();
 
         $writer->startElement('taille');
@@ -178,7 +179,7 @@ class WA extends WikipediaReader {
                     'patch' => new Mesure('patch', NB),
                     'robot' => new Mesure('robot', NB),
                     'user' => new Mesure('user', NB),
-                    'taille' => new Mesure('taille',NB)
+                    'taille' => new Mesure('taille', NB)
                 );
                 $ok = $this->next();
                 break;
@@ -282,15 +283,15 @@ class WA extends WikipediaReader {
                 $max_taille = $this->mes_taille->max();
                 $this->namespaces[$this->ns]['taille']->add($max_taille[0], $page);
 
-                $duree = round(microtime(true) - $this->debut,2);
+                $duree = round(microtime(true) - $this->debut, 2);
                 $ok = $this->next();
-                /*if ($this->nb_pages % 50000 == 0) {
-                    $this->writeRes();
-                    echo "\n";
-                }*/
-                /*echo $duree.' s. - '. memory_get_peak_usage() .
-                ":" . memory_get_usage(true) .
-                '(' . memory_get_usage(false) . ")\n";*/
+                /* if ($this->nb_pages % 50000 == 0) {
+                  $this->writeRes();
+                  echo "\n";
+                  } */
+                /* echo $duree.' s. - '. memory_get_peak_usage() .
+                  ":" . memory_get_usage(true) .
+                  '(' . memory_get_usage(false) . ")\n"; */
                 break;
             case 'revision' :
                 if ($this->isRobot) {//echo "Robot : $comment\n";
@@ -317,13 +318,15 @@ class WA extends WikipediaReader {
         $this->writeRes();
     }
 
-    public static function main() {
-        $wa = new WA();
-        $wa->run();
+    public static function main($param) {
+        if (isset($param['w'])) {
+            $wa = new WA($param['w']);
+            $wa->run();
+        }
+        echo "php WA.php -w wiki_dump.xml\n";
     }
 
 }
 
-WA::main();
-
+WA::main(getopt("w:"));
 ?>
