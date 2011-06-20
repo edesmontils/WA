@@ -128,7 +128,6 @@ class Extractor extends WikipediaReader {
 
     public static function main($param) {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
-        //$ex = new Extractor('frwiki-20110409-pages-meta-history.xml', "explore5.xml");
         if (isset($param['w']) && isset($param['l'])) {
             $ex = new Extractor($param['w'], $param['l']);
             $ex->run();
