@@ -98,9 +98,9 @@ class Extractor extends WikipediaReader {
                 $ok = $this->next();
                 break;
             case 'page' :
-                $this->debut = microtime(true);
                 $this->nb_pages += 1;
                 if ($this->nb_pages == $this->next) {
+                    $this->debut = microtime(true);
                     $sxml = new SimpleXMLElement($this->readOuterXml());
                     $duree = round(microtime(true) - $this->debut, 2);
                     echo $duree . ' s. - ' . memory_get_peak_usage() .
