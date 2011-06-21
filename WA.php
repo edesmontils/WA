@@ -323,7 +323,8 @@ class WA extends WikipediaReader {
             $wa = new WA($param['w']);
             $wa->run();
         }
-        echo "php WA.php -w wiki_dump.xml\n";
+        else
+            echo "php WA.php -w wiki_dump.xml\n";
     }
 
 }
