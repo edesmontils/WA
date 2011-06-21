@@ -25,17 +25,19 @@ class WA extends WikipediaReader {
     protected $writer;
     protected $inPage, $inRev;
     protected $namespaces, $ns, $titre, $txt, $txt_size, $fdate, $ldate, $nbRobots, $isRobot, $id_rev, $ip, $id, $username;
-    protected $mes_taille, $mes_util, $mes_ins, $mes_mes_ajout_debut, $mes_mes_ajout_fin;
+    protected $mes_taille, $mes_util, $mes_ip, $mes_ins, $mes_mes_ajout_debut, $mes_mes_ajout_fin;
     protected $nb_patch;
-    protected $tab_robots, $tab_users;
+    protected $tab_robots, $tab_users, $tab_ip;
     protected $debut;
+    protected $nb_mem;
 
-    public function __construct($wiki) {
+    public function __construct($wiki, $nb = NB) {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
         //parent::__construct('frwiki-20110409-pages-meta-history.xml');
         parent::__construct($wiki);
         $this->inPage = false;
         $this->inRev = false;
+        $this->nb_mem = $nb;
     }
 
     public function __destruct() {
@@ -100,6 +102,16 @@ class WA extends WikipediaReader {
         $writer->writeAttribute('avg', round($mes_taille->avg_key(), 2));
         $max = $mes_taille->max();
         $writer->writeAttribute('max', $max[0]);
+        $writer->endElement();
+
+
+        $writer->startElement('users');
+        $writer->writeAttribute('patch_id', $page['users']);
+        $writer->writeAttribute('patch_ip', $page['ip']);
+        $writer->writeAttribute('patch_robots', $page['robots']);
+        $writer->writeAttribute('id', $page['uusers']);
+        $writer->writeAttribute('ip', $page['uip']);
+        $writer->writeAttribute('robots', $page['urobots']);
         $writer->endElement();
 
         $writer->startElement('date');
@@ -170,16 +182,18 @@ class WA extends WikipediaReader {
                 $this->nbRobots = 0;
                 $this->tab_robots = array();
                 $this->tab_users = array();
+                $this->tab_ip = array();
                 $this->mes_taille = new Mesure('taille', 1);
                 break;
             case 'namespace' :
                 $ns = $this->readString();
                 $this->namespaces[$ns] = array(
                     'nb' => 0,
-                    'patch' => new Mesure('patch', NB),
-                    'robot' => new Mesure('robot', NB),
-                    'user' => new Mesure('user', NB),
-                    'taille' => new Mesure('taille', NB)
+                    'patch' => new Mesure('patch', $this->nb_mem),
+                    'robot' => new Mesure('robot', $this->nb_mem),
+                    'user' => new Mesure('user', $this->nb_mem),
+                    'ip' => new Mesure('ip', $this->nb_mem),
+                    'taille' => new Mesure('taille', $this->nb_mem)
                 );
                 $ok = $this->next();
                 break;
@@ -273,13 +287,18 @@ class WA extends WikipediaReader {
                     'taille_finale' => $this->txt_size,
                     'taille' => $this->mes_taille,
                     'robots' => array_sum($this->tab_robots),
-                    //'users' => array_sum($this->tab_users),
+                    'users' => array_sum($this->tab_users),
+                    'ip' => array_sum($this->tab_ip),
+                    'urobots' => count($this->tab_robots),
+                    'uusers' => count($this->tab_users),
+                    'uip' => count($this->tab_ip),
                     'nb_patchs' => $this->nb_patch
                 );
 
                 $this->namespaces[$this->ns]['patch']->add($this->nb_patch, $page);
                 $this->namespaces[$this->ns]['robot']->add(count($this->tab_robots), $page);
                 $this->namespaces[$this->ns]['user']->add(count($this->tab_users), $page);
+                $this->namespaces[$this->ns]['ip']->add(count($this->tab_ip), $page);
                 $max_taille = $this->mes_taille->max();
                 $this->namespaces[$this->ns]['taille']->add($max_taille[0], $page);
 
@@ -301,7 +320,7 @@ class WA extends WikipediaReader {
                         $this->tab_robots[$this->id . $this->username] += 1;
                 } else {
                     if (isset($this->ip))
-                        $this->tab_users[$this->ip] += 1;
+                        $this->tab_ip[$this->ip] += 1;
                     else
                         $this->tab_users[$this->id . $this->username] += 1;
                 }
@@ -319,15 +338,18 @@ class WA extends WikipediaReader {
     }
 
     public static function main($param) {
+        //var_dump( $param);
         if (isset($param['w'])) {
-            $wa = new WA($param['w']);
+            if (isset($param['n'])) 
+                $wa = new WA($param['w'],$param['n']);
+            else $wa = new WA($param['w']);
             $wa->run();
         }
         else
-            echo "php WA.php -w wiki_dump.xml\n";
+            echo "php WA.php -w wiki_dump.xml [-n nb_of_res]\n";
     }
 
 }
 
-WA::main(getopt("w:"));
+WA::main(getopt("w:n:"));
 ?>
