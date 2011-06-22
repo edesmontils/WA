@@ -187,7 +187,11 @@ class Extractor extends WikipediaReader {
                 break;
             case 'text' :
                 if ($this->toSave) {
-                    $this->writer->writeElement('text', $this->readString());
+                    //$this->writer->writeElement('text', $this->readString());
+                    $this->writer->startElement('text');
+                    $this->writer->writeAttribute('xml:space', 'preserve');
+                    $this->writer->text($this->readString());
+                    $this->writer->endElement();
                 }
                 $ok = $this->next();
                 break;
