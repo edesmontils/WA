@@ -136,13 +136,16 @@ class Extractor extends WikipediaReader {
                     $id = $this->readString();
                     if ($this->inPage) {
                         if ($this->inRevision)
-                            if ($this->inContributor)
+                            if ($this->inContributor) {
                                 $this->user_id = $id;
-                            else
+                                $this->writer->writeAttribute('id', 'u' . $id);
+                            } else {
                                 $this->revision_id = $id;
-                        else
+                                $this->writer->writeAttribute('id', 'r' . $id);
+                            } else {
                             $this->page_id = $id;
-                        $this->writer->writeAttribute('id', 'id' . $id);
+                            $this->writer->writeAttribute('id', 'p' . $id);
+                        }
                     }
                 }
                 $ok = $this->next();
@@ -175,7 +178,11 @@ class Extractor extends WikipediaReader {
                 break;
             case 'ip' :
                 if ($this->toSave) {
-                    $this->writer->writeAttribute('ip', $this->readString());
+                    $ip = $this->readString();
+                    if ($this->isIP($ip))
+                        $this->writer->writeAttribute('ip', $ip);
+                    else
+                        $this->writer->writeAttribute('name', $ip);
                 }
                 $ok = $this->next();
                 break;
@@ -185,7 +192,7 @@ class Extractor extends WikipediaReader {
                 }
                 $ok = $this->next();
                 break;
-            case 'text' :        
+            case 'text' :
                 if ($this->toSave) {
                     //$this->writer->writeElement('text', $this->readString());
                     $this->writer->startElement('text');

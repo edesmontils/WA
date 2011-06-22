@@ -198,7 +198,6 @@ class WA extends WikipediaReader {
                     $this->ldate = $this->readString();
                 $ok = $this->next();
                 break;
-
             case 'contributor' :
                 $ok = $this->read();
                 break;
@@ -215,7 +214,6 @@ class WA extends WikipediaReader {
                 $this->username = $this->readString();
                 $ok = $this->next();
                 break;
-
             case 'minor' :
                 $ok = $this->next();
                 break;

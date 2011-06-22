@@ -2,11 +2,11 @@
 <!ELEMENT page (revision+)> <!-- ((revision|upload)*)  -->
 <!ATTLIST page 
     title CDATA #REQUIRED
-    id CDATA #IMPLIED>
+    id ID #IMPLIED>
   
 <!ELEMENT revision (contributor,comment?,text)>
 <!ATTLIST revision
-    id CDATA #IMPLIED
+    id ID #IMPLIED
     timestamp CDATA #REQUIRED>
 
 <!ELEMENT comment (#PCDATA)> 
