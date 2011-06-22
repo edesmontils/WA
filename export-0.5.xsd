@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+  targetNamespace="http://edamiral.hd.free.fr/ns/export-0.5/" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:export-0.5="http://edamiral.hd.free.fr/ns/export-0.5/">
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:element name="mediawiki">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="export-0.5:siteinfo"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="export-0.5:page"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="export-0.5:attlist.mediawiki"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- version contains the version number of the format (currently 0.5) -->
+  <xs:attributeGroup name="attlist.mediawiki">
+    <xs:attribute name="version" use="required"/>
+    <xs:attribute ref="xsi:schemaLocation" default="http://edamiral.hd.free.fr/ns/export-0.5/ http://edamiral.hd.free.fr/ns/export-0.5.xsd"/>
+    <xs:attribute ref="xml:lang"/>
+  </xs:attributeGroup>
+  <xs:element name="siteinfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="export-0.5:sitename"/>
+        <xs:element ref="export-0.5:base"/>
+        <xs:element ref="export-0.5:generator"/>
+        <xs:element ref="export-0.5:case"/>
+        <xs:element ref="export-0.5:namespaces"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sitename" type="xs:string"/>
+  <!-- name of the wiki -->
+  <xs:element name="base" type="xs:string"/>
+  <!-- url of the main page -->
+  <xs:element name="generator" type="xs:string"/>
+  <!-- MediaWiki version string -->
+  <xs:element name="case" type="xs:string"/>
+  <!-- how cases in page names are handled -->
+  <!--
+    possible values: 'first-letter' | 'case-sensitive'
+    'case-insensitive' option is reserved for future
+  -->
+  <xs:element name="namespaces">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="export-0.5:namespace"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- list of namespaces and prefixes -->
+  <xs:element name="namespace">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="export-0.5:attlist.namespace"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- contains namespace prefix -->
+  <xs:attributeGroup name="attlist.namespace">
+    <xs:attribute name="key" use="required"/>
+  </xs:attributeGroup>
+  <!-- internal namespace number -->
+  <xs:element name="page">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="export-0.5:title"/>
+        <xs:element minOccurs="0" ref="export-0.5:id"/>
+        <xs:element minOccurs="0" ref="export-0.5:restrictions"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="export-0.5:revision"/>
+          <xs:element ref="export-0.5:upload"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="title" type="xs:string"/>
+  <!-- Title with namespace prefix -->
+  <xs:element name="id" type="xs:string"/>
+  <xs:element name="restrictions" type="xs:string"/>
+  <!-- optional page restrictions -->
+  <xs:element name="revision">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="export-0.5:id"/>
+        <xs:element ref="export-0.5:timestamp"/>
+        <xs:element ref="export-0.5:contributor"/>
+        <xs:element minOccurs="0" ref="export-0.5:minor"/>
+        <xs:element minOccurs="0" ref="export-0.5:comment"/>
+        <xs:element ref="export-0.5:text"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="timestamp" type="xs:string"/>
+  <!-- according to ISO8601 -->
+  <xs:element name="minor">
+    <xs:complexType/>
+  </xs:element>
+  <!-- minor flag -->
+  <xs:element name="comment" type="xs:string"/>
+  <xs:element name="text">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="export-0.5:attlist.text"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- Wikisyntax -->
+  <xs:attributeGroup name="attlist.text">
+    <xs:attribute ref="xml:space" default="preserve"/>
+  </xs:attributeGroup>
+  <xs:element name="contributor">
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref="export-0.5:username"/>
+          <xs:element ref="export-0.5:id"/>
+        </xs:sequence>
+        <xs:element ref="export-0.5:ip"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="username" type="xs:string"/>
+  <xs:element name="ip" type="xs:string"/>
+  <xs:element name="upload">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="export-0.5:timestamp"/>
+        <xs:element ref="export-0.5:contributor"/>
+        <xs:element minOccurs="0" ref="export-0.5:comment"/>
+        <xs:element ref="export-0.5:filename"/>
+        <xs:element ref="export-0.5:src"/>
+        <xs:element ref="export-0.5:size"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="filename" type="xs:string"/>
+  <xs:element name="src" type="xs:string"/>
+  <xs:element name="size" type="xs:string"/>
+</xs:schema>
