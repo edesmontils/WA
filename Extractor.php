@@ -22,6 +22,8 @@ class Extractor extends WikipediaReader {
     protected $writer;
     protected $liste_pages, $tab_pages, $tab_rang, $nb_loaded;
     protected $debut, $next, $fin;
+    protected $page_title, $page_id, $user_id, $username, $user_ip, $revisioon_id,
+    $revision_timestamp, $comment, $isMinor, $text;
 
     public function __construct($wiki, $liste) {
         parent::__construct($wiki);
@@ -100,30 +102,57 @@ class Extractor extends WikipediaReader {
             case 'page' :
                 $this->nb_pages += 1;
                 if ($this->nb_pages == $this->next) {
+                    /* $this->debut = microtime(true);
+                      $sxml = new SimpleXMLElement($this->readOuterXml());
+                      $duree = round(microtime(true) - $this->debut, 2);
+                      echo $duree . ' s. - ' . memory_get_peak_usage() .
+                      ":" . memory_get_usage(true) .
+                      '(' . memory_get_usage(false) . ")\n";
+                      //$dom = $this->expand();
+                      $titre = (String) $sxml->title;
+                      if (in_array($titre, $this->tab_pages)) {
+                      $filename = 'files/' . $this->toFileName($titre) . '.xml';
+                      echo $this->nb_pages . " " . $filename . " mémorisée\n";
+                      $sxml->asXML($filename);
+                      } else
+                      echo "$this->nb_pages $titre passée\n";
+                      if (count($this->tab_rang) > 0)
+                      $this->next = array_shift($this->tab_rang);
+                      else
+                      $this->fin = true; */
                     $this->debut = microtime(true);
-                    $sxml = new SimpleXMLElement($this->readOuterXml());
-                    $duree = round(microtime(true) - $this->debut, 2);
-                    echo $duree . ' s. - ' . memory_get_peak_usage() .
-                    ":" . memory_get_usage(true) .
-                    '(' . memory_get_usage(false) . ")\n";
-                    //$dom = $this->expand();
-                    $titre = (String) $sxml->title;
-                    if (in_array($titre, $this->tab_pages)) {
-                        $filename = 'files/' . $this->toFileName($titre) . '.xml';
-                        echo $this->nb_pages . " " . $filename . " mémorisée\n";
-                        $sxml->asXML($filename);
-                    } else
-                        echo "$this->nb_pages $titre passée\n";
-                    if (count($this->tab_rang) > 0)
-                        $this->next = array_shift($this->tab_rang);
-                    else
-                        $this->fin = true;
+                    $this->writer = new XMLWriter();
+                    $this->writer->setIndent(true);
+                    $this->writer->startDocument('1.0', 'UTF-8');
                 }
-                $ok = $this->next();
+                $ok = $this->read();
+                break;
+            case 'title' :
+                $this->page_title = $this->readString();
+                $uri = 'files/' . $this->toFileName($this->page_title) . '.xml';
+                $this->writer->openUri($uri);
+                $this->writer->writeElement('page');
+                $this->writer->writeElement('title', $this->page_title);
                 break;
             default : $ok = $this->next();
         }
         return $ok && (!$this->fin);
+    }
+
+    protected function closeElement($element) {
+        switch ($element) {
+            case 'page' :
+
+                $this->writer->endElement(); //page
+                $duree = round(microtime(true) - $this->debut, 2);
+                echo $duree . ' s. - ' . memory_get_peak_usage() .
+                ":" . memory_get_usage(true) .
+                '(' . memory_get_usage(false) . ")\n";
+                $ok = $this->next();
+                break;
+            default : $ok = $this->next();
+        }
+        return $ok;
     }
 
     public static function main($param) {
