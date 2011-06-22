@@ -185,7 +185,7 @@ class Extractor extends WikipediaReader {
                 }
                 $ok = $this->next();
                 break;
-            case 'text' : 
+            case 'text' :
                 if ($this->toSave) {
                     //$this->writer->writeElement('text', $this->readString());
                     $this->writer->startElement('text');
