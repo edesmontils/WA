@@ -44,41 +44,6 @@ class WA extends WikipediaReader {
         parent::__destruct();
     }
 
-    protected function locate($ota, $nta) {//recherche si $ota est inclus dans $nta
-        $ok = false;
-        $in = false;
-        $debut = -1;
-        $fin = -1;
-        $lota = count($ota);
-        $lnta = count($nta);
-        if ($lota < $lnta) {
-            $oi = 0;
-            $ni = 0;
-            while ($ni + $lota - $oi <= count($nta) && (!$ok)) {
-                if ($ota[$oi] == $nta[$ni]) {
-                    if (!$in) {
-                        $debut = $ni;
-                        $in = true;
-                        $fin = $ni;
-                    } else {
-                        $fin = $ni;
-                    }
-                    $oi +=1;
-                    $ok = ($oi == $lota);
-                } elseif ($ota[$oi] != $nta[$ni]) {
-                    if ($in) {
-                        $debut = -1;
-                        $in = false;
-                        $fin = -1;
-                        $oi = 0;
-                    }
-                }
-                $ni +=1;
-            }
-        }
-        return array($ok, $debut, $fin);
-    }
-
     protected function view_page($writer, $title, $v) {
         $writer->startElement($title);
         $writer->writeAttribute('nb', $v->getKey());
