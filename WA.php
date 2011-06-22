@@ -113,7 +113,7 @@ class WA extends WikipediaReader {
         $writer->openMemory();
         $writer->setIndent(true);
         $writer->startDocument('1.0', 'utf-8');
-        $writer->writeDTD("liste_pages", null, "explore.dtd");
+        $writer->writeDTD("liste_pages", null, "http://edamiral.hd.free.fr/ns/explore.dtd");
         $writer->startElement('liste_pages');
         $writer->writeAttribute('nb', $this->nb_pages);
         foreach ($this->namespaces as $ns => $cpt) {

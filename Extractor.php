@@ -125,7 +125,7 @@ class Extractor extends WikipediaReader {
                     $this->writer->openURI($this->uri);
                     $this->writer->setIndent(true);
                     $this->writer->startDocument('1.0', 'UTF-8');
-                    $this->writer->writeDTD("page", null, "../page_mediawiki.dtd");
+                    $this->writer->writeDTD("page", null, "http://edamiral.hd.free.fr/ns/page_mediawiki.dtd");
                     $this->writer->startElement('page');
                     $this->writer->writeAttribute('title', $this->page_title);
                 }
