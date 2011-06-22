@@ -1,0 +1,76 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT liste-pages (ns)+>
+<!ATTLIST liste-pages
+  xmlns CDATA #FIXED ''
+  nb CDATA #REQUIRED>
+
+<!ELEMENT ns (patchs,tailles,robots,users)>
+<!ATTLIST ns
+  xmlns CDATA #FIXED ''
+  nb CDATA #REQUIRED
+  nom CDATA #REQUIRED>
+
+<!ELEMENT tailles (max+,random+)>
+<!ATTLIST tailles
+  xmlns CDATA #FIXED ''
+  avg_patch CDATA #REQUIRED
+  max CDATA #REQUIRED
+  min CDATA #REQUIRED>
+
+<!ELEMENT robots (max+,random+)>
+<!ATTLIST robots
+  xmlns CDATA #FIXED ''
+  avg_patch CDATA #REQUIRED
+  max CDATA #REQUIRED
+  min CDATA #REQUIRED>
+
+<!ELEMENT patchs (max|random)?>
+<!ATTLIST patchs
+  xmlns CDATA #FIXED ''
+  avg_patch CDATA #IMPLIED
+  max CDATA #IMPLIED
+  min CDATA #IMPLIED
+  nb_patchs CDATA #IMPLIED
+  nb_patchs_robots CDATA #IMPLIED>
+
+<!ELEMENT max (patchs,taille,users,date)>
+<!ATTLIST max
+  xmlns CDATA #FIXED ''
+  nb CDATA #REQUIRED
+  rang CDATA #REQUIRED
+  titre CDATA #REQUIRED>
+
+<!ELEMENT random (patchs,taille,users,date)>
+<!ATTLIST random
+  xmlns CDATA #FIXED ''
+  nb CDATA #REQUIRED
+  rang CDATA #REQUIRED
+  titre CDATA #REQUIRED>
+
+<!ELEMENT users (max|random)?>
+<!ATTLIST users
+  xmlns CDATA #FIXED ''
+  avg_patch CDATA #IMPLIED
+  id CDATA #IMPLIED
+  ip CDATA #IMPLIED
+  max CDATA #IMPLIED
+  min CDATA #IMPLIED
+  patch_id CDATA #IMPLIED
+  patch_ip CDATA #IMPLIED
+  patch_robots CDATA #IMPLIED
+  robots CDATA #IMPLIED>
+
+<!ELEMENT taille EMPTY>
+<!ATTLIST taille
+  xmlns CDATA #FIXED ''
+  avg CDATA #REQUIRED
+  finale CDATA #REQUIRED
+  max CDATA #REQUIRED
+  min CDATA #REQUIRED>
+
+<!ELEMENT date EMPTY>
+<!ATTLIST date
+  xmlns CDATA #FIXED ''
+  creation NMTOKEN #REQUIRED
+  modif NMTOKEN #REQUIRED>

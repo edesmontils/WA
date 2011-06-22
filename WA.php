@@ -59,7 +59,7 @@ class WA extends WikipediaReader {
             $writer->writeAttribute('nb_patchs_robots', '0%');
         $writer->endElement();
 
-        $writer->startElement('taille');
+        $writer->startElement('tailles');
         $writer->writeAttribute('finale', $page['taille_finale']);
         $mes_taille = $page['taille'];
         $min = $mes_taille->min();
@@ -79,7 +79,7 @@ class WA extends WikipediaReader {
         $writer->writeAttribute('robots', $page['urobots']);
         $writer->endElement();
 
-        $writer->startElement('date');
+        $writer->startElement('dates');
         $writer->writeAttribute('creation', $page['creation']);
         $writer->writeAttribute('modif', $page['modif']);
         $writer->endElement();
@@ -113,8 +113,8 @@ class WA extends WikipediaReader {
         $writer->openMemory();
         $writer->setIndent(true);
         $writer->startDocument('1.0', 'utf-8');
-        //$writer->writeDTD("liste-pages", null, "livres.dtd");
-        $writer->startElement('liste-pages');
+        $writer->writeDTD("liste_pages", null, "explore.dtd");
+        $writer->startElement('liste_pages');
         $writer->writeAttribute('nb', $this->nb_pages);
         foreach ($this->namespaces as $ns => $cpt) {
             if ($cpt['nb'] > 0) {
@@ -122,10 +122,10 @@ class WA extends WikipediaReader {
                 $writer->writeAttribute('nom', $ns);
                 $writer->writeAttribute('nb', $cpt['nb']);
 
-                $this->view($writer, 'patchs', $cpt['patch']);
-                $this->view($writer, 'tailles', $cpt['taille']);
-                $this->view($writer, 'robots', $cpt['robot']);
-                $this->view($writer, 'users', $cpt['user']);
+                $this->view($writer, 'liste_patchs', $cpt['patch']);
+                $this->view($writer, 'liste_tailles', $cpt['taille']);
+                $this->view($writer, 'liste_robots', $cpt['robot']);
+                $this->view($writer, 'liste_users', $cpt['user']);
                 $writer->endElement();
             }
         }

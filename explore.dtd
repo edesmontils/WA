@@ -1,0 +1,65 @@
+<?xml encoding="UTF-8"?>
+<!ENTITY % contenu_liste '(max+,random*)' >
+<!ENTITY % attribut_liste 
+'  avg_patch CDATA #REQUIRED
+  max CDATA #REQUIRED
+  min CDATA #REQUIRED' >
+
+<!ELEMENT liste_pages (ns)>
+<!ATTLIST liste_pages
+  nb CDATA #REQUIRED>
+
+<!ELEMENT ns (liste_patchs,liste_tailles,liste_robots,liste_users)>
+<!ATTLIST ns
+  nb CDATA #REQUIRED
+  nom CDATA #REQUIRED>
+
+<!ELEMENT liste_patchs %contenu_liste;>
+<!ATTLIST liste_patchs %attribut_liste;>
+
+<!ELEMENT liste_tailles %contenu_liste;>
+<!ATTLIST liste_tailles %attribut_liste;>
+
+<!ELEMENT liste_robots %contenu_liste;>
+<!ATTLIST liste_robots %attribut_liste;>
+
+<!ELEMENT liste_users %contenu_liste;>
+<!ATTLIST liste_users %attribut_liste;>
+
+<!ENTITY % contenu_page '(patchs,tailles,users,dates)'>
+<!ENTITY % attribut_page 
+'  nb CDATA #REQUIRED
+  rang CDATA #REQUIRED
+  titre CDATA #REQUIRED' >
+  
+<!ELEMENT max %contenu_page;>
+<!ATTLIST max %attribut_page;>
+
+<!ELEMENT random %contenu_page;>
+<!ATTLIST random %attribut_page;>
+
+<!ELEMENT patchs EMPTY>
+<!ATTLIST patchs
+  nb_patchs CDATA #REQUIRED
+  nb_patchs_robots CDATA #REQUIRED>
+
+<!ELEMENT tailles EMPTY>
+<!ATTLIST tailles
+  avg CDATA #REQUIRED
+  finale CDATA #REQUIRED
+  max CDATA #REQUIRED
+  min CDATA #REQUIRED>
+
+<!ELEMENT users EMPTY>
+<!ATTLIST users
+  id CDATA #REQUIRED
+  ip CDATA #REQUIRED
+  patch_id CDATA #REQUIRED
+  patch_ip CDATA #REQUIRED
+  patch_robots CDATA #REQUIRED
+  robots CDATA #REQUIRED>
+
+<!ELEMENT dates EMPTY>
+<!ATTLIST dates
+  creation NMTOKEN #REQUIRED
+  modif NMTOKEN #REQUIRED>
