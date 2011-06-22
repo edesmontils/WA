@@ -37,7 +37,7 @@ class Extractor extends WikipediaReader {
         //collecte des pages à récupérer
         foreach ($this->liste_pages->children() as $ns) {
             echo "Récup de " . $ns['nom'] . "\n";
-            foreach ($ns->patchs as $patch) {
+            foreach ($ns->liste_patchs as $patch) {
                 foreach ($patch->max as $p) {
                     $this->tab_pages[] = $p['titre'];
                     $this->tab_rang[] = $p['rang'];
@@ -47,7 +47,7 @@ class Extractor extends WikipediaReader {
                     $this->tab_rang[] = $p['rang'];
                 }
             }
-            foreach ($ns->tailles as $patch) {
+            foreach ($ns->liste_tailles as $patch) {
                 foreach ($patch->max as $p) {
                     $this->tab_pages[] = $p['titre'];
                     $this->tab_rang[] = $p['rang'];
@@ -57,7 +57,7 @@ class Extractor extends WikipediaReader {
                     $this->tab_rang[] = $p['rang'];
                 }
             }
-            foreach ($ns->robots as $patch) {
+            foreach ($ns->liste_robots as $patch) {
                 foreach ($patch->max as $p) {
                     $this->tab_pages[] = $p['titre'];
                     $this->tab_rang[] = $p['rang'];
@@ -66,7 +66,7 @@ class Extractor extends WikipediaReader {
                     $this->tab_rang[] = $p['rang'];
                 }
             }
-            foreach ($ns->users as $patch) {
+            foreach ($ns->liste_users as $patch) {
                 foreach ($patch->max as $p) {
                     $this->tab_pages[] = $p['titre'];
                     $this->tab_rang[] = $p['rang'];
@@ -125,7 +125,7 @@ class Extractor extends WikipediaReader {
                     $this->writer->openURI($this->uri);
                     $this->writer->setIndent(true);
                     $this->writer->startDocument('1.0', 'UTF-8');
-                    $this->writer->writeDTD("liste-pages", null, "explore.dtd");
+                    $this->writer->writeDTD("page", null, "../page_mediawiki.dtd");
                     $this->writer->startElement('page');
                     $this->writer->writeAttribute('title', $this->page_title);
                 }
