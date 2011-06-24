@@ -5,7 +5,7 @@
   max CDATA #REQUIRED
   min CDATA #REQUIRED' >
 
-<!ELEMENT liste_pages (ns)>
+<!ELEMENT liste_pages (ns*)>
 <!ATTLIST liste_pages
   nb CDATA #REQUIRED>
 
