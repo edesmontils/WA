@@ -6,7 +6,7 @@ function __autoload($classe) {
     require_once './logootComponent/' . $classe . '.php';
 }
 
-$debug = true;
+$debug = false;
 
 require_once './logootModel/manager.php';
 require_once './logootModel/boModel.php';
@@ -68,7 +68,7 @@ function wfDebugLog($type, $message) {
 class PageReader extends WikipediaReader {
 
     protected $inRevision, $curText, $oldText;
-    protected $mesureLength, $mesureGrowth;
+    protected $mesureLength, $mesureGrowth, $mesureId, $mesureOperation, $mesureIns, $mesureDel;
     protected $logoot;
 
     public function __construct($page, $logoot) {
@@ -86,21 +86,39 @@ class PageReader extends WikipediaReader {
             case 'page' :
                 $this->inRevision = false;
                 $this->curText = '';
-                $this->mesureLength = new Mesure('length', 10);
-                $this->mesureGrowth = new Mesure('growth', 10);
+                $this->mesureLength = new Mesure('length_pos', 10);
+                $this->mesureGrowth = new Mesure('growth_pos', 10);
+                $this->mesureId = new Mesure('new_pos', 10);
+                $this->mesureIns = new Mesure('Ins_op', 10);
+                $this->mesureDel = new Mesure('Del_op', 10);
+                $this->mesureOperation = new Mesure('operation', 10);
+                $this->logoot->setMode(logootEngine::MODE_STAT 
+                        | logootEngine::MODE_BOUNDARY_INI
+                        );
                 $ok = $this->read();
                 break;
             case 'revision' :
                 $this->inRevision = true;
                 $ok = $this->read();
                 break;
-             case 'text' :
+            case 'text' :
                 $this->oldText = $this->curText;
                 $this->curText = $this->readString();
                 $patch = $this->logoot->generate($this->oldText, $this->curText);
+                $this->mesureOperation->add($patch->size(), null);
+                $nb_ins = 0;
+                $nb_del = 0;
+                foreach ($patch as $op) {
+                    if ($op->type() == LogootOperation::INSERT)
+                        $nb_ins += 1;
+                    else
+                        $nb_del +=1;
+                }
+                $this->mesureIns->add($nb_ins, null);
+                $this->mesureDel->add($nb_del, null);
                 $ok = $this->next();
                 break;
-                default : $ok = $this->next();
+            default : $ok = $this->next();
         }
         return $ok;
     }
@@ -110,6 +128,21 @@ class PageReader extends WikipediaReader {
         switch ($element) {
             case 'revision' :
                 $this->inRevision = false;
+                $ok = $this->next();
+                break;
+            case 'page' :
+                $tab = $this->logoot->getTabStat();
+                foreach ($tab as $stat) {
+                    $this->mesureGrowth->add($stat['growth'], null);
+                    $this->mesureLength->add($stat['max_length'], null);
+                    $this->mesureId->add($stat['nb'], null);
+                }
+                echo $this->mesureGrowth->getXMLAbstract() . "\n";
+                echo $this->mesureLength->getXMLAbstract() . "\n";
+                echo $this->mesureId->getXMLAbstract() . "\n";
+                echo $this->mesureOperation->getXMLAbstract() . "\n";
+                echo $this->mesureIns->getXMLAbstract() . "\n";
+                echo $this->mesureDel->getXMLAbstract() . "\n";
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();

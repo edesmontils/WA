@@ -349,9 +349,17 @@ class LogootPosition {
     
     public static function analyse(LogootPosition $p, LogootPosition $q, $positionList) {
         $res = array();
-        $taille = $positionList[0]->size();
-        $res['growth'] = $taille - $p->size();
-        $res['length'] = $taille;
+        $taille = 0; //Recherche de la position avec la plus grande taille
+        $sum = 0;
+        foreach($positionList as $pos) {
+            if ($pos->size() > $taille) $taille = $pos->size();
+            $sum += $pos->size();
+        }
+        $res['growth'] = $taille - min($p->size(), $q->size());
+        //if ($res['growth'] < 0) die();
+        $res['max_length'] = $taille;
+        $res['avg_length'] = $sum / count($positionList);
+        $res['nb'] = count($positionList);
         return $res;
     }
 }

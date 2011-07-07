@@ -18,7 +18,7 @@ class MValue {
         $this->key = $k;
         $this->value = $v;
     }
-    
+
     public function getKey() {
         return $this->key;
     }
@@ -26,7 +26,7 @@ class MValue {
     public function getValue() {
         return $this->value;
     }
-    
+
     public function __toString() {
         return "$this->key / $this->value";
     }
@@ -54,16 +54,16 @@ class Mesure {
 
     protected function view($tab) {
         echo "@";
-        foreach($tab as $obj)
+        foreach ($tab as $obj)
             echo $obj;
         echo "@\n";
     }
-    
+
     public function add($key, $value) {
         $ok = false; // Permet d'indiquer si cette mesure est gardée (pour l'instant...)
         $this->nb += 1.0;
         $this->sum += $key;
-        $obj = new MValue($key,$value);
+        $obj = new MValue($key, $value);
         unset($old);
         //echo "Insert $key\n Mins -----";$this->view($this->mins);//var_dump($this->mins);
         //Est-ce un minimum ?
@@ -120,7 +120,7 @@ class Mesure {
             $this->nb_maxs += 1;
         }
         //$this->view($this->maxs);echo "Others -----";$this->view($this->others);
-        
+
         if (!$ok)
             $old = $obj;
         //On le garde en échantillon neutre ?
@@ -151,11 +151,30 @@ class Mesure {
             return null;
     }
 
+    public function min_key() {
+        if ($this->nb > 0)
+            return $this->mins[0]->getKey();
+        else
+            return null;
+    }
+
+    public function max_key() {
+        if ($this->nb > 0)
+            return $this->maxs[0]->getKey();
+        else
+            return null;
+    }
+
     public function avg_key() {
         if ($this->nb > 0)
             return $this->sum / $this->nb;
         else
             return null;
+    }
+
+    public function getXMLAbstract() {
+        $cdc = ' <'.$this->titre.' min="'.$this->min_key().'" avg="'.round($this->avg_key(), 2).'" max="'.$this->max_key().'">';
+        return $cdc;
     }
 
     public function getMins() {
