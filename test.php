@@ -10,7 +10,7 @@ require_once './logootComponent/Math/BigInteger.php';
 
 
 if (!defined('DIGIT')) {
-    define('DIGIT', 3);
+    define('DIGIT', 2);
 }
 
 if (!defined('INT_MAX')) {
@@ -51,21 +51,7 @@ if (!defined('LOGOOTMODE')) {
     define('LOGOOTMODE', 'PLS');
 }
 
-$c = 0;
-
-class utils {
-
-    static function getNextClock() {
-        global $c;
-        return++$c;
-    }
-
-    static function getClock() {
-        global $c;
-        return $c;
-    }
-
-}
+require_once './utils.php';
 
 function __autoload($classe) {
     require_once './logootComponent/' . $classe . '.php';
@@ -82,16 +68,19 @@ function wfDebugLog($type, $message) {
   $q = new LogootPosition(array(new LogootId(INT_MIN+1, "3", 6)));
 
   $lp = LogootPosition::getLogootPosition($p, $q, 7, "3", 7, 10);
+  var_dump(LogootPosition::analyse($p, $q, $lp));
 
   $q = new LogootPosition(array(LogootId::IdMax()));
   $p = new LogootPosition(array(new LogootId(INT_MAX-1, "3", 6)));
 
   $lp = LogootPosition::getLogootPosition($p, $q, 7, "3", 7, 10);
+  var_dump(LogootPosition::analyse($p, $q, $lp));
  
 
   $q = new LogootPosition(array(LogootId::IdMax()));
   $p = new LogootPosition(array(new LogootId(99, "3", 3), new LogootId(99, "3", 7)));
   $lp = LogootPosition::getLogootPosition($p, $q, 7, "3", 7, 10);
+  var_dump(LogootPosition::analyse($p, $q, $lp));
  
     //$logoot = new logootPlusEngine(NULL, 3);
  /*   $logoot = manager::getNewEngine(manager::loadModel(0), 3);

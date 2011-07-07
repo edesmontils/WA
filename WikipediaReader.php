@@ -43,7 +43,7 @@ class WikipediaReader extends XMLReader {
     }
 
     protected function isIP($ip) {
-        return preg_match("/([0-9]{1,3}\.){3}[0-9]{1,3}/i", $ip);
+        return utils::isIP($ip);
     }
 
     protected function openElement($element) {

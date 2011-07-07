@@ -82,11 +82,6 @@ class Extractor extends WikipediaReader {
         echo "Récupération de " . count($this->tab_pages) . " page(s)\n";
     }
 
-    protected function toFileName($title) {
-        return str_replace(
-                array(" ", "(", ")", "'", "/", ":"), array("_und_", "_ope_", "_clo_", "_cot_", "_slh_", "_ns_"), $title);
-    }
-
     public function __destruct() {
         parent::__destruct();
     }
@@ -120,7 +115,7 @@ class Extractor extends WikipediaReader {
                 if ($this->toSave) {
                     $this->page_title = $this->readString();
                     echo "Récupération de : $this->page_title\n";
-                    $this->uri = 'files/' . $this->toFileName($this->page_title) . '.xml';
+                    $this->uri = 'files/' . utils::toFileName($this->page_title) . '.xml';
                     //$this->writer->openMemory();
                     $this->writer->openURI($this->uri);
                     $this->writer->setIndent(true);

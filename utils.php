@@ -12,7 +12,7 @@
  */
 class utils {
 
-    private $utils_clock = 0;
+    private static $utils_clock = 0;
 
     public static function toFileName($title) {
         return str_replace(
@@ -24,12 +24,13 @@ class utils {
     }
 
     static function getNextClock() {
-        $this->utils_clock +=1;
-        return $this->utils_clock;
+        
+        utils::$utils_clock +=1;
+        return utils::$utils_clock;
     }
 
     static function getClock() {
-        return $this->utils_clock;
+        return utils::$utils_clock;
     }
 
 }
