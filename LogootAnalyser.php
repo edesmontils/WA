@@ -1,6 +1,6 @@
 <?php
 
-header('Content-type: text/plain');
+header('Content-type: text/xml');
 
 function __autoload($classe) {
     require_once './logootComponent/' . $classe . '.php';
@@ -67,13 +67,14 @@ function wfDebugLog($type, $message) {
 
 class PageReader extends WikipediaReader {
 
-    protected $inRevision, $curText, $oldText;
+    protected $inRevision, $curText, $oldText, $revisionId, $nb_rev;
     protected $mesureLength, $mesureGrowth, $mesureId, $mesureOperation, $mesureIns, $mesureDel, $mesureTypeIns;
     protected $logoot;
 
-    public function __construct($page, $logoot) {
+    public function __construct($page, $logoot, $options = logootEngine::MODE_NONE) {
         parent::__construct($page);
         $this->logoot = $logoot;
+        $this->logoot->setMode($options);
     }
 
     public function __destruct() {
@@ -85,6 +86,7 @@ class PageReader extends WikipediaReader {
         switch ($element) {
             case 'page' :
                 $this->inRevision = false;
+                $this->nb_rev = 0;
                 $this->curText = '';
                 $this->mesureLength = new Mesure('length_pos', 10);
                 $this->mesureGrowth = new Mesure('growth_pos', 10);
@@ -93,14 +95,12 @@ class PageReader extends WikipediaReader {
                 $this->mesureDel = new Mesure('Del_op', 10);
                 $this->mesureOperation = new Mesure('operation', 10);
                 $this->mesureTypeIns = new Mesure('type_ins', 10);
-                $this->logoot->setMode(
-                        logootEngine::MODE_STAT
-                        | logootEngine::MODE_BOUNDARY_INI
-                );
                 $ok = $this->read();
                 break;
             case 'revision' :
                 $this->inRevision = true;
+                $this->nb_rev += 1;
+                $this->revisionId = $this->getAttribute('id');
                 $ok = $this->read();
                 break;
             case 'text' :
@@ -134,21 +134,25 @@ class PageReader extends WikipediaReader {
                 break;
             case 'page' :
                 $tab = $this->logoot->getTabStat();
-                foreach ($tab as $stat) {
-                    $this->mesureGrowth->add($stat['growth'], null);
-                    $this->mesureLength->add($stat['max_length'], null);
-                    $this->mesureId->add($stat['nb'], null);
-                    $this->mesureTypeIns->add($stat['pos'], null);
+                if (isset($tab)) {
+                    foreach ($tab as $stat) {
+                        $this->mesureGrowth->add($stat['growth'], null);
+                        $this->mesureLength->add($stat['max_length'], null);
+                        $this->mesureId->add($stat['nb'], null);
+                        $this->mesureTypeIns->add($stat['pos'], null);
+                    }
+                    echo '      ' . $this->mesureGrowth->getXMLAbstract() . "\n";
+                    echo '      ' . $this->mesureLength->getXMLAbstract() . "\n";
+                    echo '      ' . $this->mesureId->getXMLAbstract() . "\n";
+                    echo '      ' . $this->mesureOperation->getXMLAbstract() . "\n";
+                    echo '      ' . $this->mesureIns->getXMLAbstract() . "\n";
+                    echo '      ' . $this->mesureDel->getXMLAbstract() . "\n";
+                    echo '      ' . $this->mesureTypeIns->getXMLAbstract() . "\n";
                 }
-
-                echo $this->mesureGrowth->getXMLAbstract() . "\n";
-                echo $this->mesureLength->getXMLAbstract() . "\n";
-                echo $this->mesureId->getXMLAbstract() . "\n";
-                echo $this->mesureOperation->getXMLAbstract() . "\n";
-                echo $this->mesureIns->getXMLAbstract() . "\n";
-                echo $this->mesureDel->getXMLAbstract() . "\n";
-                echo $this->mesureTypeIns->getXMLAbstract() . "\n";
-
+                
+                list($head, $tail, $new) = $this->logoot->getNbGenerate();
+                echo '       <revision nb="' . $this->nb_rev .'" head="'.$head.'" tail="'.$tail. '" new="'.$new.'" '."\>\n";
+                
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();
@@ -166,21 +170,83 @@ class PageReader extends WikipediaReader {
 class LogootAnalyser {
 
     protected $logoot;
-    protected $liste_pages;
+    protected $liste_pages, $tab_pages;
     protected $rep;
 
     public function __construct($rep, $liste) {
         $this->rep = $rep;
-        $this->logoot = manager::getNewEngine(manager::loadModel(0), 3);
-        //$this->liste_pages = simplexml_load_file($liste);
+        $this->liste_pages = simplexml_load_file($liste);
+        $this->tab_pages = array();
+        $this->nb_loaded = 0;
+        //collecte des pages à récupérer
+        foreach ($this->liste_pages->children() as $ns) {
+            foreach ($ns->liste_patchs as $patch) {
+                foreach ($patch->max as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                }
+                foreach ($patch->random as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                }
+            }
+            foreach ($ns->liste_tailles as $patch) {
+                foreach ($patch->max as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                }
+                foreach ($patch->random as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                }
+            }
+            foreach ($ns->liste_robots as $patch) {
+                foreach ($patch->max as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                } foreach ($patch->random as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                }
+            }
+            foreach ($ns->liste_users as $patch) {
+                foreach ($patch->max as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                } foreach ($patch->random as $p) {
+                    $this->tab_pages[] = $p['titre'];
+                }
+            }
+        }
+        $this->tab_pages = array_unique($this->tab_pages);
     }
 
     public function run() {
-        $file = $this->rep . '/Algèbre_und_générale' . '.xml';
-        //$file = $this->rep . '/Algorithmique' . '.xml';
-        //$file = $this->rep . '/Algèbre_und_linéaire' . '.xml';
-        $pr = new PageReader($file, $this->logoot);
-        $pr->run();
+
+
+
+        date_default_timezone_set('Europe/Paris');
+        echo "<?xml version='1.0'?>\n";
+        echo "<Etude nb='" . count($this->tab_pages) . "' date='" . date("c") . "' >\n";
+
+        $mode = logootEngine::MODE_STAT
+                | logootEngine::MODE_BOUNDARY_INI
+                | logootEngine::MODE_OPT_INS_HEAD_TAIL
+        ;
+
+        if ($mode & logootEngine::MODE_STAT) {
+            echo "    <Mode_Stat ";
+            if ($mode & logootEngine::MODE_BOUNDARY_INI)
+                echo "Boundary_classique='on' ";
+            if ($mode & logootEngine::MODE_OPT_INS_HEAD_TAIL)
+                echo "Head_Tail='on'";
+            echo "\>\n";
+        }
+        foreach ($this->tab_pages as $page) {
+            $file = $this->rep . '/' . utils::toFileName($page) . '.xml';
+            echo "    <Analyse name='$page' file='$file'>\n";
+            $this->logoot = manager::getNewEngine(manager::loadModel(0), 3);
+            $pr = new PageReader($file, $this->logoot, $mode);
+            $debut = microtime(true);
+            $pr->run();
+            $duree = round(microtime(true) - $debut, 2);
+            echo "       <duration val='$duree'/>\n";
+            echo "    </Analyse>\n";
+        }
+        echo "</Etude>\n";
     }
 
     public static function main($param) {

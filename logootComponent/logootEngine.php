@@ -10,12 +10,13 @@ class logootEngine implements logoot {
     const MODE_NONE = 0;
     const MODE_STAT = 1;
     const MODE_BOUNDARY_INI = 2;
+    const MODE_OPT_INS_HEAD_TAIL = 4;
 
     protected $model;
     protected $clock;
     protected $sessionid;
     protected $mode;
-    protected $tabStat;
+    protected $tabStat, $nb_new, $nb_head, $nb_tail;
 
     function __construct($model, $session = "0", $clock = 0) {
         $this->clock = $clock; //0;
@@ -30,21 +31,35 @@ class logootEngine implements logoot {
 
     public function setMode($md) {
         $this->mode |= $md;
-        if ($this->mode & logootEngine::MODE_STAT)
+        if ($this->mode & logootEngine::MODE_STAT) {
             $this->tabStat = array();
+            $this->nb_head = 0;
+            $this->nb_new = 0;
+            $this->nb_tail = 0;
+        } else
+            $this->tabStat = null;
+    }
+
+    public function getNbGenerate() {
+        if ($this->mode & logootEngine::MODE_STAT)
+            return array($this->nb_head,$this->nb_tail,$this->nb_new);
+        else
+            return null;
     }
 
     protected function getPositionList($line_nb, $nb) {
         list($start, $end) = $this->getPrevNextPosition($line_nb);
-        
-        if ($this->mode & logootEngine::MODE_BOUNDARY_INI)
-                $boundary = BOUNDARY;
-        else $boundary = null;
-        
+
+        if ($this->mode & logootEngine::MODE_BOUNDARY_INI) {
+            $boundary = BOUNDARY;
+        } else
+            $boundary = null;
+
         $positionList = LogootPosition::getLogootPosition($start, $end, $nb, $this->sessionid, $this->clock, $boundary);
-        
+
         if ($this->mode & logootEngine::MODE_STAT)
             $this->tabStat[] = LogootPosition::analyse($start, $end, $positionList);
+
         return $positionList;
     }
 
@@ -224,76 +239,86 @@ class logootEngine implements logoot {
         /* explode into lines */
         $ota = explode("\n", $oldText);
         $nta = explode("\n", $newText);
-        $counter = 0;
 
-        if ((count($ota) == 1) && ($ota[0] == "")) {// c'est un nouveau document
-            unset($ota[0]);
-            wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - création ');
-            $listOp = $this->generate_ins_text(1, $nta);
-            return $listOp;
-        } else {
 
-            list($trouve, $deb, $fin) = $this->locate($ota, $nta);
-            if ($trouve) {//il y a eu un ajout de texte au début et/ou à la fin uniquement
-                $listOp = new LogootPatch($this->sessionid . $this->clock);
-                if ($deb > 0) {
-                    wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - ajout au début ');
-                    $listOp1 = $this->generate_ins_text(1, array_slice($nta, 0, $deb));
-                    $listOp->addPatch($listOp1);
-                    $delta = $listOp1->size();
-                } else
-                    $delta = 0;
-                if ($fin + 1 < count($nta)) {
-                    wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - ajout à la fin ');
-                    $listOp2 = $this->generate_ins_text(count($ota) + 1 + $delta, array_slice($nta, $fin + 1, count($nta) - ($fin + 1)));
-                    $listOp->addPatch($listOp2);
-                }
-                return $listOp;
+
+
+
+        if ($this->mode & logootEngine::MODE_OPT_INS_HEAD_TAIL) {
+            if ((count($ota) == 1) && ($ota[0] == "")) {// c'est un nouveau document
+                unset($ota[0]);
+                wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - création ');
+                $listOp = $this->generate_ins_text(1, $nta);
+                $this->nb_new += 1;
             } else {
 
-                $listOp = new LogootPatch($this->sessionid . $this->clock);
-                $diffs = new Diff1($ota, $nta);
-                /* convert 4 operations into 2 operations */
-                foreach ($diffs->edits as $operation) {
-                    switch ($operation->type) {
-                        case "add":
-                            $adds = $operation->closing;
-                            ksort($adds, SORT_NUMERIC);
-                            foreach ($adds as $lineNb => $linetxt) {
-                                wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Ajout ' . $linetxt . " (" . $lineNb . ")");
-                                $listOp->add($this->generate_ins_line($lineNb, $linetxt));
-                                $counter += 1;
-                            }
-                            break;
-                        case "delete":
-                            foreach ($operation->orig as $lineNb => $linetxt) {
-                                wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Suppression ' . $linetxt . " (" . $lineNb . ")");
-                                $listOp->add($this->generate_del_line($lineNb + $counter, $linetxt));
-                                $counter -= 1;
-                            }
-                            break;
-                        case "change":
-                            foreach ($operation->orig as $lineNb => $linetxt) {
-                                wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Change/Suppression ' . $linetxt . " (" . $lineNb . ")");
-                                $listOp->add($this->generate_del_line($lineNb + $counter, $linetxt));
-                                $counter -= 1;
-                            }
-                            $adds1 = $operation->closing;
-                            ksort($adds1, SORT_NUMERIC);
-                            foreach ($adds1 as $lineNb => $linetxt) {
-                                wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Change/Ajout ' . $linetxt . " (" . $lineNb . ")");
-                                $listOp->add($this->generate_ins_line($lineNb, $linetxt));
-                                $counter += 1;
-                            }
-                            break;
-                        case "copy": break;
-                        default :;
+                list($trouve, $deb, $fin) = $this->locate($ota, $nta);
+                if ($trouve) {//il y a eu un ajout de texte au début et/ou à la fin uniquement
+                    $listOp = new LogootPatch($this->sessionid . $this->clock);
+                    if ($deb > 0) {
+                        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - ajout au début ');
+                        $listOp1 = $this->generate_ins_text(1, array_slice($nta, 0, $deb));
+                        $listOp->addPatch($listOp1);
+                        $delta = $listOp1->size();
+                        $this->nb_head += 1;
+                    } else
+                        $delta = 0;
+                    if ($fin + 1 < count($nta)) {
+                        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - ajout à la fin ');
+                        $listOp2 = $this->generate_ins_text(count($ota) + 1 + $delta, array_slice($nta, $fin + 1, count($nta) - ($fin + 1)));
+                        $listOp->addPatch($listOp2);
+                        $this->nb_tail += 1;
                     }
                 }
-                $listOp->applied();
-                return $listOp;
             }
         }
+
+        if (!isset($listOp)) {
+            $counter = 0;
+            if ((count($ota) == 1) && ($ota[0] == "")) // c'est un nouveau document
+                unset($ota[0]);
+            $listOp = new LogootPatch($this->sessionid . $this->clock);
+            $diffs = new Diff1($ota, $nta);
+            /* convert 4 operations into 2 operations */
+            foreach ($diffs->edits as $operation) {
+                switch ($operation->type) {
+                    case "add":
+                        $adds = $operation->closing;
+                        ksort($adds, SORT_NUMERIC);
+                        foreach ($adds as $lineNb => $linetxt) {
+                            wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Ajout ' . $linetxt . " (" . $lineNb . ")");
+                            $listOp->add($this->generate_ins_line($lineNb, $linetxt));
+                            $counter += 1;
+                        }
+                        break;
+                    case "delete":
+                        foreach ($operation->orig as $lineNb => $linetxt) {
+                            wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Suppression ' . $linetxt . " (" . $lineNb . ")");
+                            $listOp->add($this->generate_del_line($lineNb + $counter, $linetxt));
+                            $counter -= 1;
+                        }
+                        break;
+                    case "change":
+                        foreach ($operation->orig as $lineNb => $linetxt) {
+                            wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Change/Suppression ' . $linetxt . " (" . $lineNb . ")");
+                            $listOp->add($this->generate_del_line($lineNb + $counter, $linetxt));
+                            $counter -= 1;
+                        }
+                        $adds1 = $operation->closing;
+                        ksort($adds1, SORT_NUMERIC);
+                        foreach ($adds1 as $lineNb => $linetxt) {
+                            wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate - Change/Ajout ' . $linetxt . " (" . $lineNb . ")");
+                            $listOp->add($this->generate_ins_line($lineNb, $linetxt));
+                            $counter += 1;
+                        }
+                        break;
+                    case "copy": break;
+                    default :;
+                }
+            }
+            $listOp->applied();
+        }
+        return $listOp;
     }
 
     /**

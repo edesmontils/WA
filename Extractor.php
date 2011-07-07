@@ -32,7 +32,6 @@ class Extractor extends WikipediaReader {
         $this->liste_pages = simplexml_load_file($liste);
         $this->fin = false;
         $this->tab_pages = array();
-        $this->tab_pages = array();
         $this->nb_loaded = 0;
         //collecte des pages à récupérer
         foreach ($this->liste_pages->children() as $ns) {
@@ -76,7 +75,7 @@ class Extractor extends WikipediaReader {
                 }
             }
         }
-        $this->tab_pages = array_unique($this->tab_pages); //TODO : suppression des doublons
+        $this->tab_pages = array_unique($this->tab_pages);
         $this->tab_rang = array_unique($this->tab_rang);
         natsort($this->tab_rang);
         echo "Récupération de " . count($this->tab_pages) . " page(s)\n";
