@@ -11,9 +11,11 @@ $debug = true;
 require_once './logootModel/manager.php';
 require_once './logootModel/boModel.php';
 require_once './logootModel/boModelPlus.php';
+require_once './logootComponent/DiffEngine.php';
 require_once './logootComponent/Math/BigInteger.php';
 require_once './utils.php';
 require_once './WikipediaReader.php';
+require_once './Mesure.php';
 
 if (!defined('DIGIT')) {
     define('DIGIT', 2);
@@ -53,8 +55,8 @@ if (!defined('BOUNDARY')) {
 }
 
 if (!defined('LOGOOTMODE')) {
-    //define('LOGOOTMODE', 'STD');
-    define('LOGOOTMODE', 'PLS');
+    define('LOGOOTMODE', 'STD');
+    //define('LOGOOTMODE', 'PLS');
 }
 
 function wfDebugLog($type, $message) {
@@ -65,12 +67,54 @@ function wfDebugLog($type, $message) {
 
 class PageReader extends WikipediaReader {
 
-    public function __construct($page) {
+    protected $inRevision, $curText, $oldText;
+    protected $mesureLength, $mesureGrowth;
+    protected $logoot;
+
+    public function __construct($page, $logoot) {
         parent::__construct($page);
+        $this->logoot = $logoot;
     }
 
     public function __destruct() {
         parent::__destruct();
+    }
+
+    protected function openElement($element) {
+        $ok = false;
+        switch ($element) {
+            case 'page' :
+                $this->inRevision = false;
+                $this->curText = '';
+                $this->mesureLength = new Mesure('length', 10);
+                $this->mesureGrowth = new Mesure('growth', 10);
+                $ok = $this->read();
+                break;
+            case 'revision' :
+                $this->inRevision = true;
+                $ok = $this->read();
+                break;
+             case 'text' :
+                $this->oldText = $this->curText;
+                $this->curText = $this->readString();
+                $patch = $this->logoot->generate($this->oldText, $this->curText);
+                $ok = $this->next();
+                break;
+                default : $ok = $this->next();
+        }
+        return $ok;
+    }
+
+    protected function closeElement($element) {
+        $ok = false;
+        switch ($element) {
+            case 'revision' :
+                $this->inRevision = false;
+                $ok = $this->next();
+                break;
+            default : $ok = $this->next();
+        }
+        return $ok;
     }
 
 }
@@ -88,16 +132,14 @@ class LogootAnalyser {
 
     public function __construct($rep, $liste) {
         $this->rep = $rep;
-        $logoot = new logootPlusEngine(NULL, 3);
-        $logoot = manager::getNewEngine(manager::loadModel(0), 3);
-
-        $this->liste_pages = simplexml_load_file($liste);
+        $this->logoot = manager::getNewEngine(manager::loadModel(0), 3);
+        //$this->liste_pages = simplexml_load_file($liste);
     }
 
     public function run() {
-        $file = $this->rep.'/Algèbre_und_générale'.'.xml';
-        $pr = new PageReader($file);
-        
+        $file = $this->rep . '/Algèbre_und_générale' . '.xml';
+        $pr = new PageReader($file, $this->logoot);
+        $pr->run();
     }
 
     public static function main($param) {

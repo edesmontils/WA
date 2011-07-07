@@ -87,6 +87,7 @@ class Extractor extends WikipediaReader {
     }
 
     protected function openElement($element) {
+        $ok = false;
         switch ($element) {
             case 'mediawiki' :
                 $this->next = array_shift($this->tab_rang);
@@ -203,6 +204,7 @@ class Extractor extends WikipediaReader {
     }
 
     protected function closeElement($element) {
+        $ok = false;
         switch ($element) {
             case 'page' :
                 if ($this->toSave) {
