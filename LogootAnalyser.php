@@ -2,6 +2,10 @@
 
 header('Content-type: text/xml');
 
+ini_set('memory_limit', '1024M');
+
+//phpinfo();
+
 function __autoload($classe) {
     require_once './logootComponent/' . $classe . '.php';
 }
@@ -183,19 +187,19 @@ class LogootAnalyser {
     }
 
     protected function selectProp($ns, $param) {
-        if (isset($param['patchs']))
+        if (isset($param['patchs']) || isset($param['p']))
             foreach ($ns->liste_patchs as $patch)
                 $this->getPages($patch);
 
-        if (isset($param['tailles']))
+        if (isset($param['tailles']) || isset($param['t']))
             foreach ($ns->liste_tailles as $patch)
                 $this->getPages($patch);
 
-        if (isset($param['robots']))
+        if (isset($param['robots']) || isset($param['r']))
             foreach ($ns->liste_robots as $patch)
                 $this->getPages($patch);
 
-        if (isset($param['users']))
+        if (isset($param['users']) || isset($param['u']))
             foreach ($ns->liste_users as $patch)
                 $this->getPages($patch);
     }
@@ -207,11 +211,12 @@ class LogootAnalyser {
         $this->nb_loaded = 0;
         //collecte des pages à récupérer
         foreach ($this->liste_pages->children() as $ns) {
-            if (isset($param['ns'])) {
-                if ($ns['nom'] == $param['ns'])
+            if (isset($param['n'])) {
+                if (!is_array($param['n'])) {
+                    if ($ns['nom'] == $param['n'])
+                        $this->selectProp($ns, $param);
+                } else if (in_array($ns['nom'], $param['n']))
                     $this->selectProp($ns, $param);
-                else if (in_array($ns['nom'], $param['ns'])) $this->selectProp($ns, $param);
-                    
             } else {
                 //echo "tous les ns...";
                 $this->selectProp($ns, $param);
@@ -219,7 +224,7 @@ class LogootAnalyser {
         }
         $this->tab_pages = array_unique($this->tab_pages);
         $this->mode = logootEngine::MODE_STAT;
-        if (isset($param['opt_ht']) || isset($param['ht']))
+        if (isset($param['opt_ht']) || isset($param['ht']) || isset($param['o']))
             $this->mode |= logootEngine::MODE_OPT_INS_HEAD_TAIL;
         if (isset($param['boundary']) || isset($param['b']))
             $this->mode |= logootEngine::MODE_BOUNDARY_INI;
@@ -254,26 +259,28 @@ class LogootAnalyser {
 
     public static function main($param) {
         if (isset($param['d']) && isset($param['l'])) {
-            var_dump($param);
+            /* if (!isset($param['n']))
+              $param['n'] = ''; */
+            //var_dump($param);
             $la = new LogootAnalyser($param['d'], $param['l'], $param);
             $la->run();
         } else {
             echo "Erreur de ligne de commande :\n\t php LogootAnalyser.php -d wiki_corpus_repository -l WA_list.xml [options]\n";
-            echo "Options sur les espaces de noms (au moins une) :\n";
-            echo '--ns="namespace"' . "\n";
+            echo "Option sur les espaces de noms :\n";
+            echo '-n "namespace" (par défaut tous les espaces sont pris)' . "\n";
             echo "Options sur les propriétés (au moins une) :\n";
-            echo "--tailles : pour la mesure sur les tailles des pages \n";
-            echo "--patchs : pour la mesure sur le nombre de patchs \n";
-            echo "--robots : pour la mesure sur le nombre de robots \n";
-            echo "--users : pour la mesure sur le nombre d'utilisateurs référencés \n";
+            echo "--tailles -t : pour la mesure sur les tailles des pages \n";
+            echo "--patchs -p : pour la mesure sur le nombre de patchs \n";
+            echo "--robots -r : pour la mesure sur le nombre de robots \n";
+            echo "--users -u : pour la mesure sur le nombre d'utilisateurs référencés \n";
             echo "Options d'optimisation :\n";
-            echo "--boundary -b: pour mettre en oeuvre les 'boundary' standard \n";
-            echo "--opt_ht --ht: pour mettre en oeuvre les optimisations d'ajout en fin et début \n";
+            echo "--boundary -b : pour mettre en oeuvre les 'boundary' standard \n";
+            echo "--opt_ht --ht -o : pour mettre en oeuvre les optimisations d'ajout en fin et début \n";
         }
     }
 
 }
 
 LogootAnalyser::main(getopt(
-                "d:l:b", array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
+                "d:l:n:btpruo")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
 ?>
