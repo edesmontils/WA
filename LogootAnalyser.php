@@ -149,10 +149,10 @@ class PageReader extends WikipediaReader {
                     echo '      ' . $this->mesureDel->getXMLAbstract() . "\n";
                     echo '      ' . $this->mesureTypeIns->getXMLAbstract() . "\n";
                 }
-                
+
                 list($head, $tail, $new) = $this->logoot->getNbGenerate();
-                echo '       <revision nb="' . $this->nb_rev .'" head="'.$head.'" tail="'.$tail. '" new="'.$new.'" '."\>\n";
-                
+                echo '       <revision nb="' . $this->nb_rev . '" head_opt="' . $head . '" tail_opt="' . $tail . '" new_opt="' . $new . '" ' . "\>\n";
+
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();
@@ -169,69 +169,72 @@ class PageReader extends WikipediaReader {
  */
 class LogootAnalyser {
 
-    protected $logoot;
+    protected $logoot, $mode;
     protected $liste_pages, $tab_pages;
     protected $rep;
 
-    public function __construct($rep, $liste) {
+    protected function getPages($patch) {
+        foreach ($patch->max as $p) {
+            $this->tab_pages[] = $p['titre'];
+        }
+        foreach ($patch->random as $p) {
+            $this->tab_pages[] = $p['titre'];
+        }
+    }
+
+    protected function selectProp($ns, $param) {
+        if (isset($param['patchs']))
+            foreach ($ns->liste_patchs as $patch)
+                $this->getPages($patch);
+
+        if (isset($param['tailles']))
+            foreach ($ns->liste_tailles as $patch)
+                $this->getPages($patch);
+
+        if (isset($param['robots']))
+            foreach ($ns->liste_robots as $patch)
+                $this->getPages($patch);
+
+        if (isset($param['users']))
+            foreach ($ns->liste_users as $patch)
+                $this->getPages($patch);
+    }
+
+    public function __construct($rep, $liste, $param) {
         $this->rep = $rep;
         $this->liste_pages = simplexml_load_file($liste);
         $this->tab_pages = array();
         $this->nb_loaded = 0;
         //collecte des pages à récupérer
         foreach ($this->liste_pages->children() as $ns) {
-            foreach ($ns->liste_patchs as $patch) {
-                foreach ($patch->max as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                }
-                foreach ($patch->random as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                }
-            }
-            foreach ($ns->liste_tailles as $patch) {
-                foreach ($patch->max as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                }
-                foreach ($patch->random as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                }
-            }
-            foreach ($ns->liste_robots as $patch) {
-                foreach ($patch->max as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                } foreach ($patch->random as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                }
-            }
-            foreach ($ns->liste_users as $patch) {
-                foreach ($patch->max as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                } foreach ($patch->random as $p) {
-                    $this->tab_pages[] = $p['titre'];
-                }
+            if (isset($param['ns'])) {
+                if ($ns['nom'] == $param['ns'])
+                    $this->selectProp($ns, $param);
+                else if (in_array($ns['nom'], $param['ns'])) $this->selectProp($ns, $param);
+                    
+            } else {
+                //echo "tous les ns...";
+                $this->selectProp($ns, $param);
             }
         }
         $this->tab_pages = array_unique($this->tab_pages);
+        $this->mode = logootEngine::MODE_STAT;
+        if (isset($param['opt_ht']) || isset($param['ht']))
+            $this->mode |= logootEngine::MODE_OPT_INS_HEAD_TAIL;
+        if (isset($param['boundary']) || isset($param['b']))
+            $this->mode |= logootEngine::MODE_BOUNDARY_INI;
     }
 
     public function run() {
-
-
-
         date_default_timezone_set('Europe/Paris');
         echo "<?xml version='1.0'?>\n";
         echo "<Etude nb='" . count($this->tab_pages) . "' date='" . date("c") . "' >\n";
 
-        $mode = logootEngine::MODE_STAT
-                | logootEngine::MODE_BOUNDARY_INI
-                | logootEngine::MODE_OPT_INS_HEAD_TAIL
-        ;
-
-        if ($mode & logootEngine::MODE_STAT) {
+        if ($this->mode & logootEngine::MODE_STAT) {
             echo "    <Mode_Stat ";
-            if ($mode & logootEngine::MODE_BOUNDARY_INI)
+            if ($this->mode & logootEngine::MODE_BOUNDARY_INI)
                 echo "Boundary_classique='on' ";
-            if ($mode & logootEngine::MODE_OPT_INS_HEAD_TAIL)
+            if ($this->mode & logootEngine::MODE_OPT_INS_HEAD_TAIL)
                 echo "Head_Tail='on'";
             echo "\>\n";
         }
@@ -239,7 +242,7 @@ class LogootAnalyser {
             $file = $this->rep . '/' . utils::toFileName($page) . '.xml';
             echo "    <Analyse name='$page' file='$file'>\n";
             $this->logoot = manager::getNewEngine(manager::loadModel(0), 3);
-            $pr = new PageReader($file, $this->logoot, $mode);
+            $pr = new PageReader($file, $this->logoot, $this->mode);
             $debut = microtime(true);
             $pr->run();
             $duree = round(microtime(true) - $debut, 2);
@@ -251,14 +254,25 @@ class LogootAnalyser {
 
     public static function main($param) {
         if (isset($param['d']) && isset($param['l'])) {
-            $la = new LogootAnalyser($param['d'], $param['l']);
+            var_dump($param);
+            $la = new LogootAnalyser($param['d'], $param['l'], $param);
             $la->run();
+        } else {
+            echo "Erreur de ligne de commande :\n\t php LogootAnalyser.php -d wiki_corpus_repository -l WA_list.xml [options]\n";
+            echo "Options:\n";
+            echo '--ns="namespace"' . "\n";
+            echo "--tailles : pour la mesure sur les tailles des pages \n";
+            echo "--patchs : pour la mesure sur le nombre de patchs \n";
+            echo "--robots : pour la mesure sur le nombre de robots \n";
+            echo "--users : pour la mesure sur le nombre d'utilisateurs référencés \n";
+            echo "\n";
+            echo "--boundary -b: pour mettre en oeuvre les 'boundary' standard \n";
+            echo "--opt_ht --ht: pour mettre en oeuvre les optimisations d'ajout en fin et début \n";
         }
-        else
-            echo "php LogootAnalyser.php -d wiki_corpus_repository -l WA_list.xml\n";
     }
 
 }
 
-LogootAnalyser::main(getopt("d:l:"));
+LogootAnalyser::main(getopt(
+                "d:l:b", array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
 ?>
