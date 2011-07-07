@@ -259,13 +259,14 @@ class LogootAnalyser {
             $la->run();
         } else {
             echo "Erreur de ligne de commande :\n\t php LogootAnalyser.php -d wiki_corpus_repository -l WA_list.xml [options]\n";
-            echo "Options:\n";
+            echo "Options sur les espaces de noms (au moins une) :\n";
             echo '--ns="namespace"' . "\n";
+            echo "Options sur les propriétés (au moins une) :\n";
             echo "--tailles : pour la mesure sur les tailles des pages \n";
             echo "--patchs : pour la mesure sur le nombre de patchs \n";
             echo "--robots : pour la mesure sur le nombre de robots \n";
             echo "--users : pour la mesure sur le nombre d'utilisateurs référencés \n";
-            echo "\n";
+            echo "Options d'optimisation :\n";
             echo "--boundary -b: pour mettre en oeuvre les 'boundary' standard \n";
             echo "--opt_ht --ht: pour mettre en oeuvre les optimisations d'ajout en fin et début \n";
         }
