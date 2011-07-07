@@ -173,39 +173,43 @@ class PageReader extends WikipediaReader {
  */
 class LogootAnalyser {
 
-    protected $logoot, $mode;
+    protected $logoot, $mode, $fct;
     protected $liste_pages, $tab_pages;
     protected $rep;
 
-    protected function getPages($patch) {
-        foreach ($patch->max as $p) {
-            $this->tab_pages[] = $p['titre'];
-        }
-        foreach ($patch->random as $p) {
-            $this->tab_pages[] = $p['titre'];
-        }
+    protected function getPages($patch, $param) {
+        if (isset($param['x']))
+            foreach ($patch->max as $p) {
+                $this->tab_pages[] = $p['titre'];
+            }
+        if (isset($param['m']))
+            foreach ($patch->random as $p) {
+                $this->tab_pages[] = $p['titre'];
+            }
     }
 
     protected function selectProp($ns, $param) {
-        if (isset($param['patchs']) || isset($param['p']))
+        if (isset($param['patchs']) || isset($param['p'])) {
             foreach ($ns->liste_patchs as $patch)
-                $this->getPages($patch);
-
-        if (isset($param['tailles']) || isset($param['t']))
+                $this->getPages($patch, $param);
+        }
+        if (isset($param['tailles']) || isset($param['t'])) {
             foreach ($ns->liste_tailles as $patch)
-                $this->getPages($patch);
-
-        if (isset($param['robots']) || isset($param['r']))
+                $this->getPages($patch, $param);
+        }
+        if (isset($param['robots']) || isset($param['r'])) {
             foreach ($ns->liste_robots as $patch)
-                $this->getPages($patch);
-
-        if (isset($param['users']) || isset($param['u']))
+                $this->getPages($patch, $param);
+        }
+        if (isset($param['users']) || isset($param['u'])) {
             foreach ($ns->liste_users as $patch)
-                $this->getPages($patch);
+                $this->getPages($patch, $param);
+        }
     }
 
     public function __construct($rep, $liste, $param) {
         $this->rep = $rep;
+        $this->fct = '';
         $this->liste_pages = simplexml_load_file($liste);
         $this->tab_pages = array();
         $this->nb_loaded = 0;
@@ -213,15 +217,32 @@ class LogootAnalyser {
         foreach ($this->liste_pages->children() as $ns) {
             if (isset($param['n'])) {
                 if (!is_array($param['n'])) {
-                    if ($ns['nom'] == $param['n'])
+                    if ($ns['nom'] == $param['n']) {
                         $this->selectProp($ns, $param);
-                } else if (in_array($ns['nom'], $param['n']))
+                        $this->fct .= "<ns name='" . $ns['nom'] . "'/>";
+                    }
+                } else if (in_array($ns['nom'], $param['n'])) {
                     $this->selectProp($ns, $param);
+                    $this->fct .= "<ns name='" . $ns['nom'] . "'/>";
+                }
             } else {
-                //echo "tous les ns...";
+                echo "tous les ns...";
                 $this->selectProp($ns, $param);
             }
         }
+        if (isset($param['p']))
+            $this->fct .= "<prop name='patchs'/>";
+        if (isset($param['t']))
+            $this->fct .= "<prop name='tailles'/>";
+        if (isset($param['r']))
+            $this->fct .= "<prop name='robots'/>";
+        if (isset($param['u']))
+            $this->fct .= "<prop name='users'/>";
+        if (isset($param['m']))
+            $this->fct .= "<type name='random'/>";
+        if (isset($param['x']))
+            $this->fct .= "<type name='max'/>";
+
         $this->tab_pages = array_unique($this->tab_pages);
         $this->mode = logootEngine::MODE_STAT;
         if (isset($param['opt_ht']) || isset($param['ht']) || isset($param['o']))
@@ -241,7 +262,9 @@ class LogootAnalyser {
                 echo "Boundary_classique='on' ";
             if ($this->mode & logootEngine::MODE_OPT_INS_HEAD_TAIL)
                 echo "Head_Tail='on'";
-            echo "\>\n";
+            echo "/>\n";
+
+            echo "    " . $this->fct . "\n";
         }
         foreach ($this->tab_pages as $page) {
             $file = $this->rep . '/' . utils::toFileName($page) . '.xml';
@@ -258,10 +281,15 @@ class LogootAnalyser {
     }
 
     public static function main($param) {
-        if (isset($param['d']) && isset($param['l'])) {
-            /* if (!isset($param['n']))
-              $param['n'] = ''; */
-            //var_dump($param);
+        if (isset($param['d'])
+                && isset($param['l'])
+                && (isset($param['t'])
+                || isset($param['p'])
+                || isset($param['r'])
+                || isset($param['u']))) {
+            if ((!isset($param['x'])) && (!isset($param['m'])))
+                $param['x'] = true;
+            var_dump($param);
             $la = new LogootAnalyser($param['d'], $param['l'], $param);
             $la->run();
         } else {
@@ -276,11 +304,14 @@ class LogootAnalyser {
             echo "Options d'optimisation :\n";
             echo "--boundary -b : pour mettre en oeuvre les 'boundary' standard \n";
             echo "--opt_ht --ht -o : pour mettre en oeuvre les optimisations d'ajout en fin et début \n";
+            echo "Options de type de page :\n";
+            echo "-x : les pages 'max' (par défaut) \n";
+            echo "-m : les pages 'random' \n";
         }
     }
 
 }
 
 LogootAnalyser::main(getopt(
-                "d:l:n:btpruo")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
+                "d:l:n:btpruoxm")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
 ?>
