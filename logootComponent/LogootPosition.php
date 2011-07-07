@@ -346,7 +346,14 @@ class LogootPosition {
         }
         return $list;
     }
-
+    
+    public static function analyse(LogootPosition $p, LogootPosition $q, $positionList) {
+        $res = array();
+        $taille = $positionList[0]->size();
+        $res['growth'] = $taille - $p->size();
+        $res['length'] = $taille;
+        return $res;
+    }
 }
 
 ?>
