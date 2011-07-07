@@ -68,7 +68,7 @@ function wfDebugLog($type, $message) {
 class PageReader extends WikipediaReader {
 
     protected $inRevision, $curText, $oldText;
-    protected $mesureLength, $mesureGrowth, $mesureId, $mesureOperation, $mesureIns, $mesureDel;
+    protected $mesureLength, $mesureGrowth, $mesureId, $mesureOperation, $mesureIns, $mesureDel, $mesureTypeIns;
     protected $logoot;
 
     public function __construct($page, $logoot) {
@@ -92,9 +92,11 @@ class PageReader extends WikipediaReader {
                 $this->mesureIns = new Mesure('Ins_op', 10);
                 $this->mesureDel = new Mesure('Del_op', 10);
                 $this->mesureOperation = new Mesure('operation', 10);
-                $this->logoot->setMode(logootEngine::MODE_STAT 
+                $this->mesureTypeIns = new Mesure('type_ins', 10);
+                $this->logoot->setMode(
+                        logootEngine::MODE_STAT
                         | logootEngine::MODE_BOUNDARY_INI
-                        );
+                );
                 $ok = $this->read();
                 break;
             case 'revision' :
@@ -136,13 +138,17 @@ class PageReader extends WikipediaReader {
                     $this->mesureGrowth->add($stat['growth'], null);
                     $this->mesureLength->add($stat['max_length'], null);
                     $this->mesureId->add($stat['nb'], null);
+                    $this->mesureTypeIns->add($stat['pos'], null);
                 }
+
                 echo $this->mesureGrowth->getXMLAbstract() . "\n";
                 echo $this->mesureLength->getXMLAbstract() . "\n";
                 echo $this->mesureId->getXMLAbstract() . "\n";
                 echo $this->mesureOperation->getXMLAbstract() . "\n";
                 echo $this->mesureIns->getXMLAbstract() . "\n";
                 echo $this->mesureDel->getXMLAbstract() . "\n";
+                echo $this->mesureTypeIns->getXMLAbstract() . "\n";
+
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();
@@ -171,6 +177,8 @@ class LogootAnalyser {
 
     public function run() {
         $file = $this->rep . '/Algèbre_und_générale' . '.xml';
+        //$file = $this->rep . '/Algorithmique' . '.xml';
+        //$file = $this->rep . '/Algèbre_und_linéaire' . '.xml';
         $pr = new PageReader($file, $this->logoot);
         $pr->run();
     }

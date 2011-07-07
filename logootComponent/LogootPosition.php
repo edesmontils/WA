@@ -174,7 +174,6 @@ class LogootPosition {
             $this->mPosition = $pos;
         else
             $this->mPosition = array(); //LogootPosition::minPosition();
-
     }
 
     public function compareTo(LogootPosition $position) {
@@ -269,9 +268,9 @@ class LogootPosition {
 
             // recherche de prefix($p, index);
             if ($index <= $p->size())
-                $str_val_p = str_pad($p->get($index - 1)->getInt() ,
-                                     DIGIT, "0", STR_PAD_LEFT);
-            else $str_val_p = LPINTMINDIGIT;
+                $str_val_p = str_pad($p->get($index - 1)->getInt(), DIGIT, "0", STR_PAD_LEFT);
+            else
+                $str_val_p = LPINTMINDIGIT;
             $prefix_p[$index] = array(
                 'id_str_val' => $str_val_p,
                 'cum_val' => $prefix_p[$index - 1]['cum_val'] . $str_val_p
@@ -279,9 +278,9 @@ class LogootPosition {
 
             // recherche de prefix($p, index);
             if ($index <= $q->size())
-                $str_val_q = str_pad($q->get($index - 1)->getInt() ,
-                                     DIGIT, "0", STR_PAD_LEFT);
-            else $str_val_q = LPINTMINDIGIT;
+                $str_val_q = str_pad($q->get($index - 1)->getInt(), DIGIT, "0", STR_PAD_LEFT);
+            else
+                $str_val_q = LPINTMINDIGIT;
             $prefix_q[$index] = array(
                 'id_str_val' => $str_val_q,
                 'cum_val' => $prefix_q[$index - 1]['cum_val'] . $str_val_q
@@ -292,12 +291,12 @@ class LogootPosition {
             $BI_q = new Math_BigInteger($prefix_q[$index]['cum_val']);
             $BIinterval = $BI_q->subtract($BI_p)->subtract($one);
             $interval = (integer) $BIinterval->__toString();
-            /*wfDebugLog('p2p', $index
-                    . " : Prefix_p " . (string) $prefix_p[$index]['cum_val'] . '/'
-                    . $prefix_p[$index]['id_str_val']
-                    . " Prefix_q " . (string) $prefix_q[$index]['cum_val'] . '/'
-                    . $prefix_q[$index]['id_str_val']
-                    . " Interval " . $interval);*/
+            /* wfDebugLog('p2p', $index
+              . " : Prefix_p " . (string) $prefix_p[$index]['cum_val'] . '/'
+              . $prefix_p[$index]['id_str_val']
+              . " Prefix_q " . (string) $prefix_q[$index]['cum_val'] . '/'
+              . $prefix_q[$index]['id_str_val']
+              . " Interval " . $interval); */
         }
 
         // Construction des identifiants
@@ -312,9 +311,8 @@ class LogootPosition {
 
         for ($j = 1; $j <= $nb; $j++) {
 
-            $BI_nr = $BI_r->add(new Math_BigInteger(rand(1,$step)));
+            $BI_nr = $BI_r->add(new Math_BigInteger(rand(1, $step)));
             //wfDebugLog('p2p', "nr " . (string) $BI_nr . " r " . (string) $BI_r);
-
             // pour découper une chaine en paquets de N car : str_split($cdc, $N) !
             $str_nr0 = (string) $BI_nr;
 
@@ -346,13 +344,14 @@ class LogootPosition {
         }
         return $list;
     }
-    
+
     public static function analyse(LogootPosition $p, LogootPosition $q, $positionList) {
         $res = array();
         $taille = 0; //Recherche de la position avec la plus grande taille
         $sum = 0;
-        foreach($positionList as $pos) {
-            if ($pos->size() > $taille) $taille = $pos->size();
+        foreach ($positionList as $pos) {
+            if ($pos->size() > $taille)
+                $taille = $pos->size();
             $sum += $pos->size();
         }
         $res['growth'] = $taille - min($p->size(), $q->size());
@@ -360,8 +359,15 @@ class LogootPosition {
         $res['max_length'] = $taille;
         $res['avg_length'] = $sum / count($positionList);
         $res['nb'] = count($positionList);
+        if ($p->nEquals(LogootPosition::minPosition()))
+            $res['pos'] = -1;
+        else if ($q->nEquals(LogootPosition::maxPosition()))
+            $res['pos'] = 1;
+        else
+            $res['pos'] = 0;
         return $res;
     }
+
 }
 
 ?>

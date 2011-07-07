@@ -173,7 +173,7 @@ class Mesure {
     }
 
     public function getXMLAbstract() {
-        $cdc = ' <'.$this->titre.' min="'.$this->min_key().'" avg="'.round($this->avg_key(), 2).'" max="'.$this->max_key().'">';
+        $cdc = ' <'.$this->titre.' min="'.$this->min_key().'" avg="'.round($this->avg_key(), 2).'" max="'.$this->max_key().'"/>';
         return $cdc;
     }
 
