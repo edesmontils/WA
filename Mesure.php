@@ -39,12 +39,13 @@ class Mesure {
     protected $mins, $maxs, $others;
     protected $vol, $nb, $sum, $nb_mins, $nb_maxs, $nb_others;
 
-    public function __construct($title, $v = 100) {
+    public function __construct($title, $v = 1) {
         $this->mins = array();
         $this->maxs = array();
         $this->others = array();
         $this->nb = 0.0;
         $this->sum = 0.0;
+        if ($v < 1) $v = 1;
         $this->vol = $v;
         $this->titre = $title;
         $this->nb_mins = 0;
@@ -59,7 +60,7 @@ class Mesure {
         echo "@\n";
     }
 
-    public function add($key, $value) {
+    public function add($key, $value = null) {
         $ok = false; // Permet d'indiquer si cette mesure est gardée (pour l'instant...)
         $this->nb += 1.0;
         $this->sum += $key;

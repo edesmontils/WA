@@ -2,7 +2,7 @@
 
 header('Content-type: text/xml');
 
-ini_set('memory_limit', '1024M');
+ini_set('memory_limit', '2048M');
 
 //phpinfo();
 
@@ -92,13 +92,13 @@ class PageReader extends WikipediaReader {
                 $this->inRevision = false;
                 $this->nb_rev = 0;
                 $this->curText = '';
-                $this->mesureLength = new Mesure('length_pos', 10);
-                $this->mesureGrowth = new Mesure('growth_pos', 10);
-                $this->mesureId = new Mesure('new_pos', 10);
-                $this->mesureIns = new Mesure('Ins_op', 10);
-                $this->mesureDel = new Mesure('Del_op', 10);
-                $this->mesureOperation = new Mesure('operation', 10);
-                $this->mesureTypeIns = new Mesure('type_ins', 10);
+                $this->mesureLength = new Mesure('length_pos');
+                $this->mesureGrowth = new Mesure('growth_pos');
+                $this->mesureId = new Mesure('new_pos');
+                $this->mesureIns = new Mesure('Ins_op');
+                $this->mesureDel = new Mesure('Del_op');
+                $this->mesureOperation = new Mesure('operation');
+                $this->mesureTypeIns = new Mesure('type_ins');
                 $ok = $this->read();
                 break;
             case 'revision' :
@@ -111,7 +111,7 @@ class PageReader extends WikipediaReader {
                 $this->oldText = $this->curText;
                 $this->curText = $this->readString();
                 $patch = $this->logoot->generate($this->oldText, $this->curText);
-                $this->mesureOperation->add($patch->size(), null);
+                $this->mesureOperation->add($patch->size());
                 $nb_ins = 0;
                 $nb_del = 0;
                 foreach ($patch as $op) {
@@ -120,8 +120,8 @@ class PageReader extends WikipediaReader {
                     else
                         $nb_del +=1;
                 }
-                $this->mesureIns->add($nb_ins, null);
-                $this->mesureDel->add($nb_del, null);
+                $this->mesureIns->add($nb_ins);
+                $this->mesureDel->add($nb_del);
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();
@@ -140,10 +140,10 @@ class PageReader extends WikipediaReader {
                 $tab = $this->logoot->getTabStat();
                 if (isset($tab)) {
                     foreach ($tab as $stat) {
-                        $this->mesureGrowth->add($stat['growth'], null);
-                        $this->mesureLength->add($stat['max_length'], null);
-                        $this->mesureId->add($stat['nb'], null);
-                        $this->mesureTypeIns->add($stat['pos'], null);
+                        $this->mesureGrowth->add($stat['growth']);
+                        $this->mesureLength->add($stat['max_length']);
+                        $this->mesureId->add($stat['nb']);
+                        $this->mesureTypeIns->add($stat['pos']);
                     }
                     echo '      ' . $this->mesureGrowth->getXMLAbstract() . "\n";
                     echo '      ' . $this->mesureLength->getXMLAbstract() . "\n";
@@ -231,17 +231,17 @@ class LogootAnalyser {
             }
         }
         if (isset($param['p']))
-            $this->fct .= "<prop name='patchs'/>";
+            $this->fct .= "<patchs/>";
         if (isset($param['t']))
-            $this->fct .= "<prop name='tailles'/>";
+            $this->fct .= "<tailles/>";
         if (isset($param['r']))
-            $this->fct .= "<prop name='robots'/>";
+            $this->fct .= "<robots/>";
         if (isset($param['u']))
-            $this->fct .= "<prop name='users'/>";
+            $this->fct .= "<users/>";
         if (isset($param['m']))
-            $this->fct .= "<type name='random'/>";
+            $this->fct .= "<random/>";
         if (isset($param['x']))
-            $this->fct .= "<type name='max'/>";
+            $this->fct .= "<max/>";
 
         $this->tab_pages = array_unique($this->tab_pages);
         $this->mode = logootEngine::MODE_STAT;
@@ -289,7 +289,7 @@ class LogootAnalyser {
                 || isset($param['u']))) {
             if ((!isset($param['x'])) && (!isset($param['m'])))
                 $param['x'] = true;
-            var_dump($param);
+            //var_dump($param);
             $la = new LogootAnalyser($param['d'], $param['l'], $param);
             $la->run();
         } else {
