@@ -67,7 +67,7 @@ class logootPlusEngine extends logootEngine implements logootPlus {
 
     // annule les opérations d'un patch et construit un patch spécifique.
     public function undoPatch(LogootPatch $patch) {
-        $this->clock = utils::getNextClock();
+        $this->clock = logootEnv::getNextClock();
         wfDebugLog('p2p', $this->clock . ' - function logootPlusEngine::undoPatch ');
         $opList = array();
         foreach ($patch as $op) {

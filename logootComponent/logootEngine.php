@@ -6,6 +6,50 @@
  * @copyright INRIA-LORIA-ECOO project
  * @author jean-Philippe Muller, emmanuel Desmontils
  */
+
+include_once('../logoot_lib/Singleton.php');
+
+class logootEnv extends {
+    private static $clock = 0;
+
+    public $digit;
+    public $int_min, $int_max;
+    public $base;
+    
+    public $clock_max, $clock_min;
+    
+    public $session_nim, $session_max;
+
+    const LOGOOTMODE_STD = 0;
+    const LOGOOTMODE_PLS = 1;
+ 
+    function __construct($digit, $mode = logootParam::LOGOOTMODE_STD) {
+        $this->digit = $digit;
+        $this->int_max = (integer) pow(10, $digit);
+        $this->int_min = 0;
+        $this->base = $this->int_max - $this->int_min;
+        
+        $this->clock_min = "0";
+        $this->clock_max = "100000000000000000000000"; 
+        
+        $this->session_min = "0";
+        $this->session_max = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"; //.CLOCK_MAX);
+        //050F550EB44F6DE53333AE460EE85396
+        
+        $this->mode = $mode; //logootParam::LOGOOTMODE_PLS ou logootParam::LOGOOTMODE_STD
+    }
+    
+    static function getNextClock() {
+        
+        logootEnv::$clock +=1;
+        return logootEnv::$clock;
+    }
+
+    static function getClock() {
+        return logootEnv::$clock;
+    }    
+}
+
 class logootEngine implements logoot {
     const MODE_NONE = 0;
     const MODE_STAT = 1;
@@ -136,7 +180,7 @@ class logootEngine implements logoot {
                     $tab[$rang]["delete"][] = $op;
             }
             $delta = 0;
-            $this->clock = utils::getNextClock();
+            $this->clock = logootEnv::getNextClock();
             foreach ($tab as $rang => $liste_op) {
                 $ligne = $rang + 1 + $delta;
                 $nb_ins = isset($liste_op["insert"]) ? count($liste_op["insert"]) : 0;
@@ -273,7 +317,7 @@ class logootEngine implements logoot {
     }
 
     public function generate($oldText, $newText) {
-        $this->clock = utils::getNextClock();
+        $this->clock = logootEnv::getNextClock();
         wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate ');
         /* explode into lines */
         $ota = explode("\n", $oldText);

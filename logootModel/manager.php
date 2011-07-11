@@ -16,10 +16,12 @@ class manager {
 
     static function getNewEngine(boModel $model, $session = 0){//, $clock = null) {
         $le = null;
+        $env = new logootEnv(2,LOGOOTMODE);
         switch (LOGOOTMODE) {
-        	case 'PLS' : $le = new logootPlusEngine($model, $session, utils::getNextClock()); break;
-        	case 'STD' : $le = new logootEngine($model, $session, utils::getNextClock()); break;
+        	case 'PLS' : $le = new logootPlusEngine($model, $session, $env); break;
+        	case 'STD' : $le = new logootEngine($model, $session, $env); break;
         }
+        $le->setMode(logootEngine::MODE_BOUNDARY_INI & logootEngine::MODE_OPT_INS_HEAD_TAIL);
         return $le;
     }
 
