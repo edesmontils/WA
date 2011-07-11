@@ -12,52 +12,17 @@ function __autoload($classe) {
 
 $debug = false;
 
+require_once './logoot_lib/utils.php';
+
+require_once './logootComponent/logootEnv.php';
 require_once './logootModel/manager.php';
 require_once './logootModel/boModel.php';
 require_once './logootModel/boModelPlus.php';
 require_once './logootComponent/DiffEngine.php';
 require_once './logootComponent/Math/BigInteger.php';
-require_once './utils.php';
+
 require_once './WikipediaReader.php';
 require_once './Mesure.php';
-
-if (!defined('DIGIT')) {
-    define('DIGIT', 4);
-}
-
-if (!defined('INT_MAX')) {
-    define('INT_MAX', (integer) pow(10, DIGIT));
-}
-
-if (!defined('INT_MIN')) {
-    define('INT_MIN', 0);
-}
-
-if (!defined('BASE')) {
-    define('BASE', (integer) (INT_MAX - INT_MIN));
-}
-
-if (!defined('CLOCK_MAX')) {
-    define('CLOCK_MAX', "100000000000000000000000");
-}
-
-if (!defined('CLOCK_MIN')) {
-    define('CLOCK_MIN', "0");
-}
-
-if (!defined('SESSION_MAX')) {
-    define('SESSION_MAX', "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"); //.CLOCK_MAX);
-    //050F550EB44F6DE53333AE460EE85396
-}
-
-if (!defined('SESSION_MIN')) {
-    define('SESSION_MIN', "0");
-}
-
-if (!defined('LOGOOTMODE')) {
-    define('LOGOOTMODE', 'STD');
-    //define('LOGOOTMODE', 'PLS');
-}
 
 function wfDebugLog($type, $message) {
     global $debug;

@@ -6,50 +6,6 @@
  * @copyright INRIA-LORIA-ECOO project
  * @author jean-Philippe Muller, emmanuel Desmontils
  */
-
-include_once('../logoot_lib/Singleton.php');
-
-class logootEnv extends {
-    private static $clock = 0;
-
-    public $digit;
-    public $int_min, $int_max;
-    public $base;
-    
-    public $clock_max, $clock_min;
-    
-    public $session_nim, $session_max;
-
-    const LOGOOTMODE_STD = 0;
-    const LOGOOTMODE_PLS = 1;
- 
-    function __construct($digit, $mode = logootParam::LOGOOTMODE_STD) {
-        $this->digit = $digit;
-        $this->int_max = (integer) pow(10, $digit);
-        $this->int_min = 0;
-        $this->base = $this->int_max - $this->int_min;
-        
-        $this->clock_min = "0";
-        $this->clock_max = "100000000000000000000000"; 
-        
-        $this->session_min = "0";
-        $this->session_max = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"; //.CLOCK_MAX);
-        //050F550EB44F6DE53333AE460EE85396
-        
-        $this->mode = $mode; //logootParam::LOGOOTMODE_PLS ou logootParam::LOGOOTMODE_STD
-    }
-    
-    static function getNextClock() {
-        
-        logootEnv::$clock +=1;
-        return logootEnv::$clock;
-    }
-
-    static function getClock() {
-        return logootEnv::$clock;
-    }    
-}
-
 class logootEngine implements logoot {
     const MODE_NONE = 0;
     const MODE_STAT = 1;
@@ -64,8 +20,8 @@ class logootEngine implements logoot {
     protected $tabStat, $nb_new, $nb_head, $nb_tail;
     protected $boundary, $boundary_modulator;
 
-    function __construct($model, $session = "0", $clock = 0) {
-        $this->clock = $clock; //0;
+    function __construct($model, $session = "0") {
+        $this->clock = logootEnv::getClock(); //0;
         wfDebugLog('p2p', $this->clock . ' - function logootEngine::__construct ');
         if (isset($model))
             $this->model = $model;
@@ -81,7 +37,8 @@ class logootEngine implements logoot {
     }
     
     public static function getDefaultBoundary() {
-        return (integer) pow(10, DIGIT / 2);
+        $env = logootEnv::getInstance();
+        return (integer) pow(10, $env->getDigit() / 2);
     }
     
     public function setMode($md) {

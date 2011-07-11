@@ -8,18 +8,19 @@
  */
  
 if (!defined('LOGOOTMODE')) {
-    //define('LOGOOTMODE', 'STD');
-    define('LOGOOTMODE', 'PLS');
+    //define('LOGOOTMODE', logootEnv::LOGOOTMODE_STD);
+    define('LOGOOTMODE', logootEnv::LOGOOTMODE_PLS);
 }
 
 class manager {
 
     static function getNewEngine(boModel $model, $session = 0){//, $clock = null) {
         $le = null;
-        $env = new logootEnv(2,LOGOOTMODE);
+        $env = logootEnv::getInstance();
+        $env->set(2,LOGOOTMODE);//var_dump($env);
         switch (LOGOOTMODE) {
-        	case 'PLS' : $le = new logootPlusEngine($model, $session, $env); break;
-        	case 'STD' : $le = new logootEngine($model, $session, $env); break;
+        	case logootEnv::LOGOOTMODE_PLS : $le = new logootPlusEngine($model, $session); break;
+        	case logootEnv::LOGOOTMODE_STD : $le = new logootEngine($model, $session); break;
         }
         $le->setMode(logootEngine::MODE_BOUNDARY_INI & logootEngine::MODE_OPT_INS_HEAD_TAIL);
         return $le;
@@ -28,8 +29,8 @@ class manager {
 	static function getNewBoModel() {
         $le = null;
         switch (LOGOOTMODE) {
-        	case 'PLS' : $le = new boModelPlus(); break;
-        	case 'STD' : $le = new boModel(); break;
+        	case logootEnv::LOGOOTMODE_PLS : $le = new boModelPlus(); break;
+        	case logootEnv::LOGOOTMODE_STD : $le = new boModel(); break;
         }
         return $le;
 	}
@@ -37,8 +38,8 @@ class manager {
 	static function getNewLogootIns($logootPos, $line) {
         $le = null;
         switch (LOGOOTMODE) {
-        	case 'PLS' : $le = new LogootPlusIns($logootPos, $line); break;
-        	case 'STD' : $le = new LogootIns($logootPos, $line); break;
+        	case logootEnv::LOGOOTMODE_PLS : $le = new LogootPlusIns($logootPos, $line); break;
+        	case logootEnv::LOGOOTMODE_STD : $le = new LogootIns($logootPos, $line); break;
         }
         return $le;
 	}
@@ -46,8 +47,8 @@ class manager {
 	static function getNewLogootDel($logootPos, $line) {
         $le = null;
         switch (LOGOOTMODE) {
-        	case 'PLS' : $le = new LogootPlusDel($logootPos, $line); break;
-        	case 'STD' : $le = new LogootDel($logootPos, $line); break;
+        	case logootEnv::LOGOOTMODE_PLS : $le = new LogootPlusDel($logootPos, $line); break;
+        	case logootEnv::LOGOOTMODE_STD : $le = new LogootDel($logootPos, $line); break;
         }
         return $le;
 	}

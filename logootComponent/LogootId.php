@@ -35,12 +35,16 @@ class LogootId {
     }
 
     public static function IdMin(){
-        $IdMin = new LogootId(INT_MIN, SESSION_MIN, CLOCK_MIN);
+        $env = logootEnv::getInstance();
+        //$IdMin = new LogootId(INT_MIN, SESSION_MIN, CLOCK_MIN);
+        $IdMin = new LogootId($env->getInt_min(), $env->getSession_min(), $env->getClock_min());
         return $IdMin;
     }
 
     public static function IdMax(){
-        $IdMax = new LogootId(INT_MAX, SESSION_MAX, CLOCK_MAX);
+        $env = logootEnv::getInstance();
+        //        $IdMax = new LogootId(INT_MAX, SESSION_MAX, CLOCK_MAX);
+        $IdMax = new LogootId($env->getInt_max(), $env->getSession_max(), $env->getClock_max());
         return $IdMax;
     }
 

@@ -14,4 +14,5 @@ abstract class Singleton {
 		} else return self::$_instances[$instance_id];
 	}
 }
+
 ?>

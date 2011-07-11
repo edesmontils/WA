@@ -9,14 +9,14 @@
  */
 //require_once './logootComponent/Math/BigInteger.php';
 
-if (!defined('LPINTMINDIGIT')) {
+/*if (!defined('LPINTMINDIGIT')) {
     define('LPINTMINDIGIT', str_pad(INT_MIN, DIGIT, '0', STR_PAD_LEFT));
-}
+}*/
 
 class LogootPosition {
 
     private $mPosition = array();
-
+    
     public function __toString() {
         $s = "[";
         for ($i = 0; $i < sizeof($this->mPosition); $i++)
@@ -250,11 +250,11 @@ class LogootPosition {
      * @param $boundary Cf. method
      * @return <LogootPosition List> $N logootPosition(s) between $start and $end
      */
-    static public function getLogootPosition(LogootPosition $p, LogootPosition $q, $nb, $rep_sid, $rep_clock=0, $boundary=NULL) {
+    /*static public function getLogootPosition(LogootPosition $p, LogootPosition $q, $nb, $rep_sid, $rep_clock=0, $boundary=NULL) {
         wfDebugLog('p2p', $rep_clock . " - function LogootPosition::getLogootPosition "
                 . $p . " / " . $q . " pour " . $nb . " position(s)");
         $one = new Math_BigInteger("1");
-
+        
         // Recherche de l'interval optimal
         $index = 0;
         $interval = INT_MIN;
@@ -291,12 +291,12 @@ class LogootPosition {
             $BI_q = new Math_BigInteger($prefix_q[$index]['cum_val']);
             $BIinterval = $BI_q->subtract($BI_p)->subtract($one);
             $interval = (integer) $BIinterval->__toString();
-            /* wfDebugLog('p2p', $index
-              . " : Prefix_p " . (string) $prefix_p[$index]['cum_val'] . '/'
-              . $prefix_p[$index]['id_str_val']
-              . " Prefix_q " . (string) $prefix_q[$index]['cum_val'] . '/'
-              . $prefix_q[$index]['id_str_val']
-              . " Interval " . $interval); */
+            // wfDebugLog('p2p', $index
+            //  . " : Prefix_p " . (string) $prefix_p[$index]['cum_val'] . '/'
+            //  . $prefix_p[$index]['id_str_val']
+            //  . " Prefix_q " . (string) $prefix_q[$index]['cum_val'] . '/'
+            //  . $prefix_q[$index]['id_str_val']
+            //  . " Interval " . $interval);
         }
 
         // Construction des identifiants
@@ -343,16 +343,16 @@ class LogootPosition {
             $BI_r = $BI_r->add($BI_step);
         }
         return $list;
-    }
+    }*/
 
     static public function getLogootPosition2(LogootPosition $p, LogootPosition $q, $nb, $rep_sid, $rep_clock=0, $boundary=NULL) {
         wfDebugLog('p2p', $rep_clock . " - function LogootPosition::getLogootPosition2 "
                 . $p . " / " . $q . " pour " . $nb . " position(s)");
         $one = new Math_BigInteger("1");
-
+        $env = logootEnv::getInstance();
         // Recherche de l'interval optimal
         $index = 0;
-        $interval = INT_MIN;
+        $interval = $env->getInt_min();//INT_MIN;
         $size = max($p->size(), $q->size()) + 1;
 
         $prefix_p = array(0 => array('cum_val' => "", 'id_str_val' => ""));
@@ -363,9 +363,9 @@ class LogootPosition {
 
             // recherche de prefix($p, index);
             if ($index <= $p->size())
-                $str_val_p = str_pad($p->get($index - 1)->getInt(), DIGIT, "0", STR_PAD_LEFT);
+                $str_val_p = str_pad($p->get($index - 1)->getInt(), $env->getDigit(), "0", STR_PAD_LEFT);
             else
-                $str_val_p = LPINTMINDIGIT;
+                $str_val_p = $env->getLPINTMINDIGIT();// LPINTMINDIGIT;
             $prefix_p[$index] = array(
                 'id_str_val' => $str_val_p,
                 'cum_val' => $prefix_p[$index - 1]['cum_val'] . $str_val_p
@@ -373,9 +373,9 @@ class LogootPosition {
 
             // recherche de prefix($p, index);
             if ($index <= $q->size())
-                $str_val_q = str_pad($q->get($index - 1)->getInt(), DIGIT, "0", STR_PAD_LEFT);
+                $str_val_q = str_pad($q->get($index - 1)->getInt(), $env->getDigit(), "0", STR_PAD_LEFT);
             else
-                $str_val_q = LPINTMINDIGIT;
+                $str_val_q = $env->getLPINTMINDIGIT();// LPINTMINDIGIT;
             $prefix_q[$index] = array(
                 'id_str_val' => $str_val_q,
                 'cum_val' => $prefix_q[$index - 1]['cum_val'] . $str_val_q
@@ -398,7 +398,7 @@ class LogootPosition {
         //wfDebugLog('p2p', "N " . $nb . " Interval " . $interval . " index " . $index);
         $step = (integer) $interval / $nb;
         $dir = 1;
-        if (isset($boundary)) { 
+        if (isset($boundary)) {
             $step = abs($boundary) < $step ? abs($boundary) : $step;
             if ($boundary > 0)
                 $BI_r = new Math_BigInteger($prefix_p[$index]['cum_val']);
@@ -424,13 +424,13 @@ class LogootPosition {
             $str_nr0 = (string) $BI_nr;
 
             // on fait en sorte que le découpage soit un multiple de DIGIT pour ne pas créer de décallage
-            if (strlen($str_nr0) % ($index * DIGIT) != 0)
-                $str_nr = str_pad($str_nr0, strlen($str_nr0) + (($index * DIGIT) - strlen($str_nr0) % ($index * DIGIT)), "0", STR_PAD_LEFT);
+            if (strlen($str_nr0) % ($index * $env->getDigit()) != 0)
+                $str_nr = str_pad($str_nr0, strlen($str_nr0) + (($index * $env->getDigit()) - strlen($str_nr0) % ($index * $env->getDigit())), "0", STR_PAD_LEFT);
             else
                 $str_nr = $str_nr0;
 
             //wfDebugLog('p2p', "str_nr0 " . $str_nr0 . " str_nr " . $str_nr);
-            $tab_nr = str_split($str_nr, DIGIT);
+            $tab_nr = str_split($str_nr, $env->getDigit());
             $pos = new LogootPosition();
 
             for ($i = 1; $i <= count($tab_nr); $i++) {
