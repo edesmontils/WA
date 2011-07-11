@@ -54,10 +54,6 @@ if (!defined('SESSION_MIN')) {
     define('SESSION_MIN', "0");
 }
 
-if (!defined('BOUNDARY')) {
-    define('BOUNDARY', (integer) pow(10, DIGIT / 2));
-}
-
 if (!defined('LOGOOTMODE')) {
     define('LOGOOTMODE', 'STD');
     //define('LOGOOTMODE', 'PLS');
@@ -71,9 +67,12 @@ function wfDebugLog($type, $message) {
 
 class PageReader extends WikipediaReader {
 
-    protected $inRevision, $curText, $oldText, $revisionId, $nb_rev;
-    protected $mesureLength, $mesureGrowth, $mesureId, $mesureOperation, $mesureIns, $mesureDel, $mesureTypeIns;
+    protected $inRevision, $curText, $oldText, $revisionId;
+    protected $nb_rev;
+    public $mesureLength, $mesureGrowth, $mesureId, $mesureOperation,
+    $mesureIns, $mesureDel, $mesureTypeIns, $mesureTps, $mesureMem;
     protected $logoot;
+    protected $mem;
 
     public function __construct($page, $logoot, $options = logootEngine::MODE_NONE) {
         parent::__construct($page);
@@ -83,6 +82,10 @@ class PageReader extends WikipediaReader {
 
     public function __destruct() {
         parent::__destruct();
+    }
+
+    public function getNb_rev() {
+        return $this->nb_rev;
     }
 
     protected function openElement($element) {
@@ -99,7 +102,10 @@ class PageReader extends WikipediaReader {
                 $this->mesureDel = new Mesure('Del_op');
                 $this->mesureOperation = new Mesure('operation');
                 $this->mesureTypeIns = new Mesure('type_ins');
+                $this->mesureTps = new Mesure('tps');
+                //$this->mesureMem = new Mesure('memory');
                 $ok = $this->read();
+                //$this->mem = memory_get_usage(false);
                 break;
             case 'revision' :
                 $this->inRevision = true;
@@ -110,8 +116,14 @@ class PageReader extends WikipediaReader {
             case 'text' :
                 $this->oldText = $this->curText;
                 $this->curText = $this->readString();
+                $debut = microtime(true);
+                //$mem = memory_get_usage(false);
                 $patch = $this->logoot->generate($this->oldText, $this->curText);
+                $duree = microtime(true) - $debut;
+                //$mem = (memory_get_peak_usage(false)-$mem)/ 1024 / 1024;
+                $this->mesureTps->add($duree);
                 $this->mesureOperation->add($patch->size());
+                //$this->mesureMem->add($mem);//memory_get_usage()-memory_get_usage(false));
                 $nb_ins = 0;
                 $nb_del = 0;
                 foreach ($patch as $op) {
@@ -145,18 +157,7 @@ class PageReader extends WikipediaReader {
                         $this->mesureId->add($stat['nb']);
                         $this->mesureTypeIns->add($stat['pos']);
                     }
-                    echo '      ' . $this->mesureGrowth->getXMLAbstract() . "\n";
-                    echo '      ' . $this->mesureLength->getXMLAbstract() . "\n";
-                    echo '      ' . $this->mesureId->getXMLAbstract() . "\n";
-                    echo '      ' . $this->mesureOperation->getXMLAbstract() . "\n";
-                    echo '      ' . $this->mesureIns->getXMLAbstract() . "\n";
-                    echo '      ' . $this->mesureDel->getXMLAbstract() . "\n";
-                    echo '      ' . $this->mesureTypeIns->getXMLAbstract() . "\n";
                 }
-
-                list($head, $tail, $new) = $this->logoot->getNbGenerate();
-                echo '       <revision nb="' . $this->nb_rev . '" head_opt="' . $head . '" tail_opt="' . $tail . '" new_opt="' . $new . '" ' . "\>\n";
-
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();
@@ -175,7 +176,7 @@ class LogootAnalyser {
 
     protected $logoot, $mode, $fct;
     protected $liste_pages, $tab_pages;
-    protected $rep;
+    protected $rep, $boundary, $bound_factor;
 
     protected function getPages($patch, $param) {
         if (isset($param['x']))
@@ -226,7 +227,7 @@ class LogootAnalyser {
                     $this->fct .= "<ns name='" . $ns['nom'] . "'/>";
                 }
             } else {
-                echo "tous les ns...";
+                $this->fct .= "<ns/>";
                 $this->selectProp($ns, $param);
             }
         }
@@ -245,10 +246,23 @@ class LogootAnalyser {
 
         $this->tab_pages = array_unique($this->tab_pages);
         $this->mode = logootEngine::MODE_STAT;
-        if (isset($param['opt_ht']) || isset($param['ht']) || isset($param['o']))
+        if (isset($param['o']))
             $this->mode |= logootEngine::MODE_OPT_INS_HEAD_TAIL;
-        if (isset($param['boundary']) || isset($param['b']))
+        if (isset($param['b'])) {
             $this->mode |= logootEngine::MODE_BOUNDARY_INI;
+            if ($param['b'] > 0)
+                $this->boundary = (integer) $param['b'];
+            else
+                $this->boundary = logootEngine::getDefaultBoundary();
+        } else
+            $this->boundary = logootEngine::getDefaultBoundary();
+        if (isset($param['a']) && isset($param['b'])) {
+            $this->mode |= logootEngine::MODE_BOUNDARY_OPT;
+            if ($param['a'] > 0) {echo ".";
+                $this->bound_factor = (integer) $param['a'];
+            }else
+                $this->bound_factor = 3;
+        }
     }
 
     public function run() {
@@ -258,8 +272,11 @@ class LogootAnalyser {
 
         if ($this->mode & logootEngine::MODE_STAT) {
             echo "    <Mode_Stat ";
-            if ($this->mode & logootEngine::MODE_BOUNDARY_INI)
-                echo "Boundary_classique='on' ";
+            if ($this->mode & logootEngine::MODE_BOUNDARY_OPT) {
+                echo "Boundary='avancé' Boundary_val='" . $this->boundary . "' Boundary_fact='" . $this->bound_factor . "' ";
+            } else if ($this->mode & logootEngine::MODE_BOUNDARY_INI) {
+                echo "Boundary='standard' Boundary_val='" . $this->boundary . "' ";
+            }
             if ($this->mode & logootEngine::MODE_OPT_INS_HEAD_TAIL)
                 echo "Head_Tail='on'";
             echo "/>\n";
@@ -270,11 +287,35 @@ class LogootAnalyser {
             $file = $this->rep . '/' . utils::toFileName($page) . '.xml';
             echo "    <Analyse name='$page' file='$file'>\n";
             $this->logoot = manager::getNewEngine(manager::loadModel(0), 3);
+
+            if ($this->mode & logootEngine::MODE_BOUNDARY_INI) {
+                $this->logoot->setBoundary($this->boundary);
+            }
+
+            if ($this->mode & logootEngine::MODE_BOUNDARY_OPT) {
+                $this->logoot->setBoundary_modulator($this->bound_factor);
+            }
+
             $pr = new PageReader($file, $this->logoot, $this->mode);
             $debut = microtime(true);
             $pr->run();
             $duree = round(microtime(true) - $debut, 2);
-            echo "       <duration val='$duree'/>\n";
+            echo "       <process duration='$duree' avg_duration='" . $pr->mesureTps->avg_key() . "' ";
+            echo "memory_get_peak_usage='" . round(memory_get_peak_usage(false) / 1024 / 1024, 2) . '/' . round(memory_get_peak_usage(true) / 1024 / 1024, 2) .
+            "' memory_get_usage='" . round(memory_get_usage(false) / 1024 / 1024, 2) .
+            '/' . round(memory_get_usage(true) / 1024 / 1024, 2) . "'/>\n";
+            echo '      ' . $pr->mesureGrowth->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureLength->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureId->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureOperation->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureIns->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureDel->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureTypeIns->getXMLAbstract() . "\n";
+            echo '      ' . $pr->mesureTps->getXMLAbstract() . "\n";
+            //echo '      ' . $pr->mesureMem->getXMLAbstract() . "\n";
+
+            list($head, $tail, $new) = $this->logoot->getNbGenerate();
+            echo '       <revision nb="' . $pr->getNb_rev() . '" head_opt="' . $head . '" tail_opt="' . $tail . '" new_opt="' . $new . '" ' . "\>\n";
             echo "    </Analyse>\n";
         }
         echo "</Etude>\n";
@@ -289,7 +330,7 @@ class LogootAnalyser {
                 || isset($param['u']))) {
             if ((!isset($param['x'])) && (!isset($param['m'])))
                 $param['x'] = true;
-            //var_dump($param);
+            var_dump($param);
             $la = new LogootAnalyser($param['d'], $param['l'], $param);
             $la->run();
         } else {
@@ -297,13 +338,14 @@ class LogootAnalyser {
             echo "Option sur les espaces de noms :\n";
             echo '-n "namespace" (par défaut tous les espaces sont pris)' . "\n";
             echo "Options sur les propriétés (au moins une) :\n";
-            echo "--tailles -t : pour la mesure sur les tailles des pages \n";
-            echo "--patchs -p : pour la mesure sur le nombre de patchs \n";
-            echo "--robots -r : pour la mesure sur le nombre de robots \n";
-            echo "--users -u : pour la mesure sur le nombre d'utilisateurs référencés \n";
+            echo "-t : pour la mesure sur les tailles des pages \n";
+            echo "-p : pour la mesure sur le nombre de patchs \n";
+            echo "-r : pour la mesure sur le nombre de robots \n";
+            echo "-u : pour la mesure sur le nombre d'utilisateurs référencés \n";
             echo "Options d'optimisation :\n";
-            echo "--boundary -b : pour mettre en oeuvre les 'boundary' standard \n";
-            echo "--opt_ht --ht -o : pour mettre en oeuvre les optimisations d'ajout en fin et début \n";
+            echo "-b val : pour mettre en oeuvre les 'boundary' standard \n";
+            echo "-a val : pour mettre en oeuvre les 'boundary' avancés (si -b présent)\n";
+            echo "-o : pour mettre en oeuvre les optimisations d'ajout en création, en fin et début \n";
             echo "Options de type de page :\n";
             echo "-x : les pages 'max' (par défaut) \n";
             echo "-m : les pages 'random' \n";
@@ -313,5 +355,5 @@ class LogootAnalyser {
 }
 
 LogootAnalyser::main(getopt(
-                "d:l:n:btpruoxm")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
+                "d:l:n:b:a:tpruoxm")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
 ?>

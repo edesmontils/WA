@@ -10,13 +10,15 @@ class logootEngine implements logoot {
     const MODE_NONE = 0;
     const MODE_STAT = 1;
     const MODE_BOUNDARY_INI = 2;
-    const MODE_OPT_INS_HEAD_TAIL = 4;
+    const MODE_BOUNDARY_OPT = 4;
+    const MODE_OPT_INS_HEAD_TAIL = 8;
 
     protected $model;
     protected $clock;
     protected $sessionid;
     protected $mode;
     protected $tabStat, $nb_new, $nb_head, $nb_tail;
+    protected $boundary, $boundary_modulator;
 
     function __construct($model, $session = "0", $clock = 0) {
         $this->clock = $clock; //0;
@@ -26,9 +28,18 @@ class logootEngine implements logoot {
         else
             $this->model = manager::getNewBoModel();
         $this->sessionid = $session;
-        $this->mode = logootEngine::MODE_NONE;
+        $this->resetMode();
+        $this->setBoundary(null);
     }
 
+    public function resetMode() {
+        $this->mode = logootEngine::MODE_NONE;
+    }
+    
+    public static function getDefaultBoundary() {
+        return (integer) pow(10, DIGIT / 2);
+    }
+    
     public function setMode($md) {
         $this->mode |= $md;
         if ($this->mode & logootEngine::MODE_STAT) {
@@ -38,24 +49,52 @@ class logootEngine implements logoot {
             $this->nb_tail = 0;
         } else
             $this->tabStat = null;
+        if (($this->mode & logootEngine::MODE_BOUNDARY_INI) || ($this->mode & logootEngine::MODE_BOUNDARY_OPT)) {
+            $this->setBoundary($this->getDefaultBoundary());
+            $this->setBoundary_modulator(1);
+        }
+    }
+
+    public function setBoundary($b) {
+        $this->boundary = $b;
+    }
+
+    public function getBoundary() {
+        return $this->boundary;
+    }
+
+    public function getBoundary_modulator() {
+        return $this->boundary_modulator;
+    }
+
+    public function setBoundary_modulator($boundary_modulator) {
+        $this->boundary_modulator = $boundary_modulator;
     }
 
     public function getNbGenerate() {
         if ($this->mode & logootEngine::MODE_STAT)
-            return array($this->nb_head,$this->nb_tail,$this->nb_new);
+            return array($this->nb_head, $this->nb_tail, $this->nb_new);
         else
             return null;
     }
 
     protected function getPositionList($line_nb, $nb) {
+        wfDebugLog('p2p', $this->clock . " - function logootEngine::getPositionList ($line_nb, $nb) ");
         list($start, $end) = $this->getPrevNextPosition($line_nb);
 
-        if ($this->mode & logootEngine::MODE_BOUNDARY_INI) {
-            $boundary = BOUNDARY;
+        if ($this->mode & logootEngine::MODE_BOUNDARY_OPT) {
+            if (($start->nEquals(LogootPosition::minPosition())) && ($end->nEquals(LogootPosition::maxPosition())))
+                $bound = $this->boundary * $this->boundary_modulator;
+            else if ($start->nEquals(LogootPosition::minPosition()))
+                $bound = -max($this->boundary / $this->boundary_modulator, 1);
+            else if ($end->nEquals(LogootPosition::maxPosition()))
+                $bound = max($this->boundary / $this->boundary_modulator, 1);
+            else
+                $bound = $this->boundary;
         } else
-            $boundary = null;
+            $bound = $this->boundary;
 
-        $positionList = LogootPosition::getLogootPosition($start, $end, $nb, $this->sessionid, $this->clock, $boundary);
+        $positionList = LogootPosition::getLogootPosition2($start, $end, $nb, $this->sessionid, $this->clock, $bound);
 
         if ($this->mode & logootEngine::MODE_STAT)
             $this->tabStat[] = LogootPosition::analyse($start, $end, $positionList);
