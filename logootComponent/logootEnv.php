@@ -15,6 +15,7 @@ class logootEnv extends Singleton {
     protected $base;
     protected $clock_max, $clock_min;
     protected $session_min, $session_max;
+    protected $mode;
 
     const LOGOOTMODE_STD = 0;
     const LOGOOTMODE_PLS = 1;
@@ -25,7 +26,16 @@ class logootEnv extends Singleton {
 
     protected function __construct() {
         parent::__construct();
-        $this->set();
+        $this->setIdValues(2);
+
+        $this->clock_min = "0";
+        $this->clock_max = "100000000000000000000000";
+
+        $this->session_min = "0";
+        $this->session_max = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"; //.CLOCK_MAX);
+        //050F550EB44F6DE53333AE460EE85396
+
+        $this->setMode(logootEnv::LOGOOTMODE_STD); //logootEnv::LOGOOTMODE_PLS ou logootEnv::LOGOOTMODE_STD
     }
 
     public function getDigit() {
@@ -57,33 +67,28 @@ class logootEnv extends Singleton {
     }
 
     public function getSession_min() {
-        return $this->session_nim;
+        return $this->session_min;
     }
 
     public function getSession_max() {
         return $this->session_max;
     }
 
+    public function getMode() {
+        return $this->mode;
+    }
+
+    public function setMode($mode) {
+        $this->mode = $mode;
+    }
+
     protected function setIdValues($digit) {
-        $this->digit = $digit;
+        $this->digit = min($digit,strlen(PHP_INT_MAX)-3);
         $this->int_max = (integer) pow(10, $digit);
         $this->int_min = 0;
         $this->base = $this->int_max - $this->int_min;
     }
 
-    public function set($digit = 2, $mode = logootEnv::LOGOOTMODE_STD) {
-        $this->setIdValues($digit);
-
-        $this->clock_min = "0";
-        $this->clock_max = "100000000000000000000000";
-
-        $this->session_min = "0";
-        $this->session_max = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"; //.CLOCK_MAX);
-        //050F550EB44F6DE53333AE460EE85396
-
-        $this->mode = $mode; //logootEnv::LOGOOTMODE_PLS ou logootEnv::LOGOOTMODE_STD
-    }
-    
     public function getLPINTMINDIGIT() {
         return str_pad($this->getInt_min(), $this->getDigit(), '0', STR_PAD_LEFT);
     }
@@ -95,6 +100,21 @@ class logootEnv extends Singleton {
 
     static function getClock() {
         return logootEnv::$clock;
+    }
+
+    public function __call($name, $arguments) {
+        echo('p2p' . ' - logootEnv function unknown ' . $name . " / " . $arguments);
+        exit();
+    }
+
+    public function __get($name) {
+        echo('p2p' . ' - logootEnv get field unknown ' . $name);
+        exit();
+    }
+
+    public function __set($name, $value) {
+        echo('p2p' . ' - logootEnv set field unknown ' . $name . " / " . $value);
+        exit();
     }
 
 }

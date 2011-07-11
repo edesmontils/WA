@@ -139,7 +139,7 @@ class PageReader extends WikipediaReader {
  */
 class LogootAnalyser {
 
-    protected $logoot, $mode, $fct;
+    protected $logoot, $mode, $fct, $digit;
     protected $liste_pages, $tab_pages;
     protected $rep, $boundary, $bound_factor;
 
@@ -208,6 +208,16 @@ class LogootAnalyser {
             $this->fct .= "<random/>";
         if (isset($param['x']))
             $this->fct .= "<max/>";
+        
+        $env = logootEnv::getInstance();
+        
+        if (isset($param['i'])) {
+            if ($param['i'] > 0)
+                $this->digit = (integer) $param['i'];
+            else
+                $this->digit = 2;
+            $env->setDigit($this->digit);
+        }
 
         $this->tab_pages = array_unique($this->tab_pages);
         $this->mode = logootEngine::MODE_STAT;
@@ -233,8 +243,13 @@ class LogootAnalyser {
     public function run() {
         date_default_timezone_set('Europe/Paris');
         
+        
+        
         echo "<Etude nb='" . count($this->tab_pages) . "' date='" . date("c") . "' >\n";
-
+        $env = logootEnv::getInstance();
+        
+        echo "    <logoot digit='".$env->getDigit()."' int_max='".$env->getInt_max()."' mode='".$env->getMode()."'/>\n";
+        
         if ($this->mode & logootEngine::MODE_STAT) {
             echo "    <Mode_Stat ";
             if ($this->mode & logootEngine::MODE_BOUNDARY_OPT) {
@@ -311,6 +326,7 @@ class LogootAnalyser {
             echo "-b val : pour mettre en oeuvre les 'boundary' standard \n";
             echo "-a val : pour mettre en oeuvre les 'boundary' avancés (si -b présent)\n";
             echo "-o : pour mettre en oeuvre les optimisations d'ajout en création, en fin et début \n";
+            echo "-i val : pour spécifier la longueur des identifiants (2 par défaut)\n";
             echo "Options de type de page :\n";
             echo "-x : les pages 'max' (par défaut) \n";
             echo "-m : les pages 'random' \n";
@@ -320,5 +336,8 @@ class LogootAnalyser {
 }
 
 LogootAnalyser::main(getopt(
-                "d:l:n:b:a:tpruoxm")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
+                "d:l:n:b:a:i:tpruoxm")); //, array("ns::", "tailles", "patchs", "robots", "users", "boundary", "opt_ht")));
+
+//echo PHP_INT_SIZE.'.'.PHP_INT_MAX.' '. strlen(PHP_INT_MAX ); // 8.9223372036854775807
+
 ?>
