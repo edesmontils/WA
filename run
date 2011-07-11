@@ -1,0 +1,7 @@
+echo '<?xml version="1.0"?>'
+echo '<run>'
+php LogootAnalyser.php -d files -l explore0.xml -t -p -o -b 10 -a 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -o -b 10 -a 6
+php LogootAnalyser.php -d files -l explore0.xml -t -p -o -b 10 -a 9
+php LogootAnalyser.php -d files -l explore0.xml -t -p -o -b 10 -a 12
+echo '</run>'

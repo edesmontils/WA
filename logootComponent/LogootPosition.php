@@ -398,7 +398,7 @@ class LogootPosition {
         //wfDebugLog('p2p', "N " . $nb . " Interval " . $interval . " index " . $index);
         $step = (integer) $interval / $nb;
         $dir = 1;
-        if (isset($boundary)) {
+        if (isset($boundary)) { 
             $step = abs($boundary) < $step ? abs($boundary) : $step;
             if ($boundary > 0)
                 $BI_r = new Math_BigInteger($prefix_p[$index]['cum_val']);

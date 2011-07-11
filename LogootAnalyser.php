@@ -22,7 +22,7 @@ require_once './WikipediaReader.php';
 require_once './Mesure.php';
 
 if (!defined('DIGIT')) {
-    define('DIGIT', 2);
+    define('DIGIT', 4);
 }
 
 if (!defined('INT_MAX')) {
@@ -258,7 +258,7 @@ class LogootAnalyser {
             $this->boundary = logootEngine::getDefaultBoundary();
         if (isset($param['a']) && isset($param['b'])) {
             $this->mode |= logootEngine::MODE_BOUNDARY_OPT;
-            if ($param['a'] > 0) {echo ".";
+            if ($param['a'] > 0) {
                 $this->bound_factor = (integer) $param['a'];
             }else
                 $this->bound_factor = 3;
@@ -267,7 +267,7 @@ class LogootAnalyser {
 
     public function run() {
         date_default_timezone_set('Europe/Paris');
-        echo "<?xml version='1.0'?>\n";
+        
         echo "<Etude nb='" . count($this->tab_pages) . "' date='" . date("c") . "' >\n";
 
         if ($this->mode & logootEngine::MODE_STAT) {
@@ -330,7 +330,7 @@ class LogootAnalyser {
                 || isset($param['u']))) {
             if ((!isset($param['x'])) && (!isset($param['m'])))
                 $param['x'] = true;
-            var_dump($param);
+            //var_dump($param);
             $la = new LogootAnalyser($param['d'], $param['l'], $param);
             $la->run();
         } else {
