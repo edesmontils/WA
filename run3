@@ -1,0 +1,39 @@
+echo '<?xml version="1.0"?>'
+echo '<run>'
+echo '<test nb="6" titre="évolution digit">'
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 1 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 3 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 4 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 5 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 6 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 7 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 8 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 9 -b 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 10 -b 3
+echo '</test>'
+echo '<test nb="7" titre="évolution digit">'
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 1 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 3 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 4 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 5 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 6 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 7 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 8 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 9 -b 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 10 -b 3 -o
+echo '</test>'
+echo '<test nb="8" titre="évolution digit">'
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 1 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 3 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 4 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 5 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 6 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 7 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 8 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 9 -b 3 -a 3 -o
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 10 -b 3 -a 3 -o
+echo '</test>'
+echo '</run>'

@@ -1,0 +1,26 @@
+echo '<?xml version="1.0"?>'
+echo '<run>'
+echo '<test nb="4" titre="évolution ht+fact">'
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 3 -a 1
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 3 -a 2
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 3 -a 3
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 3 -a 4
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 3 -a 5
+echo '</test>'
+echo '<test nb="5" titre="évolution boundary+ht">'
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 1 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 2 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 3 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 4 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 5 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 10 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 15 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 20 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 25 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 30 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 35 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 40 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 45 -a 5
+php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -o -b 50 -a 5
+echo '</test>'
+echo '</run>'

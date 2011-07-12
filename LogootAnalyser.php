@@ -295,7 +295,7 @@ class LogootAnalyser {
             //echo '      ' . $pr->mesureMem->getXMLAbstract() . "\n";
 
             list($head, $tail, $new) = $this->logoot->getNbGenerate();
-            echo '       <revision nb="' . $pr->getNb_rev() . '" head_opt="' . $head . '" tail_opt="' . $tail . '" new_opt="' . $new . '" ' . "\>\n";
+            echo '       <revision nb="' . $pr->getNb_rev() . '" head_opt="' . $head . '" tail_opt="' . $tail . '" new_opt="' . $new . '" ' . "/>\n";
             echo "    </Analyse>\n";
         }
         echo "</Etude>\n";
