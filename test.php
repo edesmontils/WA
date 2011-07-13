@@ -8,51 +8,6 @@ require_once './logootModel/boModelPlus.php';
 require_once './logootComponent/DiffEngine.php';
 require_once './logootComponent/Math/BigInteger.php';
 
-
-if (!defined('DIGIT')) {
-    define('DIGIT', 2);
-}
-
-if (!defined('INT_MAX')) {
-    define('INT_MAX', (integer) pow(10, DIGIT));
-}
-
-if (!defined('INT_MIN')) {
-    define('INT_MIN', 0);
-}
-
-if (!defined('BASE')) {
-    define('BASE', (integer) (INT_MAX - INT_MIN));
-}
-
-if (!defined('CLOCK_MAX')) {
-    define('CLOCK_MAX', "100000000000000000000000");
-}
-
-if (!defined('CLOCK_MIN')) {
-    define('CLOCK_MIN', "0");
-}
-
-if (!defined('SESSION_MAX')) {
-    define('SESSION_MAX', "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"); //.CLOCK_MAX);
-    //050F550EB44F6DE53333AE460EE85396
-}
-
-if (!defined('SESSION_MIN')) {
-    define('SESSION_MIN', "0");
-}
-
-if (!defined('BOUNDARY')) {
-    define('BOUNDARY', (integer) pow(10, DIGIT / 2));
-}
-
-if (!defined('LOGOOTMODE')) {
-    //define('LOGOOTMODE', 'STD');
-    define('LOGOOTMODE', 'PLS');
-}
-
-require_once './utils.php';
-
 function __autoload($classe) {
     require_once './logootComponent/' . $classe . '.php';
 }
@@ -63,16 +18,22 @@ function wfDebugLog($type, $message) {
         echo '-- Debug Log --> Type : ' . $type . "\n\t" . $message . "\n";
 }
 
+$env = logootEnv::getInstance();
+$env->setDigit(2);
+$patch = array();
+$logoot = manager::getNewEngine(manager::loadModel(0), 3);
+$logoot->setMode(logootEngine::MODE_BOUNDARY_INI| logootEngine::MODE_BOUNDARY_OPT | logootEngine::MODE_OPT_INS_HEAD_TAIL);
+$logoot->setBoundary(2);
 
-  $p = new LogootPosition(array(LogootId::IdMin()));
-  $q = new LogootPosition(array(new LogootId(INT_MIN+1, "3", 6)));
+/*  $p = new LogootPosition(array(LogootId::IdMin()));
+  $q = new LogootPosition(array(new LogootId($env->getInt_min()+1, "3", 6)));
 
   $lp = LogootPosition::getLogootPosition2($p, $q, 7, "3", 7, -10);
   var_dump(LogootPosition::analyse($p, $q, $lp));
   foreach ($lp as $l) echo $l." ";
   echo "\n";
   $q = new LogootPosition(array(LogootId::IdMax()));
-  $p = new LogootPosition(array(new LogootId(INT_MAX-1, "3", 6)));
+  $p = new LogootPosition(array(new LogootId($env->getInt_max()-1, "3", 6)));
 
   $lp = LogootPosition::getLogootPosition2($p, $q, 7, "3", 7, 10);
   var_dump(LogootPosition::analyse($p, $q, $lp));
@@ -85,6 +46,7 @@ function wfDebugLog($type, $message) {
   var_dump(LogootPosition::analyse($p, $q, $lp));
   foreach ($lp as $l) echo $l." ";
   echo "\n";
+*/  
     //$logoot = new logootPlusEngine(NULL, 3);
  /*   $logoot = manager::getNewEngine(manager::loadModel(0), 3);
     //echo $logoot->getModel();
@@ -135,7 +97,7 @@ function wfDebugLog($type, $message) {
 
     if (!$ok) die ("pb"); else echo "ok !!!!!!!!";
 */
-/*
+
 
 $texte1 = <<<txt
 txt;
@@ -152,8 +114,6 @@ txt;
 
 echo "Second texte :\n" . $texte2 . "--\n";
 
-$patch = array();
-$logoot = manager::getNewEngine(manager::loadModel(0), 3);
 $patch[1] = $logoot->generate($texte1, $texte2);
 echo $logoot->getModel();
 
@@ -228,9 +188,8 @@ $patch[6] = $logoot->generate($texte6, $texte7);
 echo $logoot->getModel();
 echo $patch[6];
 if ($logoot->getModel()->getText() != $texte7 ) die("pb");
+else echo "Tout va bien !!!";
 
-echo new Math_BigInteger(48);
-*/
 /*
   $invPatch = $logoot->undoPatch($patch[2]);
   echo $invPatch;

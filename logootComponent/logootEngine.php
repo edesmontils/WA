@@ -280,10 +280,6 @@ class logootEngine implements logoot {
         $ota = explode("\n", $oldText);
         $nta = explode("\n", $newText);
 
-
-
-
-
         if ($this->mode & logootEngine::MODE_OPT_INS_HEAD_TAIL) {
             if ((count($ota) == 1) && ($ota[0] == "")) {// c'est un nouveau document
                 unset($ota[0]);

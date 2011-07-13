@@ -192,7 +192,7 @@ class LogootAnalyser {
                     $this->fct .= "<ns name='" . $ns['nom'] . "'/>";
                 }
             } else {
-                $this->fct .= "<ns/>";
+                $this->fct .= "<ns name='" . $ns['nom'] . "'/>";
                 $this->selectProp($ns, $param);
             }
         }
