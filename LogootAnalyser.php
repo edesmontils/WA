@@ -39,10 +39,9 @@ class PageReader extends WikipediaReader {
     protected $logoot;
     protected $mem;
 
-    public function __construct($page, $logoot, $options = logootEngine::MODE_NONE) {
+    public function __construct($page, $logoot) {
         parent::__construct($page);
         $this->logoot = $logoot;
-        $this->logoot->setMode($options);
     }
 
     public function __destruct() {
@@ -242,9 +241,7 @@ class LogootAnalyser {
 
     public function run() {
         date_default_timezone_set('Europe/Paris');
-        
-        
-        
+                
         echo "<Etude nb='" . count($this->tab_pages) . "' date='" . date("c") . "' >\n";
         $env = logootEnv::getInstance();
         
@@ -267,7 +264,9 @@ class LogootAnalyser {
             $file = $this->rep . '/' . utils::toFileName($page) . '.xml';
             echo "    <Analyse name='$page' file='$file'>\n";
             $this->logoot = manager::getNewEngine(manager::loadModel(0), 3);
-
+            
+            $this->logoot->setMode($this->mode);
+            
             if ($this->mode & logootEngine::MODE_BOUNDARY_INI) {
                 $this->logoot->setBoundary($this->boundary);
             }
@@ -276,7 +275,7 @@ class LogootAnalyser {
                 $this->logoot->setBoundary_modulator($this->bound_factor);
             }
 
-            $pr = new PageReader($file, $this->logoot, $this->mode);
+            $pr = new PageReader($file, $this->logoot);
             $debut = microtime(true);
             $pr->run();
             $duree = round(microtime(true) - $debut, 2);

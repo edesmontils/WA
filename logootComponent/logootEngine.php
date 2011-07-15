@@ -34,6 +34,7 @@ class logootEngine implements logoot {
 
     public function resetMode() {
         $this->mode = logootEngine::MODE_NONE;
+        $this->tabStat = null;
     }
     
     public static function getDefaultBoundary() {
