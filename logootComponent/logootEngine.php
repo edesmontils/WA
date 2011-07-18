@@ -36,12 +36,12 @@ class logootEngine implements logoot {
         $this->mode = logootEngine::MODE_NONE;
         $this->tabStat = null;
     }
-    
+
     public static function getDefaultBoundary() {
         $env = logootEnv::getInstance();
         return (integer) pow(10, $env->getDigit() / 2);
     }
-    
+
     public function setMode($md) {
         $this->mode |= $md;
         if ($this->mode & logootEngine::MODE_STAT) {
@@ -78,30 +78,6 @@ class logootEngine implements logoot {
             return array($this->nb_head, $this->nb_tail, $this->nb_new);
         else
             return null;
-    }
-
-    protected function getPositionList($line_nb, $nb) {
-        wfDebugLog('p2p', $this->clock . " - function logootEngine::getPositionList ($line_nb, $nb) ");
-        list($start, $end) = $this->getPrevNextPosition($line_nb);
-
-        if ($this->mode & logootEngine::MODE_BOUNDARY_OPT) {
-            if (($start->nEquals(LogootPosition::minPosition())) && ($end->nEquals(LogootPosition::maxPosition())))
-                $bound = $this->boundary * $this->boundary_modulator;
-            else if ($start->nEquals(LogootPosition::minPosition()))
-                $bound = -max($this->boundary / $this->boundary_modulator, 1);
-            else if ($end->nEquals(LogootPosition::maxPosition()))
-                $bound = max($this->boundary / $this->boundary_modulator, 1);
-            else
-                $bound = $this->boundary;
-        } else
-            $bound = $this->boundary;
-
-        $positionList = LogootPosition::getLogootPosition2($start, $end, $nb, $this->sessionid, $this->clock, $bound);
-
-        if ($this->mode & logootEngine::MODE_STAT)
-            $this->tabStat[] = LogootPosition::analyse($start, $end, $positionList);
-
-        return $positionList;
     }
 
     public function getTabStat() {
@@ -207,35 +183,6 @@ class logootEngine implements logoot {
      * @param <String> $newtext
      * @return <array> list of logootOperation
      */
-    protected function generate_del_line($line_nb, $line_txt) {
-        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate_del_line ' . $line_nb . '/' . $line_txt . '/');
-        $position = $this->getPosition($line_nb);
-        $LogootDel = new LogootDel($position, $line_txt, $this->clock);
-        $this->deliver($LogootDel);
-        return $LogootDel;
-    }
-
-    protected function generate_ins_line($line_nb, $line_txt) {
-        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate_ins_line ' . $line_nb . '/' . $line_txt . '/');
-        $positions = $this->getPositionList($line_nb, 1);
-        $LogootIns = new LogootIns($positions[0], $line_txt);
-        $this->deliver($LogootIns);
-        return $LogootIns;
-    }
-
-    protected function generate_ins_text($line_nb, $txt) {
-        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate_ins_text ' . $line_nb . ' ' . $txt);
-        $positions = $this->getPositionList($line_nb, count($txt));
-        $LogootInsList = new LogootPatch($this->sessionid . $this->clock);
-        for ($i = 0; $i < count($txt); $i++) {
-            $LogootIns = new LogootIns($positions[$i], $txt[$i]);
-            $this->deliver($LogootIns);
-            $LogootInsList->add($LogootIns);
-        }
-        $LogootInsList->applied();
-        return $LogootInsList;
-    }
-
     protected function locate($ota, $nta) {//recherche si $ota est inclus dans $nta
         $ok = false;
         $in = false;
@@ -272,6 +219,59 @@ class logootEngine implements logoot {
         }
         wfDebugLog('p2p', $this->clock . " - function logootEngine::locate -> " . ($ok ? "ok" : "!ok") . ", $debut, $fin ");
         return array($ok, $debut, $fin);
+    }
+
+    protected function generate_del_line($line_nb, $line_txt) {
+        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate_del_line ' . $line_nb . '/' . $line_txt . '/');
+        $position = $this->getPosition($line_nb);
+        $LogootDel = new LogootDel($position, $line_txt, $this->clock);
+        $this->deliver($LogootDel);
+        return $LogootDel;
+    }
+
+    protected function generate_ins_line($line_nb, $line_txt) {
+        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate_ins_line ' . $line_nb . '/' . $line_txt . '/');
+        $positions = $this->getPositionList($line_nb, 1);
+        $LogootIns = new LogootIns($positions[0], $line_txt);
+        $this->deliver($LogootIns);
+        return $LogootIns;
+    }
+
+    protected function generate_ins_text($line_nb, $txt) {
+        wfDebugLog('p2p', $this->clock . ' - function logootEngine::generate_ins_text ' . $line_nb . ' ' . $txt);
+        $positions = $this->getPositionList($line_nb, count($txt));
+        $LogootInsList = new LogootPatch($this->sessionid . $this->clock);
+        for ($i = 0; $i < count($txt); $i++) {
+            $LogootIns = new LogootIns($positions[$i], $txt[$i]);
+            $this->deliver($LogootIns);
+            $LogootInsList->add($LogootIns);
+        }
+        $LogootInsList->applied();
+        return $LogootInsList;
+    }
+
+    protected function getPositionList($line_nb, $nb) {
+        wfDebugLog('p2p', $this->clock . " - function logootEngine::getPositionList ($line_nb, $nb) ");
+        list($start, $end) = $this->getPrevNextPosition($line_nb);
+
+        if ($this->mode & logootEngine::MODE_BOUNDARY_OPT) {
+            if (($start->nEquals(LogootPosition::minPosition())) && ($end->nEquals(LogootPosition::maxPosition())))
+                $bound = $this->boundary * $this->boundary_modulator;
+            else if ($start->nEquals(LogootPosition::minPosition()))
+                $bound = -max($this->boundary / $this->boundary_modulator, 1);
+            else if ($end->nEquals(LogootPosition::maxPosition()))
+                $bound = max($this->boundary / $this->boundary_modulator, 1);
+            else
+                $bound = $this->boundary;
+        } else
+            $bound = $this->boundary;
+
+        $positionList = LogootPosition::getLogootPosition2($start, $end, $nb, $this->sessionid, $this->clock, $bound);
+
+        if ($this->mode & logootEngine::MODE_STAT)
+            $this->tabStat[] = LogootPosition::analyse($start, $end, $positionList);
+
+        return $positionList;
     }
 
     public function generate($oldText, $newText) {
