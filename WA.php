@@ -1,6 +1,8 @@
 <?php
 
 header('Content-type: text/xml');
+ini_set('memory_limit', '2048M');
+require_once './logoot_lib/utils.php';
 
 //require_once './DiffEngine.php';
 function __autoload($classe) {
@@ -23,10 +25,12 @@ define('NB', 10);
 class WA extends WikipediaReader {
 
     protected $writer;
-    protected $inPage, $inRev;
-    protected $namespaces, $ns, $titre, $txt, $txt_size, $fdate, $ldate, $nbRobots, $isRobot, $id_rev, $ip, $id, $username;
-    protected $mes_taille, $mes_util, $mes_ip, $mes_ins, $mes_mes_ajout_debut, $mes_mes_ajout_fin;
-    protected $nb_patch;
+    protected $inPage, $inRev, $inContrib;
+    protected $namespaces, $ns, $titre, $txt, $txt_size, $fdate, $ldate,
+    $nbRobots, $isRobot, $id_rev, $ip, $id, $username, $page_id;
+    protected $mes_taille, $mes_util, $mes_ip, $mes_car,
+    $mes_ins, $mes_mes_ajout_debut, $mes_mes_ajout_fin;
+    protected $nb_patch, $weight;
     protected $tab_robots, $tab_users, $tab_ip;
     protected $debut;
     protected $nb_mem;
@@ -35,8 +39,10 @@ class WA extends WikipediaReader {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
         //parent::__construct('frwiki-20110409-pages-meta-history.xml');
         parent::__construct($wiki);
+        date_default_timezone_set('Europe/Paris');
         $this->inPage = false;
         $this->inRev = false;
+        $this->inContrib = false;
         $this->nb_mem = $nb;
     }
 
@@ -50,6 +56,7 @@ class WA extends WikipediaReader {
         $page = $v->getValue();
         $writer->writeAttribute('titre', $page['titre']);
         $writer->writeAttribute('rang', $page['rang']);
+        $writer->writeAttribute('id', 'p' . $page['id']);
 
         $writer->startElement('patchs');
         $writer->writeAttribute('nb_patchs', $page['nb_patchs']);
@@ -69,6 +76,15 @@ class WA extends WikipediaReader {
         $writer->writeAttribute('max', $max[0]);
         $writer->endElement();
 
+        $writer->startElement('poids');
+        $writer->writeAttribute('final', $page['volume_final']);
+        $mes_taille = $page['volume'];
+        $min = $mes_taille->min();
+        $writer->writeAttribute('min', $min[0]);
+        $writer->writeAttribute('avg', round($mes_taille->avg_key(), 2));
+        $max = $mes_taille->max();
+        $writer->writeAttribute('max', $max[0]);
+        $writer->endElement();
 
         $writer->startElement('users');
         $writer->writeAttribute('patch_id', $page['users']);
@@ -82,6 +98,17 @@ class WA extends WikipediaReader {
         $writer->startElement('dates');
         $writer->writeAttribute('creation', $page['creation']);
         $writer->writeAttribute('modif', $page['modif']);
+
+        try {
+            $d1 = new DateTime($page['creation']);
+            $d2 = new DateTime($page['modif']);
+            $iv = $d2->diff($d1);
+            //$writer->writeAttribute('age', $iv->format("%y an(s) %m mois %d jour(s)"));
+            $writer->writeAttribute('age', $iv->format("P%YY%MM%DDT%HH%IM%SS"));
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+
         $writer->endElement();
 
         $writer->endElement(); // de "max"        
@@ -116,6 +143,8 @@ class WA extends WikipediaReader {
         $writer->writeDTD("liste_pages", null, "http://edamiral.hd.free.fr/ns/explore.dtd");
         $writer->startElement('liste_pages');
         $writer->writeAttribute('nb', $this->nb_pages);
+        $writer->writeAttribute('file', $this->file);
+
         foreach ($this->namespaces as $ns => $cpt) {
             if ($cpt['nb'] > 0) {
                 $writer->startElement('ns');
@@ -124,6 +153,11 @@ class WA extends WikipediaReader {
 
                 $this->view($writer, 'liste_patchs', $cpt['patch']);
                 $this->view($writer, 'liste_tailles', $cpt['taille']);
+                $this->view($writer, 'liste_poids', $cpt['volume']);
+                
+                $this->view($writer, 'liste_max_tailles', $cpt['max_taille']);
+                $this->view($writer, 'liste__max_poids', $cpt['max_volume']);
+                
                 $this->view($writer, 'liste_robots', $cpt['robot']);
                 $this->view($writer, 'liste_users', $cpt['user']);
                 $writer->endElement();
@@ -149,6 +183,8 @@ class WA extends WikipediaReader {
                 $this->tab_users = array();
                 $this->tab_ip = array();
                 $this->mes_taille = new Mesure('taille', 1);
+                $this->mes_car = new Mesure('volume', 1);
+                $this->inPage = true;
                 break;
             case 'namespace' :
                 $ns = $this->readString();
@@ -158,7 +194,10 @@ class WA extends WikipediaReader {
                     'robot' => new Mesure('robot', $this->nb_mem),
                     'user' => new Mesure('user', $this->nb_mem),
                     'ip' => new Mesure('ip', $this->nb_mem),
-                    'taille' => new Mesure('taille', $this->nb_mem)
+                    'taille' => new Mesure('taille', $this->nb_mem),
+                    'volume' => new Mesure('volume', $this->nb_mem),
+                    'max_taille' => new Mesure('max_taille', $this->nb_mem),
+                    'max_volume' => new Mesure('max_volume', $this->nb_mem)
                 );
                 $ok = $this->next();
                 break;
@@ -187,8 +226,12 @@ class WA extends WikipediaReader {
                 $ok = $this->read();
                 break;
             case 'id' :
-                if ($this->inRev)
+                if ($this->inContrib)
+                    $this->id = $this->readString();
+                else if ($this->inRev)
                     $this->id_rev = $this->readString();
+                else
+                    $this->page_id = $this->readString();
                 $ok = $this->next();
                 break;
             case 'timestamp':
@@ -199,15 +242,12 @@ class WA extends WikipediaReader {
                 $ok = $this->next();
                 break;
             case 'contributor' :
+                $this->inContrib = true;
                 $ok = $this->read();
                 break;
             case 'ip' :
                 $this->ip = $this->readString();
                 $this->isRobot = !$this->isIP($this->ip); //$this->ip == 'script de conversion';
-                $ok = $this->next();
-                break;
-            case 'id' :
-                $this->id = $this->readString();
                 $ok = $this->next();
                 break;
             case 'username' :
@@ -226,9 +266,12 @@ class WA extends WikipediaReader {
             case 'text' :
                 $last = $this->txt;
                 $last_size = $this->txt_size;
-                $a = count_chars($this->readString(), 1);
+                $this->txt = $this->readString();
+                $a = count_chars($this->txt, 1);
                 $this->txt_size = $a[NL] + 1;
                 $this->mes_taille->add($this->txt_size, $this->id_rev);
+                $this->weight = strlen($this->txt);
+                $this->mes_car->add($this->weight, $this->id_rev);
                 $ok = $this->next();
                 break;
             default : $ok = $this->next();
@@ -239,16 +282,20 @@ class WA extends WikipediaReader {
     protected function closeElement($element) {
         switch ($element) {
             case 'contributor' :
+                $this->inContrib = false;
                 $ok = $this->next();
                 break;
             case 'page' :
                 $page = array(
+                    'id' => $this->page_id,
                     'rang' => $this->nb_pages,
                     'creation' => $this->fdate,
                     'modif' => $this->ldate,
                     'titre' => $this->titre,
                     'taille_finale' => $this->txt_size,
                     'taille' => $this->mes_taille,
+                    'volume' => $this->mes_car,
+                    'volume_final' => $this->weight,
                     'robots' => array_sum($this->tab_robots),
                     'users' => array_sum($this->tab_users),
                     'ip' => array_sum($this->tab_ip),
@@ -263,9 +310,14 @@ class WA extends WikipediaReader {
                 $this->namespaces[$this->ns]['user']->add(count($this->tab_users), $page);
                 $this->namespaces[$this->ns]['ip']->add(count($this->tab_ip), $page);
                 $max_taille = $this->mes_taille->max();
-                $this->namespaces[$this->ns]['taille']->add($max_taille[0], $page);
+                $this->namespaces[$this->ns]['max_taille']->add($max_taille[0], $page);
+                $this->namespaces[$this->ns]['taille']->add($this->txt_size, $page);
+                $max_volume = $this->mes_car->max();
+                $this->namespaces[$this->ns]['max_volume']->add($max_volume[0], $page);
+                $this->namespaces[$this->ns]['volume']->add($this->weight, $page);
 
                 $duree = round(microtime(true) - $this->debut, 2);
+                $this->inPage = false;
                 $ok = $this->next();
                 /* if ($this->nb_pages % 50000 == 0) {
                   $this->writeRes();
@@ -303,9 +355,10 @@ class WA extends WikipediaReader {
     public static function main($param) {
         //var_dump( $param);
         if (isset($param['w'])) {
-            if (isset($param['n'])) 
-                $wa = new WA($param['w'],$param['n']);
-            else $wa = new WA($param['w']);
+            if (isset($param['n']))
+                $wa = new WA($param['w'], $param['n']);
+            else
+                $wa = new WA($param['w']);
             $wa->run();
         }
         else

@@ -12,10 +12,11 @@
  */
 class WikipediaReader extends XMLReader {
 
-    protected $nb_pages;
+    protected $nb_pages, $file;
 
     public function __construct($wikifile) {
         $this->open($wikifile);
+        $this->file = $wikifile;
         $this->nb_pages = 0;
     }
 
