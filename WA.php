@@ -99,7 +99,7 @@ class WA extends WikipediaReader {
         $writer->writeAttribute('creation', $page['creation']);
         $writer->writeAttribute('modif', $page['modif']);
 
-        try {
+        /*try {
             $d1 = new DateTime($page['creation']);
             $d2 = new DateTime($page['modif']);
             $iv = $d2->diff($d1);
@@ -107,7 +107,7 @@ class WA extends WikipediaReader {
             $writer->writeAttribute('age', $iv->format("P%YY%MM%DDT%HH%IM%SS"));
         } catch (Exception $e) {
             echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
+        }*/
 
         $writer->endElement();
 
@@ -156,7 +156,7 @@ class WA extends WikipediaReader {
                 $this->view($writer, 'liste_poids', $cpt['volume']);
                 
                 $this->view($writer, 'liste_max_tailles', $cpt['max_taille']);
-                $this->view($writer, 'liste__max_poids', $cpt['max_volume']);
+                $this->view($writer, 'liste_max_poids', $cpt['max_volume']);
                 
                 $this->view($writer, 'liste_robots', $cpt['robot']);
                 $this->view($writer, 'liste_users', $cpt['user']);
