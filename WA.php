@@ -24,7 +24,7 @@ define('NB', 10);
 
 class WA extends WikipediaReader {
 
-    protected $writer;
+    protected $writer, $file;
     protected $inPage, $inRev, $inContrib;
     protected $namespaces, $ns, $titre, $txt, $txt_size, $fdate, $ldate,
     $nbRobots, $isRobot, $id_rev, $ip, $id, $username, $page_id;
@@ -35,7 +35,7 @@ class WA extends WikipediaReader {
     protected $debut;
     protected $nb_mem;
 
-    public function __construct($wiki, $nb = NB) {
+    public function __construct($wiki, $file, $nb = NB) {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
         //parent::__construct('frwiki-20110409-pages-meta-history.xml');
         parent::__construct($wiki);
@@ -44,6 +44,7 @@ class WA extends WikipediaReader {
         $this->inRev = false;
         $this->inContrib = false;
         $this->nb_mem = $nb;
+        $this->file = $file;
     }
 
     public function __destruct() {
@@ -137,7 +138,8 @@ class WA extends WikipediaReader {
 
     protected function writeRes() {
         $writer = new XMLWriter();
-        $writer->openMemory();
+        //$writer->openMemory();
+        $writer->openUri($this->file);
         $writer->setIndent(true);
         $writer->startDocument('1.0', 'utf-8');
         $writer->writeDTD("liste_pages", null, "http://edamiral.hd.free.fr/ns/explore.dtd");
@@ -165,7 +167,7 @@ class WA extends WikipediaReader {
         }
         $writer->endElement();
         $writer->endDocument();
-        echo $writer->outputMemory();
+        //echo $writer->outputMemory();
     }
 
     protected function openElement($element) {
@@ -354,18 +356,18 @@ class WA extends WikipediaReader {
 
     public static function main($param) {
         //var_dump( $param);
-        if (isset($param['w'])) {
+        if (isset($param['w']) && isset($param['l'])) {
             if (isset($param['n']))
-                $wa = new WA($param['w'], $param['n']);
+                $wa = new WA($param['w'],$param['l'], $param['n']);
             else
-                $wa = new WA($param['w']);
+                $wa = new WA($param['w'],$param['l']);
             $wa->run();
         }
         else
-            echo "php WA.php -w wiki_dump.xml [-n nb_of_res]\n";
+            echo "php WA.php -w wiki_dump.xml -l WA_list.xml [-n nb_of_res]\n";
     }
 
 }
 
-WA::main(getopt("w:n:"));
+WA::main(getopt("w:n:l:"));
 ?>

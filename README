@@ -1,10 +1,16 @@
-WA est un outil permettant d'extraire des pages caractéristiques d'un DUMP XML de Wikipédia. Il permet d'obtenir des mesures sur le nombre de commits, le nombre de pages, le nombre d'interventions de robots, le nombre d'"utilisateurs", etc.
+WA est un outil permettant d'extraire des pages caractéristiques d'un DUMP XML
+de Wikipédia (qui respecte "mediawiki2.dtd"). Il permet d'obtenir des mesures
+sur le nombre de commits, le nombre de pages, le nombre d'interventions de
+robots, le nombre d'"utilisateurs", etc.
 
 WA.php fait une première passe pour trouver les pages intéressantes.
-    php WA.php -w wiki_dump.xml [-n nb_of_res] > WA_list.xml
+Elle crée "WA_list.xml" selon la DTD "explore.dtd".
+    php WA.php -w wiki_dump.xml [-n nb_of_res] -l WA_list.xml
 
-Extractor.php récupère ces pages pour créer un extrait du Wikipedia.
-    php Extractor.php -d wiki_corpus_repository -w wiki_dump.xml -l WA_list.xml > explore0.xml
+Extractor.php récupère ces pages pour créer un extrait du Wikipedia
+qu'elle dépose dans "wiki_corpus_repository". Chaque page respecte la DTD
+"page_mediawiki.dtd".
+    php Extractor.php -d wiki_corpus_repository -w wiki_dump.xml -l WA_list.xml
 
 LogootAnalyser.php analyse les fichiers extraits par rapport à Logoot
     php LogootAnalyser.php -d wiki_corpus_repository -l WA_list.xml [options]
@@ -26,3 +32,8 @@ Options de type de page :
     
 E. Desmontils, Université de Nantes, 20 juin 2011 / 21 sept. 2011
 équipe GDD, LINA.
+
+Exemple d'analyse :
+php WA.php -w frwiki-head.xml -l ex.xml
+php Extractor.php -d files -w frwiki-head.xml -l ex.xml
+php LogootAnalyser.php -d /Users/ed/Dropbox/WA/files -l ex.xml -t > analyse.xml

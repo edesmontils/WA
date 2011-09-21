@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT page (revision+)> <!-- ((revision|upload)*)  -->
+<!ATTLIST page 
+    title CDATA #REQUIRED
+    id ID #IMPLIED>
+  
+<!ELEMENT revision (contributor,comment?,text)>
+<!ATTLIST revision
+    id ID #IMPLIED
+    timestamp CDATA #REQUIRED>
+
+<!ELEMENT comment (#PCDATA)> 
+
+<!ELEMENT text (#PCDATA)>          <!-- Wikisyntax -->
+<!ATTLIST text xml:space CDATA  #FIXED "preserve">
+    
+<!ELEMENT contributor EMPTY>
+<!ATTLIST contributor
+    id CDATA #IMPLIED
+    name CDATA #IMPLIED
+    ip CDATA #IMPLIED>
+  
+<!--ELEMENT upload (contributor,comment?)>
+<!ATTLIST upload
+    timestamp CDATA #REQUIRED
+    filename CDATA #REQUIRED
+    src CDATA #REQUIRED
+    size CDATA #REQUIRED-->
+  
