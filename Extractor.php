@@ -1,6 +1,7 @@
 <?php
 
 header('Content-type: text/xml');
+require_once './logoot_lib/utils.php';
 
 //require_once './DiffEngine.php';
 function __autoload($classe) {
@@ -19,16 +20,16 @@ function __autoload($classe) {
  */
 class Extractor extends WikipediaReader {
 
-    protected $writer, $uri;
+    protected $writer, $uri, $rep;
     protected $liste_pages, $tab_pages, $tab_rang, $nb_loaded;
     protected $debut, $next, $fin;
     protected $page_title, $page_id, $user_id, $username, $user_ip, $revision_id,
     $revision_timestamp, $comment, $isMinor, $text;
     protected $inPage, $inRevision, $inContributor, $toSave;
 
-    public function __construct($wiki, $liste) {
+    public function __construct($rep, $wiki, $liste) {
         parent::__construct($wiki);
-
+        $this->rep = $rep;
         $this->liste_pages = simplexml_load_file($liste);
         $this->fin = false;
         $this->tab_pages = array();
@@ -115,7 +116,7 @@ class Extractor extends WikipediaReader {
                 if ($this->toSave) {
                     $this->page_title = $this->readString();
                     echo "Récupération de : $this->page_title\n";
-                    $this->uri = 'files/' . utils::toFileName($this->page_title) . '.xml';
+                    $this->uri = $this->rep.'/' . utils::toFileName($this->page_title) . '.xml';
                     //$this->writer->openMemory();
                     $this->writer->openURI($this->uri);
                     $this->writer->setIndent(true);
@@ -246,17 +247,17 @@ class Extractor extends WikipediaReader {
 
     public static function main($param) {
         //frwiki-head.xml frwiki-20110409-pages-meta-history.xml
-        if (isset($param['w']) && isset($param['l'])) {
-            $ex = new Extractor($param['w'], $param['l']);
+        if (isset($param['w']) && isset($param['l']) && isset($param['d'])) {
+            $ex = new Extractor($param['d'], $param['w'], $param['l']);
             $ex->run();
         }
         else
-            echo "php Extractor.php -w wiki_dump.xml -l WA_list.xml\n";
+            echo "php Extractor.php -d rep -w wiki_dump.xml -l WA_list.xml\n";
     }
 
 }
 
-Extractor::main(getopt("w:l:"));
+Extractor::main(getopt("w:l:d:"));
 
 /* $this->debut = microtime(true);
   $sxml = new SimpleXMLElement($this->readOuterXml());

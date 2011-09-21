@@ -4,8 +4,10 @@ WA.php fait une première passe pour trouver les pages intéressantes.
     php WA.php -w wiki_dump.xml
 
 Extractor.php récupère ces pages pour créer un extrait du Wikipedia.
-    php Extractor.php -w wiki_dump.xml -l WA_list.xml
+    php Extractor.php -d rep_cible -w wiki_dump.xml -l WA_list.xml
 
+LogootAnalyser.php analyse les fichiers extraits par rapport à Logoot
+    php LogootAnalyser.php -d files -l explore0.xml -t -p -u -r -x -i 2 -b 10 -a 1
+    
 E. Desmontils, Université de Nantes, 20 juin 2011
 équipe GDD, LINA.
-
