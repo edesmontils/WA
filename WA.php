@@ -281,6 +281,17 @@ class WA extends WikipediaReader {
         return $ok;
     }
 
+    protected function show($page) {
+        echo "<page id='".$page["id"]."' ";
+        echo "title='".$page["titre"]."' ";
+        echo "created='".$page["creation"]."' ";
+        echo "last-modif='".$page["modif"]."' ";
+        echo "lines='".$page["taille_finale"]."' ";
+        echo "chars='".$page["volume_final"]."' ";
+        echo "revisions='".$page["nb_patchs"]."' ";
+        echo "/>\n";
+    }
+
     protected function closeElement($element) {
         switch ($element) {
             case 'contributor' :
@@ -306,7 +317,7 @@ class WA extends WikipediaReader {
                     'uip' => count($this->tab_ip),
                     'nb_patchs' => $this->nb_patch
                 );
-
+                $this->show($page);
                 $this->namespaces[$this->ns]['patch']->add($this->nb_patch, $page);
                 $this->namespaces[$this->ns]['robot']->add(count($this->tab_robots), $page);
                 $this->namespaces[$this->ns]['user']->add(count($this->tab_users), $page);
@@ -350,8 +361,10 @@ class WA extends WikipediaReader {
     }
 
     public function run() {
+        echo "<?xml version='1.0'?>\n<res>\n";
         parent::run();
         $this->writeRes();
+        echo "</res>\n";
     }
 
     public static function main($param) {
