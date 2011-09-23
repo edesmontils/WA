@@ -24,7 +24,7 @@ define('NB', 10);
 
 class WA extends WikipediaReader {
 
-    protected $writer, $file;
+    protected $writer, $out, $file;
     protected $inPage, $inRev, $inContrib;
     protected $namespaces, $ns, $titre, $txt, $txt_size, $fdate, $ldate,
     $nbRobots, $isRobot, $id_rev, $ip, $id, $username, $page_id;
@@ -282,14 +282,21 @@ class WA extends WikipediaReader {
     }
 
     protected function show($page) {
-        echo "<page id='".$page["id"]."' ";
-        echo "title='".$page["titre"]."' ";
-        echo "created='".$page["creation"]."' ";
-        echo "last-modif='".$page["modif"]."' ";
-        echo "lines='".$page["taille_finale"]."' ";
-        echo "chars='".$page["volume_final"]."' ";
-        echo "revisions='".$page["nb_patchs"]."' ";
-        echo "/>\n";
+        $this->out->startElement('page');
+        $this->out->writeAttribute('id',$page["id"]);
+        $this->out->writeAttribute('title',$page["titre"]);
+        $this->out->writeAttribute('created',$page["creation"]);
+        $this->out->writeAttribute('last-modif',$page["modif"]);
+        $this->out->writeAttribute('lines',$page["taille_finale"]);
+        $this->out->writeAttribute('chars',$page["volume_final"]);
+        $this->out->writeAttribute('revisions',$page["nb_patchs"]);
+        $this->out->writeAttribute('no',$page["rang"]);
+        $this->out->writeAttribute('nb-modif-robots',$page["robots"]);
+        $this->out->writeAttribute('nb-modif-users',$page["users"]);
+        $this->out->writeAttribute('nb-robots',$page["urobots"]);
+        $this->out->writeAttribute('nb-users',$page["uusers"]);
+        $this->out->writeAttribute('nb-ip',$page["uip"]);
+        $this->out->endElement();
     }
 
     protected function closeElement($element) {
@@ -361,14 +368,20 @@ class WA extends WikipediaReader {
     }
 
     public function run() {
-        echo "<?xml version='1.0'?>\n<res>\n";
+        $this->out = new XMLWriter();
+        $this->out->openUri("echoWA.xml");
+        $this->out->setIndent(true);
+        $this->out->startDocument('1.0', 'utf-8');
+        $this->out->startElement('res');
+
         parent::run();
         $this->writeRes();
-        echo "</res>\n";
+
+        $this->out->endElement();
+        $this->out->endDocument();
     }
 
     public static function main($param) {
-        //var_dump( $param);
         if (isset($param['w']) && isset($param['l'])) {
             if (isset($param['n']))
                 $wa = new WA($param['w'],$param['l'], $param['n']);
