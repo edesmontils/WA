@@ -36,4 +36,4 @@ E. Desmontils, Université de Nantes, 20 juin 2011 / 21 sept. 2011
 Exemple d'analyse :
 php WA.php -w frwiki-head.xml -l ex.xml
 php Extractor.php -d files -w frwiki-head.xml -l ex.xml
-php LogootAnalyser.php -d /Users/ed/Dropbox/WA/files -l ex.xml -t > analyse.xml
+php LogootAnalyser.php -d ./files -l ex.xml -t > analyse.xml
