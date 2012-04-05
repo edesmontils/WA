@@ -7,9 +7,10 @@
 
 <!ELEMENT liste_pages (ns*)>
 <!ATTLIST liste_pages
-  nb CDATA #REQUIRED>
+  nb CDATA #REQUIRED
+  file CDATA #IMPLIED>
 
-<!ELEMENT ns (liste_patchs,liste_tailles,liste_robots,liste_users)>
+<!ELEMENT ns (liste_patchs,liste_tailles,liste_poids, liste_max_tailles, liste_max_poids, liste_robots,liste_users)>
 <!ATTLIST ns
   nb CDATA #REQUIRED
   nom CDATA #REQUIRED>
@@ -20,17 +21,27 @@
 <!ELEMENT liste_tailles %contenu_liste;>
 <!ATTLIST liste_tailles %attribut_liste;>
 
+<!ELEMENT liste_poids %contenu_liste;>
+<!ATTLIST liste_poids %attribut_liste;>
+
+<!ELEMENT liste_max_tailles %contenu_liste;>
+<!ATTLIST liste_max_tailles %attribut_liste;>
+
+<!ELEMENT liste_max_poids %contenu_liste;>
+<!ATTLIST liste_max_poids %attribut_liste;>
+
 <!ELEMENT liste_robots %contenu_liste;>
 <!ATTLIST liste_robots %attribut_liste;>
 
 <!ELEMENT liste_users %contenu_liste;>
 <!ATTLIST liste_users %attribut_liste;>
 
-<!ENTITY % contenu_page '(patchs,tailles,users,dates)'>
+<!ENTITY % contenu_page '(patchs,tailles,poids,users,dates)'>
 <!ENTITY % attribut_page 
 '  nb CDATA #REQUIRED
   rang CDATA #REQUIRED
-  titre CDATA #REQUIRED' >
+  titre CDATA #REQUIRED
+  id CDATA #IMPLIED' >
   
 <!ELEMENT max %contenu_page;>
 <!ATTLIST max %attribut_page;>
@@ -47,6 +58,13 @@
 <!ATTLIST tailles
   avg CDATA #REQUIRED
   finale CDATA #REQUIRED
+  max CDATA #REQUIRED
+  min CDATA #REQUIRED>
+
+<!ELEMENT poids EMPTY>
+<!ATTLIST poids
+  avg CDATA #REQUIRED
+  final CDATA #REQUIRED
   max CDATA #REQUIRED
   min CDATA #REQUIRED>
 

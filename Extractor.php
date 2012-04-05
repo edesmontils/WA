@@ -144,15 +144,21 @@ class Extractor extends WikipediaReader {
                             $ns = NULL;
                     else
                         $ns = NULL;
-                    $dir_ns = (isset($ns) ? $this->rep . '/' . utils::toFileName($ns) : $this->rep . '/default');
-                    $file_name = utils::toFileName($this->page_title);
-                    if (strlen($file_name) > 255) {
-                        $this->uri = $dir_ns . '/page_' . $this->nb_pages . '.xml';
-                    } else
+                    $dir_ns = $this->rep . (isset($ns) ? '/' . utils::toFileName($ns) : '/default');
+                    if (isset($ns)) unset($t[0]);
+                    $file_name = utils::toFileName(implode(':', $t));
+                    $this->uri = $dir_ns . '/' . $file_name . '.xml';
+                    if (strlen($this->uri) > 255) {
+                        echo "** replace (too long) ". $this->uri;
+                        $file_name = substr($file_name, 0, 250);
                         $this->uri = $dir_ns . '/' . $file_name . '.xml';
-
+                        echo " by " . $this->uri . "\n" ;
+                    } 
+                    
                     if (file_exists($this->uri)) {
+                        echo "** replace (exists) ". $this->uri;
                         $this->uri = $dir_ns . '/page_' . $this->nb_pages . '.xml';
+                        echo " by " . $this->uri . "\n" ;
                     }
 
                     //$this->writer->openMemory();
