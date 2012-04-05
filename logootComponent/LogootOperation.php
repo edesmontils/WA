@@ -12,14 +12,16 @@
 class LogootOperation {
     protected $mLogootPosition;
     protected $mLineContent;
+    protected $lineNb;
     
     const UNKNOWN=-1;
     const INSERT=0;
     const DELETE=1;
 
-    public function __construct($position, $content) {
+    public function __construct($position, $content, $line = -1) {
         $this->setLogootPosition($position);
         $this->setLineContent($content);
+        $this->lineNb = $line;
     }
 
     public function  __call($name, $arguments) {
@@ -45,7 +47,7 @@ class LogootOperation {
         return $this->mLineContent;
     }
 
-    public function setLogootPosition($position){
+    public function setLogootPosition(LogootPosition $position){
         $this->mLogootPosition = $position;
     }
 
@@ -57,13 +59,21 @@ class LogootOperation {
         $res = "Logoot Operation ".get_class($this)."\n\t Pos :".$this->mLogootPosition."\n\t Content : '".$this->mLineContent."'\n";
         return $res;
     }
+    
+    public function toXMLWriter(XMLWriter $writer) {
+        $writer->startElement(get_class($this));
+        $writer->writeAttribute('line', $this->lineNb);
+        $writer->writeAttribute('txt', $this->mLineContent);
+        $writer->writeAttribute('id', $this->mLogootPosition);
+        $writer->endElement();
+    }
 
     public function type() {
         return LogootOperation::UNKNOWN;
     }
 
     public function __clone() {
-        return new LogootOperation(clone $this->mLogootPosition, $this->mLineContent);
+        return new LogootOperation(clone $this->mLogootPosition, $this->mLineContent, $this->lineNb);
     }
 }
 ?>

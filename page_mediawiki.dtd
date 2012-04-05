@@ -4,7 +4,7 @@
     title CDATA #REQUIRED
     id ID #IMPLIED>
   
-<!ELEMENT revision (contributor,comment?,text)>
+<!ELEMENT revision (contributor,comment?,text?, change-list?)>
 <!ATTLIST revision
     id ID #IMPLIED
     timestamp CDATA #REQUIRED>
@@ -19,7 +19,16 @@
     id CDATA #IMPLIED
     name CDATA #IMPLIED
     ip CDATA #IMPLIED>
-  
+    
+<!ELEMENT change-list (insert | delete | change)* >
+<!ELEMENT insert EMPTY >
+<!ATTLIST insert line CDATA #REQUIRED txt CDATA #REQUIRED >
+
+<!ELEMENT delete EMPTY >
+<!ATTLIST delete line CDATA #REQUIRED txt CDATA #IMPLIED >
+
+<!ELEMENT change (insert | delete)* >
+
 <!--ELEMENT upload (contributor,comment?)>
 <!ATTLIST upload
     timestamp CDATA #REQUIRED

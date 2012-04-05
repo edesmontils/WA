@@ -21,8 +21,8 @@ class manager {
         switch ($env->getMode()) {
             case logootEnv::LOGOOTMODE_PLS : $le = new logootPlusEngine($model, $session);
                 break;
-            case logootEnv::LOGOOTMODE_STD : $le = new logootEngine($model, $session);
-                break;
+            /*case logootEnv::LOGOOTMODE_STD :*/ default : $le = new logootEngine($model, $session);
+                /*break;*/
         }
         $le->setMode(logootEngine::MODE_BOUNDARY_INI & logootEngine::MODE_OPT_INS_HEAD_TAIL);
         return $le;
@@ -40,7 +40,7 @@ class manager {
         return $le;
     }
 
-    static function getNewLogootIns($logootPos, $line) {
+    static function getNewLogootIns(LogootPosition $logootPos, $line) {
         $le = null;$env = logootEnv::getInstance();
         switch ($env->getMode()) {
             case logootEnv::LOGOOTMODE_PLS : $le = new LogootPlusIns($logootPos, $line);
@@ -51,7 +51,7 @@ class manager {
         return $le;
     }
 
-    static function getNewLogootDel($logootPos, $line) {
+    static function getNewLogootDel(LogootPosition $logootPos, $line) {
         $le = null;$env = logootEnv::getInstance();
         switch ($env->getMode()) {
             case logootEnv::LOGOOTMODE_PLS : $le = new LogootPlusDel($logootPos, $line);
@@ -90,7 +90,7 @@ maybe it has not been processed by DSMW');
      * @param <Object> $blobCB=0 (should have been a causal barrier object but
      * not used yet)
      */
-    static function storeModel($rev_id, $sessionId, $model, $blobCB = 0) {
+    static function storeModel($rev_id, $sessionId, boModel $model, $blobCB = 0) {
         wfDebugLog('p2p', ' -> store model into revid : ' . $rev_id . ' sessionid : ' . $sessionId . ' model : ' . $model->getText());
         try {
             $dao = new dao();

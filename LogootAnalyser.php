@@ -24,12 +24,6 @@ require_once './logootComponent/Math/BigInteger.php';
 require_once './WikipediaReader.php';
 require_once './Mesure.php';
 
-function wfDebugLog($type, $message) {
-    global $debug;
-    if ($debug)
-        echo '-- Debug Log --> Type : ' . $type . "\n\t" . $message . "\n";
-}
-
 class PageReader extends WikipediaReader {
 
     protected $inRevision, $curText, $oldText, $revisionId;

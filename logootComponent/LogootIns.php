@@ -12,8 +12,8 @@ class LogootIns extends LogootOperation {
      * @param <Object> $position LogootPosition
      * @param <String> $content line content
      */
-    function  __construct($position, $content) {
-        parent::__construct($position, $content);
+    function  __construct($position, $content, $line) {
+        parent::__construct($position, $content, $line);
     }
 
     public function type() {
@@ -21,7 +21,7 @@ class LogootIns extends LogootOperation {
     }
 
     public function __clone() {
-        return new LogootIns(clone $this->mLogootPosition, $this->mLineContent);
+        return new LogootIns(clone $this->mLogootPosition, $this->mLineContent, $this->lineNb);
     }
 }
 ?>

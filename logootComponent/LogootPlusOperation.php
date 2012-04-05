@@ -11,13 +11,13 @@
 class LogootPlusOperation extends LogootOperation {
     protected $isInv = false;
 
-    public function __construct(LogootPosition $position, $content) {
-        parent::__construct($position, $content);
+    public function __construct(LogootPosition $position, $content, $line) {
+        parent::__construct($position, $content, $line);
         $this->isInv = false;
     }
 
     public function __clone() {
-        $newOp = new LogootPlusOperation(clone $this->mLogootPosition, $this->mLineContent);
+        $newOp = new LogootPlusOperation(clone $this->mLogootPosition, $this->mLineContent, $this->lineNb);
         if ($this->isInv) $newOp->setInv();
         return $newOp;
     }

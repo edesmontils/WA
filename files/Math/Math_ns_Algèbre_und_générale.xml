@@ -1,0 +1,1486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE page
+SYSTEM "http://www.desmontils.net/ns/page_mediawiki.dtd">
+<page title="Math:Algèbre générale" id="p9">
+ <revision id="r15" timestamp="2002-02-20T20:11:08Z">
+  <contributor name="Youssefsan"/>
+  <comment>+liens non encore classés : produits remarquable</comment>
+  <change-list>
+   <insert line="1" txt="'''Bases'''"/>
+   <insert line="2" txt=""/>
+   <insert line="3" txt=":[[Ensemble]]"/>
+   <insert line="4" txt=""/>
+   <insert line="5" txt=":[[Application]]"/>
+   <insert line="6" txt=""/>
+   <insert line="7" txt=":[[Lois ou opération]]"/>
+   <insert line="8" txt=""/>
+   <insert line="9" txt=""/>
+   <insert line="10" txt=""/>
+   <insert line="11" txt="'''Structures algèbriques'''"/>
+   <insert line="12" txt=""/>
+   <insert line="13" txt=":[[Groupe]]"/>
+   <insert line="14" txt=""/>
+   <insert line="15" txt=":[[Morphismes]]"/>
+   <insert line="16" txt=""/>
+   <insert line="17" txt=":[[Anneaux et corps]]"/>
+   <insert line="18" txt=""/>
+   <insert line="19" txt=""/>
+   <insert line="20" txt=""/>
+   <insert line="21" txt=""/>
+   <insert line="22" txt=""/>
+   <insert line="23" txt="----"/>
+   <insert line="24" txt=""/>
+   <insert line="25" txt=""/>
+   <insert line="26" txt=""/>
+   <insert line="27" txt="Liens non encore classés :"/>
+   <insert line="28" txt=""/>
+   <insert line="29" txt=""/>
+   <insert line="30" txt=""/>
+   <insert line="31" txt="[[Produits remarquables]]"/>
+   <insert line="32" txt=""/>
+   <insert line="33" txt=""/>
+  </change-list>
+ </revision>
+ <revision id="r16" timestamp="2002-08-15T13:43:30Z">
+  <contributor name="Sept"/>
+  <comment>Ajout lien discuter</comment>
+  <change-list>
+   <insert line="4" txt=""/>
+   <insert line="5" txt=":[[Sous-ensemble]]"/>
+   <insert line="6" txt=""/>
+   <insert line="7" txt=":[[Opération ensembliste]]"/>
+   <insert line="8" txt=""/>
+   <insert line="9" txt=":[[Relation]]"/>
+   <insert line="12" txt=""/>
+   <insert line="13" txt=":[[Produit cartésien]]"/>
+   <insert line="40" txt=""/>
+   <insert line="41" txt=""/>
+   <insert line="42" txt=""/>
+   <insert line="43" txt="----"/>
+   <insert line="44" txt=""/>
+   <insert line="45" txt=""/>
+   <insert line="46" txt=""/>
+   <insert line="47" txt="[[/discuter]]"/>
+  </change-list>
+ </revision>
+ <revision id="r17" timestamp="2002-08-20T13:39:11Z">
+  <contributor name="Sept"/>
+  <comment>*</comment>
+  <change-list>
+   <delete line="2" txt=""/>
+   <delete line="3" txt=""/>
+   <delete line="4" txt=""/>
+   <delete line="5" txt=""/>
+   <delete line="6" txt=""/>
+   <delete line="7" txt=""/>
+   <delete line="8" txt=""/>
+   <delete line="9" txt=""/>
+   <delete line="9" txt=""/>
+   <delete line="11" txt=""/>
+   <delete line="12" txt=""/>
+   <delete line="13" txt=""/>
+   <change>
+    <delete line="15" txt=""/>
+    <delete line="15" txt=""/>
+    <delete line="15" txt=""/>
+    <delete line="15" txt=""/>
+    <insert line="15" txt="'''Théorie des sous-ensembles flous'''"/>
+    <insert line="16" txt=":[[Sous-ensemble flou]]"/>
+    <insert line="17" txt=":[[Opérateur flou]]"/>
+   </change>
+   <delete line="19" txt=""/>
+   <delete line="19" txt=""/>
+   <delete line="21" txt=""/>
+   <delete line="21" txt=""/>
+   <delete line="23" txt=""/>
+   <delete line="23" txt=""/>
+   <delete line="25" txt=""/>
+   <delete line="25" txt=""/>
+   <delete line="27" txt=""/>
+  </change-list>
+ </revision>
+ <revision id="r11091" timestamp="2002-10-31T10:11:31Z">
+  <contributor name="script de conversion"/>
+  <comment>Conversion automatique</comment>
+  <change-list>
+   <delete line="25" txt=""/>
+   <delete line="25" txt="[[/discuter]]"/>
+  </change-list>
+ </revision>
+ <revision id="r24024" timestamp="2002-11-08T13:04:15Z">
+  <contributor ip="203.218.206.104"/>
+  <change-list>
+   <insert line="1" txt="[[en:Abstract algebra]]"/>
+   <delete line="26" txt=""/>
+  </change-list>
+ </revision>
+ <revision id="r24179" timestamp="2003-01-23T14:59:28Z">
+  <contributor name="Snark" id="u182"/>
+  <change-list>
+   <change>
+    <delete line="9" txt=":[[Lois ou opération]]"/>
+    <insert line="9" txt=":[[Loi de composition interne]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r24191" timestamp="2003-01-24T08:40:48Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>ajout des magmas et monoïdes</comment>
+  <change-list>
+   <change>
+    <delete line="5" txt=":[[Opération ensembliste]]"/>
+    <insert line="5" txt=":[[Opérations ensemblistes]]"/>
+   </change>
+   <insert line="12" txt=":[[Monoïdes et magmas]]"/>
+  </change-list>
+ </revision>
+ <revision id="r24264" timestamp="2003-01-24T09:10:15Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>le produit cartésien est une opération ensembliste</comment>
+  <change-list>
+   <delete line="8" txt=":[[Produit cartésien]]"/>
+  </change-list>
+ </revision>
+ <revision id="r24269" timestamp="2003-01-24T14:32:59Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>séparation d'anneaux et corps</comment>
+  <change-list>
+   <change>
+    <delete line="14" txt=":[[Anneaux et corps]]"/>
+    <insert line="14" txt=":[[anneau|Anneaux]]"/>
+    <insert line="15" txt=":[[corps|Corps]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r24456" timestamp="2003-01-24T14:52:19Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>ajout de construction des objets courants</comment>
+  <change-list>
+   <insert line="9" txt=":[[Construction des objets courants]]"/>
+  </change-list>
+ </revision>
+ <revision id="r24467" timestamp="2003-01-25T09:09:49Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>Application =&gt; Fonction_et_Application</comment>
+  <change-list>
+   <change>
+    <delete line="7" txt=":[[Application]]"/>
+    <insert line="7" txt=":[[Fonction et application|Fonctions et applications]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r25361" timestamp="2003-01-25T09:31:46Z">
+  <contributor name="Tarquin" id="u13"/>
+  <comment>une intro pas terrible</comment>
+  <change-list>
+   <insert line="2" txt=""/>
+   <insert line="3" txt="L''''algèbre abstraite''' est une branche des [[mathématiques]] qui se concerne principalement des structures et des fonctions entre elles."/>
+   <insert line="4" txt=""/>
+  </change-list>
+ </revision>
+ <revision id="r25499" timestamp="2003-01-29T17:24:59Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>lien &quot;groupe&quot; -&gt; &quot;groupe (mathématiques)</comment>
+  <change-list>
+   <change>
+    <delete line="16" txt=":[[Groupe]]"/>
+    <insert line="16" txt=":[[groupe (mathématiques)|Groupe]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r33377" timestamp="2003-01-30T13:07:44Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>la construction des objets courants devrait être plus visible...</comment>
+  <change-list>
+   <delete line="12" txt=":[[Construction des objets courants]]"/>
+  </change-list>
+ </revision>
+ <revision id="r33563" timestamp="2003-03-05T16:12:59Z">
+  <contributor name="Med" id="u137"/>
+  <comment>,</comment>
+  <change-list>
+   <change>
+    <delete line="3" txt="L''''algèbre abstraite''' est une branche des [[mathématiques]] qui se concerne principalement des structures et des fonctions entre elles."/>
+    <insert line="3" txt="L''''algèbre abstraite''' est une branche des [[mathématiques]], qui concerne principalement des structures et des fonctions entre elles."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r110030" timestamp="2003-03-06T07:15:19Z">
+  <contributor name="Snark" id="u182"/>
+  <comment>francisation de la phrase</comment>
+  <change-list>
+   <change>
+    <delete line="3" txt="L''''algèbre abstraite''' est une branche des [[mathématiques]], qui concerne principalement des structures et des fonctions entre elles."/>
+    <insert line="3" txt="L''''algèbre abstraite''' est une branche des [[mathématiques]], qui porte principalement sur l'étude des structures et des fonctions entre elles."/>
+   </change>
+   <insert line="28" txt=""/>
+  </change-list>
+ </revision>
+ <revision id="r134707" timestamp="2003-09-03T22:50:54Z">
+  <contributor name="Looxix" id="u328"/>
+  <comment>corps (mathématiques)|</comment>
+  <change-list>
+   <change>
+    <delete line="18" txt=":[[corps|Corps]]"/>
+    <insert line="18" txt=":[[corps (mathématiques)|corps]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r202156" timestamp="2003-10-17T11:58:03Z">
+  <contributor name="Guéna" id="u1120"/>
+  <comment>Il manquait une majuscule à corps.</comment>
+  <change-list>
+   <change>
+    <delete line="18" txt=":[[corps (mathématiques)|corps]]"/>
+    <insert line="18" txt=":[[corps (mathématiques)|Corps]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r235120" timestamp="2003-12-15T13:37:52Z">
+  <contributor name="Mikue" id="u307"/>
+  <comment>+de:</comment>
+  <change-list>
+   <insert line="1" txt="[[de:Abstrakte Algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r245787" timestamp="2004-01-20T19:51:38Z">
+  <contributor name="HasharBot" id="u1269"/>
+  <comment>HasharBot - robot  Ajoute:ru</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]]"/>
+    <delete line="1" txt="[[en:Abstract algebra]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[ru:Абстрактная алгебра]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r316958" timestamp="2004-02-01T14:01:25Z">
+  <contributor ip="217.227.67.216"/>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[ru:Абстрактная алгебра]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]]"/>
+    <insert line="2" txt="[[en:Abstract algebra]]"/>
+    <insert line="3" txt="[[he:אלגברה מופשטת]]"/>
+    <insert line="4" txt="[[ru:Абстрактная алгебра]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r340852" timestamp="2004-03-17T12:02:04Z">
+  <contributor name="Guillaumito" id="u2833"/>
+  <comment>lien monoide/magma</comment>
+  <change-list>
+   <change>
+    <delete line="17" txt=":[[Monoïdes et magmas]]"/>
+    <insert line="17" txt=":[[Magma (mathématiques)|Magma]]"/>
+    <insert line="18" txt=":[[Monoïde]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r343044" timestamp="2004-03-30T13:51:21Z">
+  <contributor name="Phe" id="u3086"/>
+  <comment>étoffé un peu</comment>
+  <change-list>
+   <change>
+    <delete line="6" txt="L''''algèbre abstraite''' est une branche des [[mathématiques]], qui porte principalement sur l'étude des structures et des fonctions entre elles."/>
+    <insert line="6" txt="L''''algèbre abstraite''' est la branche des [[mathématiques]], qui porte principalement sur l'étude des structures algébriques et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de [[l'algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="7" txt=""/>
+    <insert line="8" txt="Historiquement les structures algébriques n'ont pas étudiés séparément aussi l'algèbre abstraite possède beaucoup de connections avec toutes les branches des mathématiques."/>
+   </change>
+   <insert line="20" txt=":[[Semigroupe]]"/>
+  </change-list>
+ </revision>
+ <revision id="r343953" timestamp="2004-03-31T18:56:42Z">
+  <contributor name="Phe" id="u3086"/>
+  <comment>+Quasigroupe</comment>
+  <change-list>
+   <insert line="20" txt=":[[Quasigroupe]]"/>
+  </change-list>
+ </revision>
+ <revision id="r360511" timestamp="2004-04-01T10:14:45Z">
+  <contributor name="Phe" id="u3086"/>
+  <comment>+lien; deplacer produits remarquables dans algébre élémentaire</comment>
+  <change-list>
+   <change>
+    <delete line="18" txt="'''Structures algèbriques'''"/>
+    <insert line="18" txt="'''[[structure algébrique|Structures algébriques]]'''"/>
+   </change>
+   <delete line="31" txt="----"/>
+   <delete line="31" txt=""/>
+   <delete line="31" txt="Liens non encore classés :"/>
+   <delete line="31" txt=""/>
+   <delete line="31" txt="[[Produits remarquables]]"/>
+   <delete line="31" txt=""/>
+   <delete line="31" txt=""/>
+   <delete line="31" txt="----"/>
+  </change-list>
+ </revision>
+ <revision id="r376675" timestamp="2004-04-09T02:49:26Z">
+  <contributor name="Phe" id="u3086"/>
+  <comment>lien</comment>
+  <change-list>
+   <change>
+    <delete line="6" txt="L''''algèbre abstraite''' est la branche des [[mathématiques]], qui porte principalement sur l'étude des structures algébriques et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de [[l'algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="6" txt="L''''algèbre abstraite''' est la branche des [[mathématiques]], qui porte principalement sur l'étude des structures algébriques et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r377035" timestamp="2004-04-16T10:01:16Z">
+  <contributor name="Cdang" id="u1119"/>
+  <comment>lien wiki, mise en forme</comment>
+  <change-list>
+   <change>
+    <delete line="11" txt=":[[Ensemble]]"/>
+    <delete line="11" txt=":[[Sous-ensemble]]"/>
+    <delete line="11" txt=":[[Opérations ensemblistes]]"/>
+    <delete line="11" txt=":[[Relation]]"/>
+    <insert line="11" txt=":[[théorie des ensembles]]"/>
+    <insert line="12" txt=":*[[Ensemble]]"/>
+    <insert line="13" txt=":*[[Sous-ensemble]]"/>
+    <insert line="14" txt=":*[[Opérations ensemblistes]]"/>
+    <insert line="15" txt=":*[[Relation]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r377047" timestamp="2004-04-16T12:33:48Z">
+  <contributor name="Cdang" id="u1119"/>
+  <comment>cardinalité</comment>
+  <change-list>
+   <change>
+    <delete line="11" txt=":[[théorie des ensembles]]"/>
+    <delete line="11" txt=":*[[Ensemble]]"/>
+    <delete line="11" txt=":*[[Sous-ensemble]]"/>
+    <delete line="11" txt=":*[[Opérations ensemblistes]]"/>
+    <delete line="11" txt=":*[[Relation]]"/>
+    <delete line="11" txt=":[[Fonction et application|Fonctions et applications]]"/>
+    <delete line="11" txt=":[[Loi de composition interne]]"/>
+    <insert line="11" txt=": [[théorie des ensembles]]"/>
+    <insert line="12" txt=":* [[Ensemble]]"/>
+    <insert line="13" txt=":* [[Sous-ensemble]]"/>
+    <insert line="14" txt=":* [[Cardinalité]]"/>
+    <insert line="15" txt=":* [[Opérations ensemblistes]]"/>
+    <insert line="16" txt=":* [[Relation]]"/>
+    <insert line="17" txt=": [[Fonction et application|Fonctions et applications]]"/>
+    <insert line="18" txt=": [[Loi de composition interne]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r377053" timestamp="2004-04-16T12:36:05Z">
+  <contributor name="Cdang" id="u1119"/>
+  <comment>tribu, produit cartésien</comment>
+  <change-list>
+   <insert line="16" txt=":** [[Produit cartésien]]"/>
+   <change>
+    <delete line="22" txt=":[[Magma (mathématiques)|Magma]]"/>
+    <delete line="22" txt=":[[Quasigroupe]]"/>
+    <delete line="22" txt=":[[Semigroupe]]"/>
+    <delete line="22" txt=":[[Monoïde]]"/>
+    <delete line="22" txt=":[[groupe (mathématiques)|Groupe]]"/>
+    <delete line="22" txt=":[[Morphismes]]"/>
+    <delete line="22" txt=":[[anneau|Anneaux]]"/>
+    <delete line="22" txt=":[[corps (mathématiques)|Corps]]"/>
+    <insert line="22" txt=": [[Magma (mathématiques)|Magma]]"/>
+    <insert line="23" txt=": [[Quasigroupe]]"/>
+    <insert line="24" txt=": [[Semigroupe]]"/>
+    <insert line="25" txt=": [[Monoïde]]"/>
+    <insert line="26" txt=": [[groupe (mathématiques)|Groupe]]"/>
+    <insert line="27" txt=": [[Morphismes]]"/>
+    <insert line="28" txt=": [[anneau|Anneaux]]"/>
+    <insert line="29" txt=": [[corps (mathématiques)|Corps]]"/>
+    <insert line="30" txt=": [[Tribu (mathématiques)"/>
+   </change>
+   <change>
+    <delete line="33" txt=":[[Sous-ensemble flou]]"/>
+    <delete line="33" txt=":[[Opérateur flou]]"/>
+    <insert line="33" txt=": [[Sous-ensemble flou]]"/>
+    <insert line="34" txt=": [[Opérateur flou]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r377064" timestamp="2004-04-16T12:37:05Z">
+  <contributor name="Cdang" id="u1119"/>
+  <change-list>
+   <change>
+    <delete line="30" txt=": [[Tribu (mathématiques)"/>
+    <insert line="30" txt=": [[Tribu (mathématiques)|Tribu]] (&amp;sigma;-algèbre)"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r411883" timestamp="2004-04-16T12:40:48Z">
+  <contributor name="Cdang" id="u1119"/>
+  <comment>ensemble vide</comment>
+  <change-list>
+   <change>
+    <delete line="13" txt=":* [[Sous-ensemble]]"/>
+    <insert line="13" txt=":** [[ensemble vide]]"/>
+    <insert line="14" txt=":** [[Sous-ensemble]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r480816" timestamp="2004-05-01T22:34:00Z">
+  <contributor name="MedBot" id="u3281"/>
+  <comment>Med - robot</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]]"/>
+    <delete line="1" txt="[[en:Abstract algebra]]"/>
+    <delete line="1" txt="[[he:אלגברה מופשטת]]"/>
+    <delete line="1" txt="[[ru:Абстрактная алгебра]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[he:אלגברה מופשטת]] [[ru:Абстрактная алгебра]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r541035" timestamp="2004-06-02T00:32:49Z">
+  <contributor name="Orthogaffe" id="u530"/>
+  <comment>ajoute catégorie &quot;mathématiques&quot;</comment>
+  <change-list>
+   <insert line="2" txt=""/>
+   <insert line="3" txt="[[catégorie:Mathématiques]]"/>
+  </change-list>
+ </revision>
+ <revision id="r614820" timestamp="2004-06-18T11:36:55Z">
+  <contributor ip="82.67.189.38"/>
+  <change-list>
+   <change>
+    <delete line="5" txt="L''''algèbre abstraite''' est la branche des [[mathématiques]], qui porte principalement sur l'étude des structures algébriques et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="5" txt="L''''algèbre abstraite''' est la branche des [[mathématiques]], qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+   <change>
+    <delete line="10" txt=": [[théorie des ensembles]]"/>
+    <insert line="10" txt=": [[théorie des ensembles|Théorie des ensembles]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r687207" timestamp="2004-07-14T13:37:50Z">
+  <contributor name="Badmood" id="u4507"/>
+  <comment>badmood - Homonymie résolue à l'aide du robot: Anneau</comment>
+  <change-list>
+   <change>
+    <delete line="28" txt=": [[anneau|Anneaux]]"/>
+    <insert line="28" txt=": [[Anneau (mathématiques)|Anneaux]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r756885" timestamp="2004-08-09T20:20:00Z">
+  <contributor name="Orthogaffe" id="u530"/>
+  <comment>conversion entités HTML</comment>
+  <change-list>
+   <change>
+    <delete line="30" txt=": [[Tribu (mathématiques)|Tribu]] (&amp;sigma;-algèbre)"/>
+    <insert line="30" txt=": [[Tribu (mathématiques)|Tribu]] (σ-algèbre)"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r768097" timestamp="2004-08-22T10:10:47Z">
+  <contributor name="MedBot" id="u3281"/>
+  <comment>MedBot - robot  Ajoute:es</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[he:אלגברה מופשטת]] [[ru:Абстрактная алгебра]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[he:אלגברה מופשטת]] [[ru:Абстрактная алгебра]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r925991" timestamp="2004-08-24T13:52:11Z">
+  <contributor name="Aldoo" id="u1830"/>
+  <comment>catégorie</comment>
+  <change-list>
+   <change>
+    <delete line="3" txt="[[catégorie:Mathématiques]]"/>
+    <insert line="3" txt="[[catégorie:Mathématiques]][[catégorie:Algèbre]]"/>
+    <insert line="4" txt=""/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r954599" timestamp="2004-10-05T15:03:42Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>projet de refonte de la page &quot;Relation&quot;</comment>
+  <change-list>
+   <insert line="18" txt=":* [[Correspondances et Relations]]"/>
+  </change-list>
+ </revision>
+ <revision id="r956147" timestamp="2004-10-13T11:15:11Z">
+  <contributor ip="194.214.213.67"/>
+  <change-list>
+   <change>
+    <delete line="11" txt=": [[théorie des ensembles|Théorie des ensembles]]"/>
+    <insert line="11" txt=": [[théorie naïve des ensembles|Théorie des ensembles]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r960153" timestamp="2004-10-13T18:46:58Z">
+  <contributor name="Lyondif02" id="u7336"/>
+  <change-list>
+   <change>
+    <delete line="8" txt="Historiquement les structures algébriques n'ont pas étudiés séparément aussi l'algèbre abstraite possède beaucoup de connections avec toutes les branches des mathématiques."/>
+    <insert line="8" txt="Historiquement les structures algébriques ne sont pas étudiées séparément. Aussi l'algèbre abstraite possède beaucoup de connexions avec toutes les branches des mathématiques."/>
+   </change>
+   <change>
+    <delete line="11" txt=": [[théorie naïve des ensembles|Théorie des ensembles]]"/>
+    <insert line="11" txt=": [[Théorie naïve des ensembles|Théorie des ensembles]]"/>
+   </change>
+   <change>
+    <delete line="13" txt=":** [[ensemble vide]]"/>
+    <insert line="13" txt=":** [[Ensemble vide]]"/>
+   </change>
+   <change>
+    <delete line="23" txt="'''[[structure algébrique|Structures algébriques]]'''"/>
+    <insert line="23" txt="'''[[Structure algébrique|Structures algébriques]]'''"/>
+   </change>
+   <change>
+    <delete line="25" txt=": [[Quasigroupe]]"/>
+    <delete line="25" txt=": [[Semigroupe]]"/>
+    <insert line="25" txt=": [[Quasi-groupe]]"/>
+    <insert line="26" txt=": [[Semi-groupe]]"/>
+   </change>
+   <change>
+    <delete line="28" txt=": [[groupe (mathématiques)|Groupe]]"/>
+    <insert line="28" txt=": [[Groupe (mathématiques)|Groupe]]"/>
+   </change>
+   <change>
+    <delete line="31" txt=": [[corps (mathématiques)|Corps]]"/>
+    <insert line="31" txt=": [[Corps (mathématiques)|Corps]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r960651" timestamp="2004-10-15T08:59:36Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>modif dans l'ordre des bases</comment>
+  <change-list>
+   <delete line="13" txt=":** [[Ensemble vide]]"/>
+   <change>
+    <delete line="14" txt=":* [[Cardinalité]]"/>
+    <insert line="14" txt=":** [[Ensemble vide]]"/>
+   </change>
+   <insert line="19" txt=":* [[Cardinalité]]"/>
+  </change-list>
+ </revision>
+ <revision id="r972427" timestamp="2004-10-15T12:36:27Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>ajout d'un lien vers &quot;Relation binaire&quot;</comment>
+  <change-list>
+   <change>
+    <delete line="12" txt=":* [[Ensemble]]"/>
+    <delete line="12" txt=":** [[Sous-ensemble]]"/>
+    <delete line="12" txt=":** [[Ensemble vide]]"/>
+    <insert line="12" txt=":* [[Ensemble|Notion d'ensemble]]"/>
+    <insert line="13" txt=":* [[Sous-ensemble]]"/>
+   </change>
+   <change>
+    <delete line="15" txt=":** [[Produit cartésien]]"/>
+    <insert line="15" txt=":* [[Produit cartésien]]"/>
+   </change>
+   <change>
+    <delete line="17" txt=":* [[Relation]]"/>
+    <insert line="17" txt=":** [[Relation]]"/>
+    <insert line="18" txt=":** [[Relation binaire]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1089283" timestamp="2004-10-18T15:17:06Z">
+  <contributor ip="82.64.9.98"/>
+  <change-list>
+   <change>
+    <delete line="17" txt=":** [[Relation]]"/>
+    <insert line="17" txt=":** [[Relation (mathématiques)]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1135599" timestamp="2004-11-18T10:20:59Z">
+  <contributor ip="194.214.213.67"/>
+  <change-list>
+   <change>
+    <delete line="14" txt=":* [[Opérations ensemblistes]]"/>
+    <insert line="14" txt=":* [[Opérations sur les ensembles]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1175213" timestamp="2004-11-29T12:37:09Z">
+  <contributor name="Grum" id="u2140"/>
+  <comment>cat</comment>
+  <change-list>
+   <change>
+    <delete line="3" txt="[[catégorie:Mathématiques]][[catégorie:Algèbre]]"/>
+    <insert line="3" txt="[[catégorie:Algèbre]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1175221" timestamp="2004-12-09T14:49:59Z">
+  <contributor ip="134.214.103.196"/>
+  <change-list>
+   <change>
+    <delete line="7" txt=""/>
+    <insert line="7" txt="(oh oui)"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1386890" timestamp="2004-12-09T14:51:21Z">
+  <contributor name="Céréales Killer" id="u624"/>
+  <comment>Restauration de la dernière version de Grum</comment>
+  <change-list>
+   <change>
+    <delete line="7" txt="(oh oui)"/>
+    <insert line="7" txt=""/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1418658" timestamp="2005-01-29T14:56:38Z">
+  <contributor name="MedBot" id="u3281"/>
+  <comment>robot  Ajoute:it</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[he:אלגברה מופשטת]] [[ru:Абстрактная алгебра]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[ru:Абстрактная алгебра]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1454348" timestamp="2005-02-03T13:11:24Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>Suppression traits d'union dans &quot;xxx-groupe&quot;</comment>
+  <change-list>
+   <change>
+    <delete line="25" txt=": [[Quasi-groupe]]"/>
+    <delete line="25" txt=": [[Semi-groupe]]"/>
+    <insert line="25" txt=": [[Quasigroupe]]"/>
+   </change>
+   <insert line="27" txt=": [[Semigroupe]]"/>
+  </change-list>
+ </revision>
+ <revision id="r1455239" timestamp="2005-02-11T11:09:20Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>correction de quelques liens</comment>
+  <change-list>
+   <change>
+    <delete line="11" txt=": [[Théorie naïve des ensembles|Théorie des ensembles]]"/>
+    <insert line="11" txt=": [[Théorie des ensembles]]"/>
+   </change>
+   <change>
+    <delete line="21" txt=": [[Loi de composition interne]]"/>
+    <insert line="21" txt=": [[Loi de composition]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1511086" timestamp="2005-02-11T15:24:22Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>ajout &quot;algèbre générale&quot;</comment>
+  <change-list>
+   <change>
+    <delete line="6" txt="L''''algèbre abstraite''' est la branche des [[mathématiques]], qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="6" txt="L''''algèbre abstraite''', ou '''algèbre générale''', est la branche des [[mathématiques]], qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r1782757" timestamp="2005-02-23T10:29:22Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>ajout liens vers &quot;loi de composition interne&quot; et &quot;externe&quot;</comment>
+  <change-list>
+   <insert line="22" txt=":*[[Loi de composition interne|Loi interne]]"/>
+   <insert line="23" txt=":*[[Loi de composition externe|Loi externe]]"/>
+  </change-list>
+ </revision>
+ <revision id="r1824293" timestamp="2005-04-12T15:09:56Z">
+  <contributor name="Badmood" id="u4507"/>
+  <comment>robot  Ajoute:fi,no</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[ru:Абстрактная алгебра]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[no:Abstrakt algebra]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r2203540" timestamp="2005-04-18T11:46:54Z">
+  <contributor ip="194.214.213.67"/>
+  <comment>suppression lien doublon</comment>
+  <change-list>
+   <change>
+    <delete line="16" txt=":* [[Correspondances et Relations]]"/>
+    <delete line="16" txt=":** [[Relation (mathématiques)]]"/>
+    <delete line="16" txt=":** [[Relation binaire]]"/>
+    <delete line="16" txt=":* [[Cardinalité]]"/>
+    <delete line="16" txt=": [[Fonction et application|Fonctions et applications]]"/>
+    <insert line="16" txt=": [[Correspondances et Relations]]"/>
+    <insert line="17" txt=":* [[Relation binaire]]"/>
+    <insert line="18" txt=":* [[Fonction et application|Fonctions et applications]]"/>
+    <insert line="19" txt=":* [[Relation ternaire interne|Relation ternaire]]"/>
+    <insert line="20" txt=": [[Cardinalité]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r2252573" timestamp="2005-06-16T07:40:09Z">
+  <contributor name="Chobot" id="u23682"/>
+  <comment>interlang  Ajoute: ko</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[no:Abstrakt algebra]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nb:Abstrakt algebra]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r2334471" timestamp="2005-06-23T05:50:21Z">
+  <contributor name="Badmood" id="u4507"/>
+  <comment>robot  Ajoute:th,nn,zh,nl,pt</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nb:Abstrakt algebra]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]]"/>
+    <delete line="1" txt=""/>
+    <delete line="1" txt="[[catégorie:Algèbre]]"/>
+    <delete line="1" txt=""/>
+    <delete line="1" txt=""/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nl:Abstracte algebra]] [[nb:Abstrakt algebra]] [[nn:Abstrakt algebra]] [[pt:Álgebra abstrata]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]] [[th:พีชคณิตนามธรรม]] [[zh:抽象代数]]"/>
+    <insert line="2" txt="[[Catégorie:Algèbre]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r2632997" timestamp="2005-07-06T23:47:38Z">
+  <contributor name="Zwobot" id="u29288"/>
+  <comment>robot  Ajoute: sv</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nl:Abstracte algebra]] [[nb:Abstrakt algebra]] [[nn:Abstrakt algebra]] [[pt:Álgebra abstrata]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]] [[th:พีชคณิตนามธรรม]] [[zh:抽象代数]]"/>
+    <insert line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nl:Abstracte algebra]] [[nb:Abstrakt algebra]] [[nn:Abstrakt algebra]] [[pt:Álgebra abstrata]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]] [[sv:Abstrakt algebra]] [[th:พีชคณิตนามธรรม]] [[zh:抽象代数]]"/>
+    <insert line="2" txt=""/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r3419948" timestamp="2005-09-21T20:23:45Z">
+  <contributor name="RobotE" id="u25044"/>
+  <comment>robot  Ajoute: ar, vi</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="[[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nl:Abstracte algebra]] [[nb:Abstrakt algebra]] [[nn:Abstrakt algebra]] [[pt:Álgebra abstrata]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]] [[sv:Abstrakt algebra]] [[th:พีชคณิตนามธรรม]] [[zh:抽象代数]]"/>
+    <insert line="1" txt="[[ar:جبر تجريدي]] [[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nl:Abstracte algebra]] [[nb:Abstrakt algebra]] [[nn:Abstrakt algebra]] [[pt:Álgebra abstrata]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]] [[sv:Abstrakt algebra]] [[th:พีชคณิตนามธรรม]] [[vi:Đại số trừu tượng]] [[zh:抽象代数]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r4361427" timestamp="2005-12-04T19:29:14Z">
+  <contributor name="Badmood" id="u4507"/>
+  <comment>robot  Ajoute: da</comment>
+  <change-list>
+   <delete line="1" txt="[[ar:جبر تجريدي]] [[de:Abstrakte Algebra]] [[en:Abstract algebra]] [[es:Álgebra abstracta]] [[ko:추상대수학]] [[it:Algebra astratta]] [[he:אלגברה מופשטת]] [[nl:Abstracte algebra]] [[nb:Abstrakt algebra]] [[nn:Abstrakt algebra]] [[pt:Álgebra abstrata]] [[ru:Абстрактная алгебра]] [[fi:Abstrakti algebra]] [[sv:Abstrakt algebra]] [[th:พีชคณิตนามธรรม]] [[vi:Đại số trừu tượng]] [[zh:抽象代数]]"/>
+   <delete line="1" txt=""/>
+   <delete line="1" txt="[[Catégorie:Algèbre]]"/>
+   <insert line="34" txt=""/>
+   <insert line="35" txt="[[Catégorie:Algèbre]]"/>
+   <insert line="36" txt=""/>
+   <insert line="37" txt="[[ar:جبر تجريدي]]"/>
+   <insert line="38" txt="[[da:Abstrakt algebra]]"/>
+   <insert line="39" txt="[[de:Abstrakte Algebra]]"/>
+   <insert line="40" txt="[[en:Abstract algebra]]"/>
+   <insert line="41" txt="[[es:Álgebra abstracta]]"/>
+   <insert line="42" txt="[[fi:Abstrakti algebra]]"/>
+   <insert line="43" txt="[[he:אלגברה מופשטת]]"/>
+   <insert line="44" txt="[[it:Algebra astratta]]"/>
+   <insert line="45" txt="[[ko:추상대수학]]"/>
+   <insert line="46" txt="[[nl:Abstracte algebra]]"/>
+   <insert line="47" txt="[[nn:Abstrakt algebra]]"/>
+   <insert line="48" txt="[[no:Abstrakt algebra]]"/>
+   <insert line="49" txt="[[pt:Álgebra abstrata]]"/>
+   <insert line="50" txt="[[ru:Абстрактная алгебра]]"/>
+   <insert line="51" txt="[[sv:Abstrakt algebra]]"/>
+   <insert line="52" txt="[[th:พีชคณิตนามธรรม]]"/>
+   <insert line="53" txt="[[vi:Đại số trừu tượng]]"/>
+   <insert line="54" txt="[[zh:抽象代数]]"/>
+  </change-list>
+ </revision>
+ <revision id="r4846835" timestamp="2006-01-04T06:31:35Z">
+  <contributor name="Fafnir" id="u2638"/>
+  <comment>io</comment>
+  <change-list>
+   <insert line="44" txt="[[io:Abstrakta algebro]]"/>
+  </change-list>
+ </revision>
+ <revision id="r5030143" timestamp="2006-01-15T02:02:56Z">
+  <contributor name="RobotQuistnix" id="u30624"/>
+  <comment>robot  Ajoute: fa</comment>
+  <change-list>
+   <insert line="42" txt="[[fa:جبر مجرد]]"/>
+  </change-list>
+ </revision>
+ <revision id="r5813931" timestamp="2006-02-28T09:01:30Z">
+  <contributor name="Theon" id="u10024"/>
+  <comment>mise à jour lien</comment>
+  <change-list>
+   <change>
+    <delete line="15" txt=": [[Cardinalité]]"/>
+    <insert line="15" txt=": [[Nombre cardinal]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r6145330" timestamp="2006-03-18T21:35:46Z">
+  <contributor name="Oxyde" id="u36318"/>
+  <comment>a déplacé [[Algèbre abstraite]] vers [[Algèbre générale]]: peu usité</comment>
+  <change-list/>
+ </revision>
+ <revision id="r7256200" timestamp="2006-05-13T19:09:44Z">
+  <contributor name="YurikBot" id="u32499"/>
+  <comment>robot  Ajoute: [[ka:აბსტრაქტული ალგებრა]]</comment>
+  <change-list>
+   <insert line="47" txt="[[ka:აბსტრაქტული ალგებრა]]"/>
+  </change-list>
+ </revision>
+ <revision id="r7763386" timestamp="2006-06-06T07:29:26Z">
+  <contributor name="Schtong" id="u52583"/>
+  <change-list>
+   <change>
+    <delete line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''', est la branche des [[mathématiques]], qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''', ou encore '''algèbre universelle''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r8338785" timestamp="2006-06-30T18:19:36Z">
+  <contributor name="RobotQuistnix" id="u30624"/>
+  <comment>robot  Ajoute: [[eu:Algebra abstraktoa]]</comment>
+  <change-list>
+   <insert line="42" txt="[[eu:Algebra abstraktoa]]"/>
+  </change-list>
+ </revision>
+ <revision id="r8457265" timestamp="2006-07-05T10:13:56Z">
+  <contributor name="YurikBot" id="u32499"/>
+  <comment>robot  Ajoute: [[hr:Osnovna algebra]]</comment>
+  <change-list>
+   <insert line="46" txt="[[hr:Osnovna algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r8846758" timestamp="2006-07-22T22:51:08Z">
+  <contributor name="YurikBot" id="u32499"/>
+  <comment>robot  Ajoute: [[eo:Abstrakta algebro]]</comment>
+  <change-list>
+   <insert line="41" txt="[[eo:Abstrakta algebro]]"/>
+  </change-list>
+ </revision>
+ <revision id="r9462183" timestamp="2006-08-20T05:34:23Z">
+  <contributor name="Thijs!bot" id="u105469"/>
+  <comment>robot  Modifie: [[ka:უმაღლესი ალგებრა]]</comment>
+  <change-list>
+   <change>
+    <delete line="50" txt="[[ka:აბსტრაქტული ალგებრა]]"/>
+    <insert line="50" txt="[[ka:უმაღლესი ალგებრა]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r11075104" timestamp="2006-10-22T09:17:27Z">
+  <contributor name="Grasyop" id="u66521"/>
+  <comment>+algèbre, ev</comment>
+  <change-list>
+   <change>
+    <delete line="26" txt=": [[Morphismes]]"/>
+    <delete line="26" txt=": [[Anneau (mathématiques)|Anneaux]]"/>
+    <insert line="26" txt=": [[Morphisme]]"/>
+    <insert line="27" txt=": [[Anneau (mathématiques)|Anneau]]"/>
+   </change>
+   <insert line="29" txt=": [[Espace vectoriel]]"/>
+   <insert line="30" txt=": [[Algèbre sur un corps|Algèbre]]"/>
+  </change-list>
+ </revision>
+ <revision id="r11501358" timestamp="2006-11-07T00:24:36Z">
+  <contributor name="Badmood" id="u4507"/>
+  <comment>robot  Ajoute: [[ja:抽象代数学]]</comment>
+  <change-list>
+   <insert line="52" txt="[[ja:抽象代数学]]"/>
+  </change-list>
+ </revision>
+ <revision id="r12872884" timestamp="2006-12-29T10:52:39Z">
+  <contributor name="Rei-bot" id="u170994"/>
+  <comment>robot  Ajoute: [[uk:Абстрактна алгебра]]</comment>
+  <change-list>
+   <insert line="62" txt="[[uk:Абстрактна алгебра]]"/>
+  </change-list>
+ </revision>
+ <revision id="r13583225" timestamp="2007-01-24T19:41:49Z">
+  <contributor name="Escarbot" id="u115455"/>
+  <comment>robot  Ajoute: [[simple:Abstract algebra]]</comment>
+  <change-list>
+   <insert line="60" txt="[[simple:Abstract algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r14261339" timestamp="2007-02-18T12:32:31Z">
+  <contributor name="(:Julien:)" id="u1012"/>
+  <change-list>
+   <change>
+    <delete line="5" txt="'''Bases'''"/>
+    <insert line="5" txt=";Bases"/>
+   </change>
+   <change>
+    <delete line="20" txt="'''[[Structure algébrique|Structures algébriques]]'''"/>
+    <insert line="20" txt=";[[Structure algébrique|Structures algébriques]]"/>
+   </change>
+   <change>
+    <delete line="33" txt="'''Théorie des sous-ensembles flous'''"/>
+    <delete line="33" txt=": [[Sous-ensemble flou]]"/>
+    <insert line="33" txt=";[[Logique floue|Théorie des ensembles flous]]"/>
+    <insert line="34" txt=": [[Ensemble flou]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r14937425" timestamp="2007-03-10T19:01:58Z">
+  <contributor name="Thedreamstree" id="u28587"/>
+  <change-list>
+   <change>
+    <delete line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''', ou encore '''algèbre universelle''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme algèbre abstraite est utilisé pour la distinguer de l'[[algèbre élémentaire]] qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''', ou encore '''algèbre universelle''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''[[algèbre élémentaire]]'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+   <change>
+    <delete line="5" txt=";Bases"/>
+    <insert line="5" txt="== Bases =="/>
+   </change>
+   <change>
+    <delete line="20" txt=";[[Structure algébrique|Structures algébriques]]"/>
+    <insert line="20" txt="== [[Structure algébrique|Structures algébriques]] =="/>
+   </change>
+   <change>
+    <delete line="33" txt=";[[Logique floue|Théorie des ensembles flous]]"/>
+    <insert line="33" txt="== [[Logique floue|Théorie des ensembles flous]] =="/>
+   </change>
+   <insert line="36" txt=""/>
+   <insert line="37" txt="== Voir aussi == "/>
+   <insert line="38" txt="Des mathématiciens ayant fourni un travail majeur pour la construction de l'Algèbre :"/>
+   <insert line="39" txt="* [[Evariste Galois]]"/>
+   <insert line="40" txt="* [[Niels Henrik Abel]]"/>
+   <insert line="41" txt=""/>
+   <insert line="42" txt="{{portail mathématiques}}"/>
+   <insert line="46" txt="&lt;!--interwiki--&gt;"/>
+  </change-list>
+ </revision>
+ <revision id="r14937473" timestamp="2007-03-10T19:03:25Z">
+  <contributor name="Thedreamstree" id="u28587"/>
+  <comment>wiki</comment>
+  <change-list>
+   <change>
+    <delete line="6" txt=": [[Théorie des ensembles]]"/>
+    <delete line="6" txt=":* [[Ensemble|Notion d'ensemble]]"/>
+    <delete line="6" txt=":* [[Sous-ensemble]]"/>
+    <delete line="6" txt=":* [[Opérations sur les ensembles]]"/>
+    <delete line="6" txt=":* [[Produit cartésien]]"/>
+    <delete line="6" txt=": [[Correspondances et Relations]]"/>
+    <delete line="6" txt=":* [[Relation binaire]]"/>
+    <delete line="6" txt=":* [[Fonction et application|Fonctions et applications]]"/>
+    <delete line="6" txt=":* [[Relation ternaire interne|Relation ternaire]]"/>
+    <delete line="6" txt=": [[Nombre cardinal]]"/>
+    <delete line="6" txt=": [[Loi de composition]]"/>
+    <delete line="6" txt=":*[[Loi de composition interne|Loi interne]]"/>
+    <delete line="6" txt=":*[[Loi de composition externe|Loi externe]]"/>
+    <insert line="6" txt="* [[Théorie des ensembles]]"/>
+    <insert line="7" txt="** [[Ensemble|Notion d'ensemble]]"/>
+    <insert line="8" txt="** [[Sous-ensemble]]"/>
+    <insert line="9" txt="** [[Opérations sur les ensembles]]"/>
+    <insert line="10" txt="** [[Produit cartésien]]"/>
+    <insert line="11" txt="* [[Correspondances et Relations]]"/>
+    <insert line="12" txt="** [[Relation binaire]]"/>
+    <insert line="13" txt="** [[Fonction et application|Fonctions et applications]]"/>
+    <insert line="14" txt="** [[Relation ternaire interne|Relation ternaire]]"/>
+    <insert line="15" txt="* [[Nombre cardinal]]"/>
+    <insert line="16" txt="* [[Loi de composition]]"/>
+    <insert line="17" txt="**[[Loi de composition interne|Loi interne]]"/>
+    <insert line="18" txt="**[[Loi de composition externe|Loi externe]]"/>
+   </change>
+   <change>
+    <delete line="21" txt=": [[Magma (mathématiques)|Magma]]"/>
+    <delete line="21" txt=": [[Quasigroupe]]"/>
+    <delete line="21" txt=": [[Monoïde]]"/>
+    <delete line="21" txt=": [[Semigroupe]]"/>
+    <delete line="21" txt=": [[Groupe (mathématiques)|Groupe]]"/>
+    <delete line="21" txt=": [[Morphisme]]"/>
+    <delete line="21" txt=": [[Anneau (mathématiques)|Anneau]]"/>
+    <delete line="21" txt=": [[Corps (mathématiques)|Corps]]"/>
+    <delete line="21" txt=": [[Espace vectoriel]]"/>
+    <delete line="21" txt=": [[Algèbre sur un corps|Algèbre]]"/>
+    <delete line="21" txt=": [[Tribu (mathématiques)|Tribu]] (σ-algèbre)"/>
+    <insert line="21" txt="* [[Magma (mathématiques)|Magma]]"/>
+    <insert line="22" txt="* [[Quasigroupe]]"/>
+    <insert line="23" txt="* [[Monoïde]]"/>
+    <insert line="24" txt="* [[Semigroupe]]"/>
+    <insert line="25" txt="* [[Groupe (mathématiques)|Groupe]]"/>
+    <insert line="26" txt="* [[Morphisme]]"/>
+    <insert line="27" txt="* [[Anneau (mathématiques)|Anneau]]"/>
+    <insert line="28" txt="* [[Corps (mathématiques)|Corps]]"/>
+    <insert line="29" txt="* [[Espace vectoriel]]"/>
+    <insert line="30" txt="* [[Algèbre sur un corps|Algèbre]]"/>
+    <insert line="31" txt="* [[Tribu (mathématiques)|Tribu]] (σ-algèbre)"/>
+   </change>
+   <change>
+    <delete line="34" txt=": [[Ensemble flou]]"/>
+    <delete line="34" txt=": [[Opérateur flou]]"/>
+    <insert line="34" txt="* [[Ensemble flou]]"/>
+    <insert line="35" txt="* [[Opérateur flou]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r15666851" timestamp="2007-04-06T00:17:59Z">
+  <contributor name="Thijs!bot" id="u105469"/>
+  <comment>robot  Ajoute: [[sk:Abstraktná algebra]]</comment>
+  <change-list>
+   <insert line="47" txt=""/>
+   <insert line="70" txt="[[sk:Abstraktná algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r16728728" timestamp="2007-05-11T01:42:46Z">
+  <contributor name="TXiKiBoT" id="u195090"/>
+  <comment>robot  Ajoute: [[gl:Álxebra abstracta]]</comment>
+  <change-list>
+   <insert line="57" txt="[[gl:Álxebra abstracta]]"/>
+  </change-list>
+ </revision>
+ <revision id="r16808436" timestamp="2007-05-13T14:19:05Z">
+  <contributor name="SieBot" id="u236006"/>
+  <comment>robot  Ajoute: [[sl:Abstraktna algebra]]</comment>
+  <change-list>
+   <insert line="72" txt="[[sl:Abstraktna algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r16826217" timestamp="2007-05-14T00:11:36Z">
+  <contributor name="AlleborgoBot" id="u225632"/>
+  <comment>robot  Modifie: [[eu:Aljebra abstraktoa]]</comment>
+  <change-list>
+   <change>
+    <delete line="54" txt="[[eu:Algebra abstraktoa]]"/>
+    <insert line="54" txt="[[eu:Aljebra abstraktoa]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r17868622" timestamp="2007-06-13T17:16:02Z">
+  <contributor name="AmaraBot" id="u209609"/>
+  <comment>robot  Ajoute: [[is:Hrein algebra]]</comment>
+  <change-list>
+   <insert line="61" txt="[[is:Hrein algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r18738697" timestamp="2007-07-12T07:56:25Z">
+  <contributor ip="70.51.14.193"/>
+  <change-list>
+   <change>
+    <delete line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''', ou encore '''algèbre universelle''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''[[algèbre élémentaire]]'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''[[algèbre élémentaire]]'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r18739753" timestamp="2007-07-12T08:53:27Z">
+  <contributor ip="70.51.12.152"/>
+  <change-list>
+   <insert line="4" txt=""/>
+   <insert line="5" txt="L'étude de manifère uniforme des structures algébriques porte de nom d'''[[algèbre universelle]]''."/>
+   <insert line="40" txt="* [[Algèbre générale]]"/>
+   <insert line="41" txt="* [[Algèbre universelle]]"/>
+   <insert line="42" txt="* [[Structure algébrique]]"/>
+  </change-list>
+ </revision>
+ <revision id="r18739844" timestamp="2007-07-12T08:57:09Z">
+  <contributor ip="70.51.12.152"/>
+  <change-list>
+   <change>
+    <delete line="5" txt="L'étude de manifère uniforme des structures algébriques porte de nom d'''[[algèbre universelle]]''."/>
+    <insert line="5" txt="L'étude des structures algébriques peut être faite de manière unifiée dans la cadre de l'[[algèbre universelle]]."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r18842602" timestamp="2007-07-16T09:28:31Z">
+  <contributor name="Ambigraphe" id="u248263"/>
+  <comment>/* Bases */ redirection cardinalité</comment>
+  <change-list>
+   <change>
+    <delete line="17" txt="* [[Nombre cardinal]]"/>
+    <insert line="17" txt="* [[Cardinalité]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r18849693" timestamp="2007-07-16T13:57:51Z">
+  <contributor name="Alecs.bot" id="u265428"/>
+  <comment>clean up  [[Wikipédia:AutoWikiBrowser|AWB]]</comment>
+  <change-list>
+   <change>
+    <delete line="40" txt="* [[Algèbre générale]]"/>
+    <insert line="40" txt="* Algèbre générale"/>
+   </change>
+   <delete line="48" txt=""/>
+   <delete line="51" txt=""/>
+  </change-list>
+ </revision>
+ <revision id="r18859526" timestamp="2007-07-16T20:45:51Z">
+  <contributor name="Epsilon0" id="u74217"/>
+  <comment>Annulation des modifications 18842602 de [[Special:Contributions/Ambigraphe|Ambigraphe]] erreur de redirect</comment>
+  <change-list>
+   <change>
+    <delete line="17" txt="* [[Cardinalité]]"/>
+    <insert line="17" txt="* [[Nombre cardinal]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r18887478" timestamp="2007-07-17T21:37:12Z">
+  <contributor name="SashatoBot" id="u68245"/>
+  <comment>robot  Ajoute: [[sr:Апстрактна алгебра]]</comment>
+  <change-list>
+   <insert line="51" txt=""/>
+   <insert line="78" txt="[[sr:Апстрактна алгебра]]"/>
+  </change-list>
+ </revision>
+ <revision id="r21516541" timestamp="2007-10-07T19:47:00Z">
+  <contributor name="David Berardan" id="u26481"/>
+  <comment>- lien rouge correspondant à un article supprimé en PàS</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''[[algèbre élémentaire]]'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''algèbre élémentaire'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r22249648" timestamp="2007-10-27T13:26:43Z">
+  <contributor name="AlnoktaBOT" id="u191603"/>
+  <comment>robot  Ajoute: [[bn:বিমূর্ত বীজগণিত]]</comment>
+  <change-list>
+   <insert line="53" txt="[[bn:বিমূর্ত বীজগণিত]]"/>
+  </change-list>
+ </revision>
+ <revision id="r22364622" timestamp="2007-10-30T11:35:40Z">
+  <contributor name="SieBot" id="u236006"/>
+  <comment>robot  Ajoute: [[bs:Apstraktna algebra]]</comment>
+  <change-list>
+   <insert line="54" txt="[[bs:Apstraktna algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r22732848" timestamp="2007-11-09T07:46:00Z">
+  <contributor name="SieBot" id="u236006"/>
+  <comment>robot  Ajoute: [[tr:Soyut cebir]]</comment>
+  <change-list>
+   <insert line="83" txt="[[tr:Soyut cebir]]"/>
+  </change-list>
+ </revision>
+ <revision id="r23242782" timestamp="2007-11-21T15:18:46Z">
+  <contributor ip="137.43.123.95"/>
+  <change-list>
+   <insert line="72" txt="[[mt:Alġebra Astratta]]"/>
+  </change-list>
+ </revision>
+ <revision id="r23790168" timestamp="2007-12-08T21:33:58Z">
+  <contributor name="TXiKiBoT" id="u195090"/>
+  <comment>robot  Modifie: [[eu:Aljebra abstraktua]]</comment>
+  <change-list>
+   <change>
+    <delete line="60" txt="[[eu:Aljebra abstraktoa]]"/>
+    <insert line="60" txt="[[eu:Aljebra abstraktua]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r24091967" timestamp="2007-12-19T12:02:26Z">
+  <contributor name="AlnoktaBOT" id="u191603"/>
+  <comment>robot  Ajoute: [[pl:Algebra ogólna]]</comment>
+  <change-list>
+   <insert line="76" txt="[[pl:Algebra ogólna]]"/>
+  </change-list>
+ </revision>
+ <revision id="r24122782" timestamp="2007-12-20T09:14:09Z">
+  <contributor name="Bap" id="u7343"/>
+  <comment>lien vers Structure</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure algébrique|structures algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''algèbre élémentaire'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure (mathématiques)|structures]] [[structure algébrique|algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''algèbre élémentaire'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r25071445" timestamp="2008-01-17T03:30:00Z">
+  <contributor name="Berthiap" id="u330033"/>
+  <comment>/* Structures algébriques */</comment>
+  <change-list>
+   <insert line="24" txt="* [[Demigroupe]]"/>
+  </change-list>
+ </revision>
+ <revision id="r27046262" timestamp="2008-03-05T15:55:58Z">
+  <contributor ip="83.145.100.34"/>
+  <comment>modification d'un lien semble-t-il à pbm vers Correspondance et relation</comment>
+  <change-list>
+   <change>
+    <delete line="13" txt="* [[Correspondances et Relations]]"/>
+    <insert line="13" txt="* [[Correspondance et relation|Correspondances et Relations]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r27087636" timestamp="2008-03-06T13:35:44Z">
+  <contributor ip="80.118.33.228"/>
+  <comment>amélioration intro</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="L''''algèbre abstraite''', ou '''algèbre générale''' est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure (mathématiques)|structures]] [[structure algébrique|algébriques]] et des relations entre elles. Le terme ''algèbre abstraite'' est utilisé pour la distinguer de l'''algèbre élémentaire'' qui enseigne les règles de manipulation des formules et des expressions algébriques."/>
+    <insert line="1" txt="L' '''algèbre générale''', ou '''algèbre abstraite''', est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure (mathématiques)|structures]] [[structure algébrique|algébriques]] et de leurs relations. L'appellation ''algèbre générale'' s'oppose à celle d' ''[[Algèbre (mathématiques élémentaires)|algèbre élémentaire]]''; cette dernière enseigne le ''[[calcul algébrique]]'', c'est-à-dire les règles de manipulation des ''[[équation algébrique|formules]]'' et des ''[[expressions algébriques]]''."/>
+   </change>
+   <change>
+    <delete line="3" txt="Historiquement les structures algébriques ne sont pas étudiées séparément. Aussi l'algèbre abstraite possède beaucoup de connexions avec toutes les branches des mathématiques."/>
+    <insert line="3" txt="Historiquement, les structures algébriques sont apparues dans différents domaines des mathématiques, et n'y ont pas été étudiées séparément. C'est pourquoi l'algèbre générale possède beaucoup de connexions avec toutes les branches des mathématiques."/>
+   </change>
+   <change>
+    <delete line="5" txt="L'étude des structures algébriques peut être faite de manière unifiée dans la cadre de l'[[algèbre universelle]]."/>
+    <insert line="5" txt="L'étude des structures algébriques peut être faite de manière abstraite, mais unifiée dans le cadre de l'[[algèbre universelle]]."/>
+   </change>
+   <delete line="41" txt="* Algèbre générale"/>
+  </change-list>
+ </revision>
+ <revision id="r27363099" timestamp="2008-03-14T15:36:49Z">
+  <contributor name="Zorrobot" id="u179160"/>
+  <comment>robot  Ajoute: [[cv:Абстраклă алгебра]]</comment>
+  <change-list>
+   <insert line="55" txt="[[cv:Абстраклă алгебра]]"/>
+  </change-list>
+ </revision>
+ <revision id="r29443889" timestamp="2008-05-10T16:15:50Z">
+  <contributor name="VolkovBot" id="u198153"/>
+  <comment>robot  Ajoute: [[hu:Absztrakt algebra]]</comment>
+  <change-list>
+   <insert line="67" txt="[[hu:Absztrakt algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r29697242" timestamp="2008-05-18T14:41:11Z">
+  <contributor name="BOTarate" id="u319493"/>
+  <comment>robot  Ajoute: [[ca:Àlgebra abstracta]]</comment>
+  <change-list>
+   <insert line="55" txt="[[ca:Àlgebra abstracta]]"/>
+  </change-list>
+ </revision>
+ <revision id="r33318855" timestamp="2008-09-11T02:08:09Z">
+  <contributor name="SpBot" id="u392983"/>
+  <comment>robot  Retire: [[mt:Alġebra Astratta]]</comment>
+  <change-list>
+   <delete line="75" txt="[[mt:Alġebra Astratta]]"/>
+  </change-list>
+ </revision>
+ <revision id="r33621199" timestamp="2008-09-21T02:17:37Z">
+  <contributor name="Jotterbot" id="u432340"/>
+  <comment>robot  Ajoute: [[ml:അമൂര്‍ത്ത ബീജഗണിതം]]</comment>
+  <change-list>
+   <insert line="75" txt="[[ml:അമൂര്‍ത്ത ബീജഗണിതം]]"/>
+  </change-list>
+ </revision>
+ <revision id="r34586049" timestamp="2008-10-22T17:12:50Z">
+  <contributor name="Tarap" id="u6428"/>
+  <change-list>
+   <change>
+    <delete line="43" txt="Des mathématiciens ayant fourni un travail majeur pour la construction de l'Algèbre :"/>
+    <insert line="43" txt="Des mathématiciens ayant fourni un travail majeur pour la construction de l'algèbre :"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r37310166" timestamp="2009-01-23T08:16:13Z">
+  <contributor name="Wiki cies" id="u442285"/>
+  <comment>/* Structures algébriques */</comment>
+  <change-list>
+   <insert line="34" txt="* [[Opérade]]"/>
+  </change-list>
+ </revision>
+ <revision id="r37961189" timestamp="2009-02-12T12:17:28Z">
+  <contributor name="Alecs.bot" id="u265428"/>
+  <comment>robot  Ajoute: [[be:Абстрактная алгебра]]</comment>
+  <change-list>
+   <insert line="54" txt="[[be:Абстрактная алгебра]]"/>
+  </change-list>
+ </revision>
+ <revision id="r39717156" timestamp="2009-04-08T19:16:02Z">
+  <contributor ip="91.168.175.6"/>
+  <comment>/* Structures algébriques */</comment>
+  <change-list>
+   <delete line="29" txt="* [[Morphisme]]"/>
+  </change-list>
+ </revision>
+ <revision id="r41419325" timestamp="2009-05-28T17:01:33Z">
+  <contributor name="JAnDbot" id="u127921"/>
+  <comment>robot  Ajoute: [[sh:Apstraktna algebra]]</comment>
+  <change-list>
+   <insert line="83" txt="[[sh:Apstraktna algebra]]"/>
+  </change-list>
+ </revision>
+ <revision id="r41837403" timestamp="2009-06-09T17:06:15Z">
+  <contributor name="Ptbotgourou" id="u223685"/>
+  <comment>robot Ajoute: [[mt:Alġebra astratta]]</comment>
+  <change-list>
+   <insert line="77" txt="[[mt:Alġebra astratta]]"/>
+  </change-list>
+ </revision>
+ <revision id="r46548348" timestamp="2009-11-07T01:04:10Z">
+  <contributor name="Proz" id="u92456"/>
+  <comment>/* Bases */ inutile</comment>
+  <change-list>
+   <delete line="16" txt="** [[Relation ternaire interne|Relation ternaire]]"/>
+   <delete line="19" txt="**[[Loi de composition externe|Loi externe]]"/>
+  </change-list>
+ </revision>
+ <revision id="r46548377" timestamp="2009-11-07T01:05:35Z">
+  <contributor name="Proz" id="u92456"/>
+  <comment>/* Théorie des ensembles flous */ hors sujet</comment>
+  <change-list>
+   <delete line="33" txt=""/>
+   <delete line="33" txt="== [[Logique floue|Théorie des ensembles flous]] =="/>
+   <delete line="33" txt="* [[Ensemble flou]]"/>
+   <delete line="33" txt="* [[Opérateur flou]]"/>
+  </change-list>
+ </revision>
+ <revision id="r46548393" timestamp="2009-11-07T01:06:38Z">
+  <contributor name="Proz" id="u92456"/>
+  <comment>ébauche</comment>
+  <change-list>
+   <insert line="1" txt="{{ébauche|mathématiques}}"/>
+  </change-list>
+ </revision>
+ <revision id="r48816468" timestamp="2010-01-14T19:53:06Z">
+  <contributor name="Carbone14" id="u445759"/>
+  <comment>typo</comment>
+  <change-list>
+   <change>
+    <delete line="2" txt="L' '''algèbre générale''', ou '''algèbre abstraite''', est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure (mathématiques)|structures]] [[structure algébrique|algébriques]] et de leurs relations. L'appellation ''algèbre générale'' s'oppose à celle d' ''[[Algèbre (mathématiques élémentaires)|algèbre élémentaire]]''; cette dernière enseigne le ''[[calcul algébrique]]'', c'est-à-dire les règles de manipulation des ''[[équation algébrique|formules]]'' et des ''[[expressions algébriques]]''."/>
+    <insert line="2" txt="L' '''algèbre générale''', ou '''algèbre abstraite''', est la branche des [[mathématiques]] qui porte principalement sur l'étude des [[structure (mathématiques)|structures]] [[structure algébrique|algébriques]] et de leurs relations. L'appellation ''algèbre générale'' s'oppose à celle d'''[[Algèbre (mathématiques élémentaires)|algèbre élémentaire]]'' ; cette dernière enseigne le ''[[calcul algébrique]]'', c'est-à-dire les règles de manipulation des ''[[équation algébrique|formules]]'' et des ''[[expressions algébriques]]''."/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r50216751" timestamp="2010-02-20T09:03:56Z">
+  <contributor name="Touriste" id="u6370"/>
+  <comment>/* Structures algébriques */ non la &quot;tribu&quot; n'est pas une structure algébrique - retrait d'un lien</comment>
+  <change-list>
+   <delete line="33" txt="* [[Tribu (mathématiques)|Tribu]] (σ-algèbre)"/>
+  </change-list>
+ </revision>
+ <revision id="r50395317" timestamp="2010-02-24T08:44:26Z">
+  <contributor name="JAnDbot" id="u127921"/>
+  <comment>robot Ajoute: cs, id, ur Retire: pl Modifie: ml</comment>
+  <change-list>
+   <insert line="51" txt="[[cs:Abstraktní algebra]]"/>
+   <insert line="65" txt="[[id:Aljabar abstrak]]"/>
+   <change>
+    <delete line="72" txt="[[ml:അമൂര്‍ത്ത ബീജഗണിതം]]"/>
+    <insert line="72" txt="[[ml:അമൂർത്ത ബീജഗണിതം]]"/>
+   </change>
+   <delete line="77" txt="[[pl:Algebra ogólna]]"/>
+   <insert line="88" txt="[[ur:تجریدی الجبرا]]"/>
+  </change-list>
+ </revision>
+ <revision id="r50912721" timestamp="2010-03-08T17:34:26Z">
+  <contributor name="Cantons-de-l'Est" id="u502332"/>
+  <comment>/* Voir aussi */ Réorganiser. Re-catégoriser.</comment>
+  <change-list>
+   <change>
+    <delete line="34" txt="== Voir aussi == "/>
+    <insert line="34" txt="== Articles connexes == "/>
+   </change>
+   <change>
+    <delete line="37" txt="Des mathématiciens ayant fourni un travail majeur pour la construction de l'algèbre :"/>
+    <delete line="37" txt="* [[Evariste Galois]]"/>
+    <delete line="37" txt="* [[Niels Henrik Abel]]"/>
+    <insert line="37" txt="* [[Évariste Galois]] et [[Niels Henrik Abel]] (mathématiciens ayant fourni un travail majeur pour la construction de l'algèbre)"/>
+   </change>
+   <change>
+    <delete line="39" txt="{{portail mathématiques}}"/>
+    <delete line="39" txt="[[Catégorie:Algèbre]]"/>
+    <insert line="39" txt="{{portail|mathématiques}}"/>
+   </change>
+   <change>
+    <delete line="41" txt="&lt;!--interwiki--&gt;"/>
+    <insert line="41" txt="{{DEFAULTSORT:Algebre generale}}"/>
+    <insert line="42" txt="[[Catégorie:Algèbre|Generale]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r51110942" timestamp="2010-03-14T04:52:58Z">
+  <contributor name="Xqbot" id="u520383"/>
+  <comment>robot Ajoute: [[be-x-old:Абстрактная альгебра]]; changement de type cosmétique</comment>
+  <change-list>
+   <change>
+    <delete line="19" txt="**[[Loi de composition interne|Loi interne]]"/>
+    <insert line="19" txt="** [[Loi de composition interne|Loi interne]]"/>
+   </change>
+   <insert line="42" txt=""/>
+   <insert line="47" txt="[[be-x-old:Абстрактная альгебра]]"/>
+  </change-list>
+ </revision>
+ <revision id="r52298915" timestamp="2010-04-16T23:40:37Z">
+  <contributor name="Xqbot" id="u520383"/>
+  <comment>robot Modifie: [[eu:Aljebra abstraktu]]; changement de type cosmétique</comment>
+  <change-list>
+   <change>
+    <delete line="34" txt="== Articles connexes == "/>
+    <insert line="34" txt="== Articles connexes =="/>
+   </change>
+   <change>
+    <delete line="58" txt="[[eu:Aljebra abstraktua]]"/>
+    <insert line="58" txt="[[eu:Aljebra abstraktu]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r52503411" timestamp="2010-04-22T18:43:34Z">
+  <contributor name="Xqbot" id="u520383"/>
+  <comment>robot Ajoute: [[yi:אבסטראקטע אלגעברע]]</comment>
+  <change-list>
+   <insert line="90" txt="[[yi:אבסטראקטע אלגעברע]]"/>
+  </change-list>
+ </revision>
+ <revision id="r53195222" timestamp="2010-05-12T15:54:03Z">
+  <contributor name="Erasmus.new" id="u806844"/>
+  <change-list>
+   <change>
+    <delete line="43" txt="[[Catégorie:Algèbre|Generale]]"/>
+    <insert line="43" txt="[[Catégorie:Algèbre générale| ]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r53465693" timestamp="2010-05-20T17:33:12Z">
+  <contributor name="SieBot" id="u236006"/>
+  <comment>robot Modifie: [[ml:അമൂർത്തബീജഗണിതം]]</comment>
+  <change-list>
+   <change>
+    <delete line="72" txt="[[ml:അമൂർത്ത ബീജഗണിതം]]"/>
+    <insert line="72" txt="[[ml:അമൂർത്തബീജഗണിതം]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r54275627" timestamp="2010-06-14T08:50:57Z">
+  <contributor name="TouristeCatégorisant" id="u166460"/>
+  <comment>/* Bases */ retiré le lien vers &quot;nombre cardinal&quot; qui me semble loufoque (en fait tout l'article me semble un peu zarbi mais bon...)</comment>
+  <change-list>
+   <delete line="17" txt="* [[Nombre cardinal]]"/>
+  </change-list>
+ </revision>
+ <revision id="r55358939" timestamp="2010-07-19T09:06:12Z">
+  <contributor name="Luckas-bot" id="u414968"/>
+  <comment>robot Ajoute: [[ro:Algebră abstractă]]</comment>
+  <change-list>
+   <insert line="77" txt="[[ro:Algebră abstractă]]"/>
+  </change-list>
+ </revision>
+ <revision id="r59769458" timestamp="2010-12-01T13:40:30Z">
+  <contributor name="Hercule" id="u271994"/>
+  <comment>Changement [[Modèle:Ébauche|{{Ébauche}}]] ; avec [[MediaWiki:Gadget-BandeauxEbauches.js|BandeauxEbauches]]</comment>
+  <change-list>
+   <change>
+    <delete line="1" txt="{{ébauche|mathématiques}}"/>
+    <insert line="1" txt="{{Ébauche|algèbre}}"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r60778886" timestamp="2010-12-31T15:06:04Z">
+  <contributor name="KamikazeBot" id="u688470"/>
+  <comment>r2.6.4) (robot Ajoute: [[bg:Абстрактна алгебра]]</comment>
+  <change-list>
+   <insert line="47" txt="[[bg:Абстрактна алгебра]]"/>
+  </change-list>
+ </revision>
+ <revision id="r61453668" timestamp="2011-01-20T08:27:41Z">
+  <contributor name="Touriste" id="u6370"/>
+  <comment>corps (mathématiques) : réorientation systématique des wikiliens, on sait quand on commence, on sait pas quand on finit</comment>
+  <change-list>
+   <change>
+    <delete line="28" txt="* [[Corps (mathématiques)|Corps]]"/>
+    <insert line="28" txt="* [[Corps commutatif]]"/>
+   </change>
+  </change-list>
+ </revision>
+ <revision id="r61779390" timestamp="2011-01-30T14:42:48Z">
+  <contributor name="Ambigraphe" id="u248263"/>
+  <comment>vh</comment>
+  <change-list>
+   <insert line="1" txt="{{Voir homonymes|Algèbre (homonymie)}}"/>
+  </change-list>
+ </revision>
+ <revision id="r61895263" timestamp="2011-02-02T18:15:34Z">
+  <contributor name="Touriste" id="u6370"/>
+  <comment>grande opération de redirection des liens pointant sur &quot;anneau (mathématiques)&quot;, en général vers &quot;anneau unitaire&quot;. Ce résumé devrait servir plus d'une fois...</comment>
+  <change-list>
+   <change>
+    <delete line="28" txt="* [[Anneau (mathématiques)|Anneau]]"/>
+    <insert line="28" txt="* [[Anneau unitaire|Anneau]]"/>
+   </change>
+  </change-list>
+ </revision>
+</page>

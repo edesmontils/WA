@@ -12,12 +12,12 @@
  */
 class LogootPlusDel extends LogootPlusOperation {
 
-    public function __construct($position, $content) {
-        parent::__construct($position, $content);
+    public function __construct($position, $content, $line) {
+        parent::__construct($position, $content, $line);
     }
 
     public function __clone() {
-        $newOp = new LogootPlusDel(clone $this->mLogootPosition, $this->mLineContent);
+        $newOp = new LogootPlusDel(clone $this->mLogootPosition, $this->mLineContent, $this->lineNb);
         if ($this->isInv) $newOp->setInv();
         return $newOp;
     }
